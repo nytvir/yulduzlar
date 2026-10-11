@@ -41,7 +41,9 @@
     min-height:100vh;
     background:radial-gradient(120% 70% at 50% 0%,#3A342D 0%,#2B2722 55%,#211E1A 100%);
     padding-block:calc(22px + env(safe-area-inset-top,0px)) calc(64px + env(safe-area-inset-bottom,0px));
-    padding-inline:10px;perspective:1600px;
+    padding-inline:10px;
+    overflow-x:hidden;overflow-x:clip;   /* ochilish animatsiyasida qog'oz chetdan chiqmasin */
+    perspective:1600px;
   }
   .gazeta{
     position:relative;max-width:1080px;margin:0 auto;background-color:var(--qogoz);
@@ -427,6 +429,7 @@
       <p>Bosh muharrir: <span id="muharrir">sendan xabari bor kimdir</span> · Adadi: 1 nusxa · Bosmaxona: yurak</p>
       <p class="keyingi">Keyingi son muqova tahririyatga yetib kelgandan keyin chiqadi.</p>
       <a class="arxiv" href="../">← Arxiv: 1-son</a>
+      <a class="arxiv" href="../3/">3-son chiqdi →</a>
     </footer>
 
   </article>

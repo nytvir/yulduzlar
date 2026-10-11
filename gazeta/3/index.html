@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omina Times · №3</title>
+<meta name="description" content="Uchinchi son: usul ishladi.">
+<meta name="theme-color" content="#2B2722">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Omina Times · №3 — Usul ishladi">
+<meta property="og:description" content="Bugungi sonda: o'quvchi xatlari, sport, muharrir bilan suhbat va krossvord.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Archivo+Narrow:wght@500;600;700&display=swap">
+<style>
+  :root{
+    --qogoz:#F2ECDF;
+    --qogoz-2:#E9E1CF;
+    --siyoh:#1C1915;
+    --siyoh-2:#4A443A;
+    --xira:#857B6B;
+    --qizil:#A8261C;
+    --stol:#2B2722;
+    --chiziq:rgba(28,25,21,.88);
+    --chiziq-yengil:rgba(28,25,21,.22);
+    --nom:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;
+    --sarlavha:"Old Standard TT",Georgia,"Times New Roman",serif;
+    --matn:"Libre Caslon Text",Georgia,"Times New Roman",serif;
+    --yorliq:"Archivo Narrow","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+    --chat:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    color-scheme:light;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0}
+  body{background:var(--stol);color:var(--siyoh);font-family:var(--matn);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  /* ── stol va qog'oz ─────────────────────────── */
+  .stol{
+    min-height:100vh;
+    background:radial-gradient(120% 70% at 50% 0%,#3A342D 0%,#2B2722 55%,#211E1A 100%);
+    padding-block:calc(22px + env(safe-area-inset-top,0px)) calc(64px + env(safe-area-inset-bottom,0px));
+    padding-inline:10px;
+    overflow-x:hidden;overflow-x:clip;   /* ochilish animatsiyasida qog'oz chetdan chiqmasin */
+    perspective:1600px;
+  }
+  .gazeta{
+    position:relative;max-width:1080px;margin:0 auto;background-color:var(--qogoz);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .11 0 0 0 0 .1 0 0 0 0 .08 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    padding-block:18px 28px;padding-inline:16px;
+    box-shadow:0 1px 0 rgba(0,0,0,.25),0 34px 70px -24px rgba(0,0,0,.75);
+    transform-origin:50% 0;animation:ochil .9s cubic-bezier(.2,.8,.25,1) both;
+  }
+  @keyframes ochil{from{opacity:0;transform:translateY(26px) rotateX(9deg) scale(.985)}to{opacity:1;transform:none}}
+  @media (min-width:760px){
+    .stol{padding-inline:24px}
+    .gazeta{padding-inline:40px;padding-block:26px 36px}
+  }
+
+  /* ── bosh qism ──────────────────────────────── */
+  .bosh{text-align:center}
+  .bosh-qator{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+  .quloq{border:1px solid var(--chiziq);padding:7px 10px;max-width:156px;font-family:var(--yorliq);font-size:11.5px;line-height:1.3;letter-spacing:.06em;text-transform:uppercase;color:var(--siyoh-2)}
+  .quloq b{display:block;color:var(--siyoh);font-weight:700;letter-spacing:.14em;margin-bottom:3px}
+  .quloq.chap{justify-self:start;text-align:left}
+  .quloq.ong{justify-self:end;text-align:right}
+  .nom{margin:0;font-family:var(--nom);font-weight:400;font-size:clamp(46px,13vw,112px);line-height:1;letter-spacing:.005em;color:var(--siyoh)}
+  .shior{margin:6px 0 12px;font-family:var(--sarlavha);font-style:italic;font-size:14.5px;color:var(--siyoh-2)}
+  .qalin{height:3px;background:var(--siyoh);margin-bottom:2px}
+  .sana-qator{display:flex;justify-content:space-between;align-items:center;gap:6px 16px;flex-wrap:wrap;border-block:1px solid var(--chiziq);padding:6px 2px;font-family:var(--yorliq);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
+  .ichida{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;padding:7px 0;border-bottom:1px solid var(--chiziq-yengil);font-family:var(--yorliq);font-size:12px;letter-spacing:.04em;color:var(--siyoh-2)}
+  .ichida b{color:var(--siyoh);letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+  .ichida a{color:var(--siyoh-2);text-decoration:none;border-bottom:1px solid var(--chiziq-yengil)}
+  .ichida a.asosiy-havola{color:var(--qizil);font-weight:700;border-bottom-color:currentColor}
+  .ichida a:focus-visible{outline:2px solid var(--qizil);outline-offset:2px}
+  @media (max-width:639px){
+    .bosh-qator{grid-template-columns:1fr 1fr;grid-template-areas:"nom nom" "chap ong";gap:10px}
+    .nom{grid-area:nom}
+    .quloq.chap{grid-area:chap;justify-self:stretch;max-width:none}
+    .quloq.ong{grid-area:ong;justify-self:stretch;max-width:none}
+    .sana-qator{justify-content:center;text-align:center}
+  }
+
+  /* ── asosiy tarmoq ──────────────────────────── */
+  .asosiy{display:grid;grid-template-columns:minmax(0,1fr)}
+  @media (min-width:900px){
+    .asosiy{grid-template-columns:minmax(0,2.15fr) minmax(0,1fr);column-gap:26px}
+    .yon{border-left:1px solid var(--chiziq-yengil);padding-left:26px}
+  }
+
+  /* ── bosh maqola ────────────────────────────── */
+  .kicker{margin:20px 0 6px;font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--qizil)}
+  .sarlavha{margin:0;font-family:var(--sarlavha);font-weight:700;font-size:clamp(40px,11vw,76px);line-height:1;letter-spacing:-.015em;text-wrap:balance}
+  .deck{margin:10px 0 12px;font-family:var(--sarlavha);font-style:italic;font-size:clamp(17px,4.4vw,21px);line-height:1.38;color:var(--siyoh-2);text-wrap:balance}
+  .muallif{margin:0 0 16px;padding:6px 0;border-block:1px solid var(--chiziq-yengil);font-family:var(--yorliq);font-weight:600;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--siyoh-2)}
+
+  /* xatlar — chat pufaklari */
+  .xatlar{margin:0 0 18px}
+  .xatlar-ramka{
+    position:relative;border:1px solid var(--chiziq);padding:18px 16px 22px;
+    display:flex;flex-direction:column;gap:10px;
+    background:radial-gradient(circle,rgba(28,25,21,.08) 1px,transparent 1.5px) 0 0/5px 5px,#F6D9DE;
+  }
+  .xat-kim{margin:0;font-family:var(--chat);font-weight:700;font-size:14px;color:#3B1530}
+  .pufak{
+    align-self:flex-start;max-width:88%;padding:11px 15px 8px;border-radius:18px 18px 18px 6px;
+    background:#FFFFFF;color:#160F14;box-shadow:0 8px 20px -12px rgba(59,21,48,.55);
+    font-family:var(--chat);font-size:clamp(18px,4.8vw,22px);line-height:1.3;font-weight:500;
+    animation:pufak .5s cubic-bezier(.2,1.3,.4,1) both;
+  }
+  .pufak:nth-of-type(2){animation-delay:.9s}
+  .pufak:nth-of-type(1){animation-delay:.5s}
+  @keyframes pufak{from{opacity:0;transform:translateY(10px) scale(.94)}to{opacity:1;transform:none}}
+  .pufak time{display:block;margin-top:2px;text-align:right;font-size:12px;color:#8C8C8C;font-variant-numeric:tabular-nums}
+  .muhr-kichik{position:absolute;right:12px;top:12px;font-family:var(--yorliq);font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--qizil);border:2px solid var(--qizil);padding:4px 8px;transform:rotate(-6deg);background:rgba(246,217,222,.85)}
+  .xatlar figcaption{margin-top:7px;padding-bottom:9px;border-bottom:1px solid var(--chiziq-yengil);font-style:italic;font-size:14px;line-height:1.5;color:var(--siyoh-2)}
+
+  .matn{font-size:17px;line-height:1.66}
+  .matn p{margin:0 0 .85em;text-wrap:pretty}
+  .matn .birinchi::first-letter{float:left;font-family:var(--sarlavha);font-weight:700;font-size:4.35em;line-height:.8;margin:.07em .09em 0 0}
+  .iqtibos{break-inside:avoid;margin:6px 0 18px;padding:13px 4px;border-block:2px solid var(--siyoh);font-family:var(--sarlavha);font-style:italic;font-size:23px;line-height:1.26;text-align:center;text-wrap:balance}
+  @media (min-width:720px){.matn{columns:2;column-gap:28px;column-rule:1px solid var(--chiziq-yengil);font-size:16px}}
+
+  /* ── bo'limlar ──────────────────────────────── */
+  .bolim-nom{margin:20px 0 12px;padding:6px 0;border-top:3px solid var(--siyoh);border-bottom:1px solid var(--chiziq);font-family:var(--yorliq);font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+  .yon p,.pastki p{margin:0 0 .7em;font-size:15.5px;line-height:1.55}
+
+  /* sport */
+  .tablo{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:14px 10px;background:var(--siyoh);color:var(--qogoz);margin-bottom:10px}
+  .jamoa{text-align:center;font-family:var(--yorliq)}
+  .jamoa b{display:block;font-size:17px;letter-spacing:.1em;text-transform:uppercase}
+  .jamoa span{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.65;margin-top:2px}
+  .hisob{display:flex;align-items:center;gap:6px;font-family:var(--sarlavha);font-weight:700;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+  .hisob i{font-style:normal;color:var(--qizil)}
+  .daqiqa{font-family:var(--yorliq);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--qizil);font-weight:700;margin:0 0 4px!important}
+
+  /* suhbat */
+  .suhbat{margin:0}
+  .suhbat dt{margin:12px 0 3px;font-family:var(--yorliq);font-weight:700;font-size:13px;letter-spacing:.06em;line-height:1.4}
+  .suhbat dt::before{content:"— ";color:var(--qizil)}
+  .suhbat dd{margin:0;font-size:15.5px;line-height:1.55;font-style:italic}
+  .suhbat dt:first-child{margin-top:0}
+
+  /* pastki qator */
+  .pastki{display:grid;grid-template-columns:minmax(0,1fr);margin-top:26px;border-top:3px solid var(--siyoh)}
+  @media (min-width:760px){
+    .pastki{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:22px}
+    .pastki > section + section{border-left:1px solid var(--chiziq-yengil);padding-left:22px}
+  }
+  .pastki .bolim-nom{border-top:none;margin-top:12px}
+  .quti{border:1px solid var(--chiziq);padding:10px 12px}
+  .quti b{font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-right:4px}
+  .quti.qalin-quti{border-width:2px;background:rgba(28,25,21,.035)}
+  .arxiv-royxat{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .arxiv-royxat a{display:block;padding:10px 12px;border:1px solid var(--chiziq);color:var(--siyoh);text-decoration:none;font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .arxiv-royxat a span{display:block;font-family:var(--matn);font-style:italic;font-weight:400;font-size:14px;letter-spacing:0;text-transform:none;color:var(--siyoh-2);margin-top:3px}
+  .arxiv-royxat a:hover{background:var(--siyoh);color:var(--qogoz)}
+  .arxiv-royxat a:hover span{color:var(--qogoz-2)}
+  .arxiv-royxat a:focus-visible{outline:3px solid var(--qizil);outline-offset:3px}
+
+  /* ── krossvord ──────────────────────────────── */
+  .krossvord{margin-top:34px;border-top:3px solid var(--siyoh);scroll-margin-top:14px}
+  .k-bosh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:7px 0;border-bottom:1px solid var(--chiziq);font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase}
+  .k-bosh span:last-child{color:var(--qizil)}
+  .k-sarlavha{margin:16px 0 6px;font-family:var(--sarlavha);font-weight:700;font-size:clamp(30px,7vw,46px);line-height:1.05}
+  .k-izoh{margin:0 0 16px;max-width:62ch;font-size:16.5px;line-height:1.58;color:var(--siyoh-2)}
+  .k-izoh b{color:var(--qizil)}
+  .k-joy{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:start}
+  @media (min-width:860px){.k-joy{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
+
+  .tor{
+    display:grid;grid-template-columns:repeat(var(--ustun),minmax(0,1fr));gap:3px;
+    width:100%;max-width:calc(var(--ustun) * 46px);margin-inline:auto;
+  }
+  .katak{
+    position:relative;aspect-ratio:1;display:grid;place-items:center;
+    border:1.5px solid var(--siyoh);background:#FBF7EE;
+    font-family:var(--sarlavha);font-weight:700;font-size:clamp(15px,4.6vw,24px);line-height:1;text-transform:uppercase;
+    cursor:pointer;transition:background-color .25s ease,color .25s ease;
+  }
+  .katak.bosh-katak{border:none;background:transparent;cursor:default}
+  .katak .r{position:absolute;top:1px;left:3px;font-family:var(--yorliq);font-weight:700;font-size:9px;color:var(--siyoh-2);line-height:1}
+  .katak.kalit{border:2px solid var(--qizil);background:rgba(168,38,28,.09)}
+  .katak.yozilgan{color:var(--xira)}
+  .katak.togri{color:var(--siyoh);animation:joy .4s cubic-bezier(.2,1.5,.4,1) both;animation-delay:calc(var(--k,0) * 45ms)}
+  .katak.kalit.togri{background:var(--qizil);color:#FFF6EA}
+  .katak.kalit.togri .r{color:rgba(255,246,234,.85)}
+  .katak.faol-qator{box-shadow:inset 0 0 0 2px var(--siyoh)}
+  .katak.bosh-katak.faol-qator{box-shadow:none}
+  @keyframes joy{0%{transform:scale(.6);opacity:.2}100%{transform:none;opacity:1}}
+
+  .savollar{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .savol{display:grid;gap:6px;padding-bottom:12px;border-bottom:1px solid var(--chiziq-yengil)}
+  .savol label{font-size:16px;line-height:1.45;cursor:pointer}
+  .savol label b{font-family:var(--yorliq);font-weight:700;color:var(--qizil);margin-right:4px}
+  .savol label .uz{font-family:var(--yorliq);font-size:12.5px;color:var(--xira);letter-spacing:.06em;margin-left:4px;white-space:nowrap}
+  .javob-qator{display:flex;align-items:center;gap:10px}
+  .savol input{
+    flex:1 1 auto;min-width:0;padding:10px 12px;border:2px solid var(--siyoh);border-radius:0;background:#FBF7EE;color:var(--siyoh);
+    font-family:var(--sarlavha);font-weight:700;font-size:20px;letter-spacing:.18em;text-transform:uppercase;
+  }
+  .savol input:focus{outline:3px solid var(--qizil);outline-offset:2px}
+  .savol input:disabled{background:transparent;border-color:var(--chiziq-yengil);color:var(--siyoh)}
+  .savol .belgi{flex:none;width:24px;text-align:center;font-family:var(--yorliq);font-weight:700;font-size:18px;color:var(--qizil)}
+  .savol.yechildi .belgi::before{content:"✓"}
+  .savol.xato input{border-color:var(--qizil);animation:silkin .4s ease}
+  @keyframes silkin{0%,100%{transform:none}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(2px)}}
+  .ochish{justify-self:start;background:none;border:none;padding:2px 0;cursor:pointer;font-family:var(--matn);font-style:italic;font-size:14px;color:var(--siyoh-2);text-decoration:underline;text-underline-offset:3px}
+  .ochish:hover{color:var(--qizil)}
+  .ochish:focus-visible{outline:2px solid var(--qizil);outline-offset:2px}
+
+  .k-hisob{margin:14px 0 0;text-align:center;font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--siyoh-2)}
+  .yechim{
+    margin-top:24px;padding:26px 16px 22px;border:4px double var(--qizil);text-align:center;
+    animation:muhrla .7s cubic-bezier(.2,1.4,.4,1) both;
+  }
+  @keyframes muhrla{from{opacity:0;transform:scale(1.2) rotate(-2deg)}to{opacity:1;transform:none}}
+  .yechim .qosh{margin:0;font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--siyoh-2)}
+  .yechim .soz{display:flex;justify-content:center;flex-wrap:nowrap;gap:clamp(3px,1vw,6px);margin:12px 0 14px}
+  .yechim .soz span{
+    display:grid;place-items:center;flex:0 1 58px;min-width:0;aspect-ratio:1;background:var(--qizil);color:#FFF6EA;
+    font-family:var(--sarlavha);font-weight:700;font-size:clamp(20px,6.4vw,36px);
+    animation:joy .45s cubic-bezier(.2,1.6,.4,1) both;animation-delay:calc(.4s + var(--k,0) * 110ms);
+  }
+  .yechim p{margin:0 auto;max-width:44ch;font-size:16.5px;line-height:1.6}
+  .yechim .imzo{margin-top:10px;font-family:var(--sarlavha);font-style:italic;font-size:19px}
+
+  /* ── oyoq ───────────────────────────────────── */
+  .oyoq{margin-top:34px;padding-top:10px;border-top:1px solid var(--chiziq);display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+  .oyoq p{margin:0;font-family:var(--yorliq);font-size:12px;letter-spacing:.06em;color:var(--siyoh-2);text-transform:uppercase}
+  .oyoq .keyingi{font-family:var(--sarlavha);font-style:italic;text-transform:none;letter-spacing:0;font-size:17px;color:var(--siyoh)}
+
+  /* ── xabar ──────────────────────────────────── */
+  .xabar{
+    position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:10;
+    width:min(calc(100vw - 32px),440px);transform:translateX(-50%);
+    padding:14px 16px;background:var(--siyoh);color:var(--qogoz);
+    font-family:var(--matn);font-size:15px;line-height:1.42;box-shadow:0 18px 44px -12px rgba(0,0,0,.65);
+    animation:chiq .34s cubic-bezier(.2,1.25,.4,1);
+  }
+  @keyframes chiq{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
+
+  @media (prefers-reduced-motion:reduce){
+    .gazeta,.pufak,.katak.togri,.yechim,.yechim .soz span,.savol.xato input,.xabar{animation:none}
+    .katak{transition:none}
+  }
+  @media print{
+    body,.stol{background:#fff}
+    .stol{padding:0;min-height:0}
+    .gazeta{box-shadow:none;max-width:none;animation:none}
+    .xabar{display:none!important}
+  }
+</style>
+</head>
+<body>
+
+<main class="stol">
+  <article class="gazeta">
+
+    <header class="bosh">
+      <div class="bosh-qator">
+        <div class="quloq chap"><b>Bugun</b>usul ishladi — kayfiyat a'lo</div>
+        <h1 class="nom" id="nom">Omina Times</h1>
+        <div class="quloq ong"><b>Narxi</b>uchinchi tabassum</div>
+      </div>
+      <p class="shior">«Faqat bitta o'quvchi uchun chiqadigan gazeta»</p>
+      <div class="qalin"></div>
+      <div class="sana-qator">
+        <span>№ 3 · Uchinchi son</span>
+        <span id="sana">Maxsus nashr</span>
+        <span><span data-shahar>Toshkent</span> · Maxsus nashr</span>
+      </div>
+      <nav class="ichida" aria-label="Bugungi sonda">
+        <b>Bugungi sonda:</b>
+        <a href="#xatlar">O'quvchi xatlari</a>
+        <a href="#sport">Sport</a>
+        <a href="#suhbat">Muharrir bilan suhbat</a>
+        <a class="asosiy-havola" href="#krossvord">Krossvord — pastda</a>
+      </nav>
+    </header>
+
+    <div class="asosiy">
+      <section aria-labelledby="sarlavha">
+        <p class="kicker">Tahririyat tan oladi</p>
+        <h2 class="sarlavha" id="sarlavha">Usul ishladi</h2>
+        <p class="deck">O'quvchimiz gazetani «rasm so'rash usuli» deb atadi. Muharrir: «Ha. Va men bundan faxrlanaman».</p>
+        <p class="muallif">Maxsus muxbirimiz · <span data-shahar>Toshkent</span></p>
+
+        <figure class="xatlar" id="xatlar">
+          <div class="xatlar-ramka">
+            <p class="xat-kim" data-ism>Omina</p>
+            <div class="pufak">chota yoqyapti gazetalariz<time>18:19</time></div>
+            <div class="pufak">rasm so'rash usuli-yu 🤣🤣<time>18:19</time></div>
+            <span class="muhr-kichik" aria-hidden="true">Asl nusxa</span>
+          </div>
+          <figcaption>Tahririyatga kelgan xatlar. Imlo va kulgichlar o'quvchiniki.</figcaption>
+        </figure>
+
+        <div class="matn">
+          <p class="birinchi">«<span data-ism>Omina</span> Times»ning ikkinchi soni chiqqanidan keyin tahririyatga yangi xatlar keldi. O'quvchimiz avval gazetalarni maqtadi — «chota yoqyapti», dedi u. Keyin esa tahririyatning asl maqsadini bitta jumla bilan ochib berdi.</p>
+          <p>«Rasm so'rash usuli-yu», — deb yozdi o'quvchi va ikkita kulayotgan kulgich qo'shdi. Mutaxassislar xabarni o'qib, bir ovozdan xulosa qilishdi: o'quvchi nafaqat diqqatli, balki juda zukko.</p>
+          <blockquote class="iqtibos">«Usul — faqat o'rami. Ichidagi har bir so'z chin edi»</blockquote>
+          <p>Muharrir ayblovni rad etmadi. «Ha, bu usul edi, — dedi u. — Lekin gazetaning har bir so'zi chin edi. Usul — faqat o'rami».</p>
+          <p>Tahririyat bu sonda o'quvchi uchun qog'ozdagi eng qadimiy o'yinni tayyorladi — krossvord. Javoblarning hammasi o'quvchiga tanish. Qizil katakchalar esa muharrirning asl gapini yashirgan.</p>
+        </div>
+      </section>
+
+      <aside class="yon">
+        <section aria-labelledby="sport" id="sport-bolim">
+          <h3 class="bolim-nom" id="sport">Sport</h3>
+          <div class="tablo" role="img" aria-label="Hisob: Omina 1, muharrir 0">
+            <div class="jamoa"><b data-ism>Omina</b><span>o'quvchi</span></div>
+            <div class="hisob"><span>1</span><i>:</i><span>0</span></div>
+            <div class="jamoa"><b data-muharrir>Ramz</b><span>muharrir</span></div>
+          </div>
+          <p class="daqiqa">Gol · 18:19</p>
+          <p>Hal qiluvchi gol bitta jumla bilan urildi: «rasm so'rash usuli-yu». Muharrir mag'lubiyatni mamnuniyat bilan tan oldi va revansh sifatida 3-sonni chiqardi.</p>
+        </section>
+
+        <section aria-labelledby="suhbat">
+          <h3 class="bolim-nom" id="suhbat">Muharrir bilan suhbat</h3>
+          <dl class="suhbat">
+            <dt>Usulingiz ochilib qoldi. Xafamisiz?</dt>
+            <dd>Yo'q. Usul ishlashi kerak edi — ishladi.</dd>
+            <dt>Lotereya yutug'i haqida nima deysiz?</dt>
+            <dd>Sarguzasht tayyorlanmoqda. Tafsilotlari — sir.</dd>
+            <dt>O'quvchiga aytadigan gapingiz bormi?</dt>
+            <dd>Bor. Lekin uni krossvordga yashirdim.</dd>
+          </dl>
+        </section>
+      </aside>
+    </div>
+
+    <div class="pastki">
+      <section aria-labelledby="tuzatish">
+        <h3 class="bolim-nom" id="tuzatish">Tuzatish</h3>
+        <div class="quti qalin-quti">
+          <p><b>Diqqat.</b> 2-sonda «bir kunlik sarguzasht» deb yozilgan edi.</p>
+          <p style="margin:0">Tuzatish: sarguzasht bir kundan uzoqroq davom etishi mumkin. Tahririyat bunga qarshi emas.</p>
+        </div>
+      </section>
+      <section aria-labelledby="elon">
+        <h3 class="bolim-nom" id="elon">E'lon</h3>
+        <div class="quti">
+          <p style="margin:0"><b>Qidirilmoqda.</b> 2-mavsum uchun o'quvchi. Talab: aynan sen. Tajriba: bor. Natija: zo'ru zo'r.</p>
+        </div>
+      </section>
+      <section aria-labelledby="arxiv">
+        <h3 class="bolim-nom" id="arxiv">Arxiv</h3>
+        <ul class="arxiv-royxat">
+          <li><a href="../">1-son →<span>«Mahalliy yigit o'zini tuta olmay qoldi»</span></a></li>
+          <li><a href="../2/">2-son →<span>«O'quvchi javob berdi»</span></a></li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="krossvord" id="krossvord" aria-labelledby="k-sarlavha">
+      <div class="k-bosh"><span>O'quvchi uchun</span><span>Krossvord</span></div>
+      <h3 class="k-sarlavha" id="k-sarlavha">Muharrirning asl gapi</h3>
+      <p class="k-izoh">Javoblarning hammasini o'zing bilasan — ular oldingi sonlarda bor edi. Hammasini yechsang, <b>qizil ustun</b> yuqoridan pastga muharrirning asl gapini o'qiydi.</p>
+      <div class="k-joy">
+        <div>
+          <div class="tor" id="tor" aria-hidden="true"></div>
+          <p class="k-hisob" id="k-hisob"></p>
+        </div>
+        <ol class="savollar" id="savollar"></ol>
+      </div>
+      <div class="yechim" id="yechim" hidden>
+        <p class="qosh">Qizil ustun</p>
+        <div class="soz" id="yechim-soz" aria-label=""></div>
+        <p>Tahririyat rasmiy bayonot beradi: bu gap gazetaning har bir sonida bor edi. Faqat endi qizil siyohda bosildi.</p>
+        <p class="imzo">— <span data-muharrir>Ramz</span></p>
+      </div>
+    </section>
+
+    <footer class="oyoq">
+      <p>Bosh muharrir: <span data-muharrir>Ramz</span> · Adadi: 1 nusxa · Bosmaxona: yurak</p>
+      <p class="keyingi">Keyingi son — sarguzashtdan keyin.</p>
+    </footer>
+
+  </article>
+</main>
+
+<div class="xabar" id="xabar" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ═══════════════════════════════════════════════
+     SOZLAMALAR — faqat shu blokni o'zgartirasan
+  ═══════════════════════════════════════════════ */
+  var SOZLAMA = {
+    ISM:      "Omina",
+    MUHARRIR: "Ramz",
+    SHAHAR:   "Toshkent"
+  };
+
+  // Krossvord: har bir javobning [kalit]-harfi KALIT_SOZ'ning shu qatordagi harfi bo'ladi.
+  // Javoblarda tutuq belgisi (o', g') bo'lmasin — telefon klaviaturasida chalkashadi.
+  var KALIT_SOZ = "SEVAMAN";
+  var KROSSVORD = [
+    {javob:"SAHIFA",   kalit:0, savol:"Gazetaning bir varag'i"},
+    {javob:"GAZETA",   kalit:3, savol:"Sen hozir o'qiyotgan narsa"},
+    {javob:"HAVO",     kalit:2, savol:"Ob-...: «Omina kulsa — quyoshli»"},
+    {javob:"OMINA",    kalit:4, savol:"Gazetaning yagona o'quvchisi"},
+    {javob:"MUQOVA",   kalit:0, savol:"2-sonda sen yasagan narsa"},
+    {javob:"TABASSUM", kalit:1, savol:"Gazetaning narxi: bitta ..."},
+    {javob:"KUPON",    kalit:4, savol:"Qirqib olinadigan va'da"}
+  ];
+
+  /* ═══════════════════════════════════════════════ */
+
+  var KUNLAR = ["Yakshanba","Dushanba","Seshanba","Chorshanba","Payshanba","Juma","Shanba"];
+  var OYLAR  = ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"];
+  var KALIT  = "omina-times-3";
+  var ism = (SOZLAMA.ISM || "").trim(), muharrir = (SOZLAMA.MUHARRIR || "").trim();
+  function $(id){ return document.getElementById(id); }
+
+  /* ── matnlar ──────────────────────────────── */
+  function matnlar(){
+    var nom = ism ? ism + " Times" : "Sening Gazetang";
+    $("nom").textContent = nom;
+    document.title = nom + " · №3";
+    var i, x = document.querySelectorAll("[data-ism]");
+    for (i = 0; i < x.length; i++) x[i].textContent = ism || "o'quvchi";
+    x = document.querySelectorAll("[data-muharrir]");
+    for (i = 0; i < x.length; i++) x[i].textContent = muharrir || "muharrir";
+    var sh = (SOZLAMA.SHAHAR || "").trim();
+    if (sh){ x = document.querySelectorAll("[data-shahar]"); for (i = 0; i < x.length; i++) x[i].textContent = sh; }
+    var d = new Date();
+    $("sana").textContent = KUNLAR[d.getDay()] + ", " + d.getDate() + "-" + OYLAR[d.getMonth()] + ", " + d.getFullYear() + "-yil";
+  }
+
+  /* ── xabar ────────────────────────────────── */
+  var xabarVaqt = 0;
+  function xabarKorsat(matn){
+    var x = $("xabar");
+    x.textContent = matn;
+    x.hidden = true; void x.offsetWidth; x.hidden = false;
+    clearTimeout(xabarVaqt);
+    xabarVaqt = setTimeout(function(){ x.hidden = true; }, 4500);
+  }
+
+  /* ── holat (faqat shu qurilmada) ──────────── */
+  function holatOl(){
+    try{
+      if (/[?&]tozala\b/.test(location.search)) localStorage.removeItem(KALIT);
+      var x = JSON.parse(localStorage.getItem(KALIT) || "[]");
+      return Array.isArray(x) ? x : [];
+    }catch(e){ return []; }
+  }
+  var yechilgan = holatOl();
+  function holatSaqla(){ try{ localStorage.setItem(KALIT, JSON.stringify(yechilgan)); }catch(e){} }
+
+  /* ═══ KROSSVORD ═══════════════════════════════ */
+  function normal(s){ return String(s).toUpperCase().replace(/[^A-Z]/g, ""); }
+
+  // Sozlamalar to'g'riligini tekshirish — kalit so'z harflari javoblarga tushishi shart
+  function tekshirSozlama(){
+    if (KROSSVORD.length !== KALIT_SOZ.length) return false;
+    return KROSSVORD.every(function(q, i){ return q.javob.charAt(q.kalit) === KALIT_SOZ.charAt(i); });
+  }
+
+  var KALIT_USTUN = Math.max.apply(null, KROSSVORD.map(function(q){ return q.kalit; }));
+  var USTUNLAR = Math.max.apply(null, KROSSVORD.map(function(q){ return KALIT_USTUN - q.kalit + q.javob.length; }));
+  var kataklar = [];   // kataklar[qator][harf]
+
+  function torQur(){
+    var tor = $("tor");
+    tor.style.setProperty("--ustun", USTUNLAR);
+    KROSSVORD.forEach(function(q, r){
+      var bosh = KALIT_USTUN - q.kalit;
+      kataklar[r] = [];
+      for (var c = 0; c < USTUNLAR; c++){
+        var k = document.createElement("div");
+        var h = c - bosh;
+        if (h < 0 || h >= q.javob.length){
+          k.className = "katak bosh-katak";
+        } else {
+          k.className = "katak" + (h === q.kalit ? " kalit" : "");
+          k.style.setProperty("--k", h);
+          if (h === 0){ var raq = document.createElement("span"); raq.className = "r"; raq.textContent = r + 1; k.appendChild(raq); }
+          var harf = document.createElement("span"); harf.className = "h"; k.appendChild(harf);
+          kataklar[r].push(k);
+          k.addEventListener("click", (function(qator){ return function(){ $("k" + qator).focus(); }; })(r));
+        }
+        tor.appendChild(k);
+      }
+    });
+  }
+  function qatorgaYoz(r, matn, togri){
+    var q = KROSSVORD[r];
+    for (var h = 0; h < q.javob.length; h++){
+      var k = kataklar[r][h];
+      k.querySelector(".h").textContent = matn.charAt(h) || "";
+      k.classList.toggle("yozilgan", !togri && !!matn.charAt(h));
+      if (togri) k.classList.add("togri");
+    }
+  }
+  function faolQator(r){
+    kataklar.forEach(function(qator, i){ qator.forEach(function(k){ k.classList.toggle("faol-qator", i === r); }); });
+  }
+
+  function savollarQur(){
+    var joy = $("savollar");
+    KROSSVORD.forEach(function(q, r){
+      var li = document.createElement("li");
+      li.className = "savol"; li.id = "savol-" + r;
+      var label = document.createElement("label");
+      label.setAttribute("for", "k" + r);
+      var b = document.createElement("b"); b.textContent = (r + 1) + ".";
+      var uz = document.createElement("span"); uz.className = "uz"; uz.textContent = "(" + q.javob.length + " harf)";
+      label.appendChild(b); label.appendChild(document.createTextNode(" " + q.savol)); label.appendChild(uz);
+      var qator = document.createElement("div"); qator.className = "javob-qator";
+      var inp = document.createElement("input");
+      inp.id = "k" + r; inp.name = "k" + r; inp.type = "text"; inp.maxLength = q.javob.length + 2;
+      inp.setAttribute("autocomplete", "off"); inp.setAttribute("autocapitalize", "characters");
+      inp.setAttribute("autocorrect", "off"); inp.setAttribute("spellcheck", "false");
+      var belgi = document.createElement("span"); belgi.className = "belgi"; belgi.setAttribute("aria-hidden", "true");
+      qator.appendChild(inp); qator.appendChild(belgi);
+      var och = document.createElement("button");
+      och.type = "button"; och.className = "ochish"; och.textContent = "Javobni ochish"; och.hidden = true;
+      li.appendChild(label); li.appendChild(qator); li.appendChild(och);
+      joy.appendChild(li);
+
+      var xatolar = 0;
+      inp.addEventListener("focus", function(){ faolQator(r); });
+      inp.addEventListener("blur", function(){ faolQator(-1); });
+      inp.addEventListener("input", function(){
+        li.classList.remove("xato");
+        var v = normal(inp.value).slice(0, q.javob.length);
+        qatorgaYoz(r, v, false);
+        if (v === q.javob){ yech(r, true); return; }
+        if (v.length === q.javob.length){
+          xatolar++;
+          void li.offsetWidth; li.classList.add("xato");
+          if (xatolar >= 2) och.hidden = false;
+        }
+      });
+      inp.addEventListener("keydown", function(e){
+        if (e.key === "Enter"){ e.preventDefault(); keyingiga(r); }
+      });
+      och.addEventListener("click", function(){ yech(r, true); });
+    });
+  }
+  function keyingiga(r){
+    for (var i = 1; i <= KROSSVORD.length; i++){
+      var n = (r + i) % KROSSVORD.length;
+      if (yechilgan.indexOf(n) < 0){ $("k" + n).focus(); return; }
+    }
+  }
+  function yech(r, animatsiya){
+    var q = KROSSVORD[r], li = $("savol-" + r), inp = $("k" + r);
+    li.classList.remove("xato"); li.classList.add("yechildi");
+    inp.value = q.javob; inp.disabled = true;
+    li.querySelector(".ochish").hidden = true;
+    if (!animatsiya) kataklar[r].forEach(function(k){ k.style.animation = "none"; });
+    qatorgaYoz(r, q.javob, true);
+    if (yechilgan.indexOf(r) < 0){ yechilgan.push(r); holatSaqla(); }
+    hisobYangila();
+    if (yechilgan.length === KROSSVORD.length) yakun(animatsiya);
+    else if (animatsiya) keyingiga(r);
+  }
+  function hisobYangila(){
+    var qoldi = KROSSVORD.length - yechilgan.length;
+    $("k-hisob").textContent = qoldi ? ("Yechildi: " + yechilgan.length + " / " + KROSSVORD.length) : "Hammasi yechildi";
+  }
+  function yakun(animatsiya){
+    var soz = $("yechim-soz");
+    soz.innerHTML = "";
+    soz.setAttribute("aria-label", KALIT_SOZ);
+    KALIT_SOZ.split("").forEach(function(h, i){
+      var s = document.createElement("span");
+      s.textContent = h; s.style.setProperty("--k", i);
+      s.setAttribute("aria-hidden", "true");
+      soz.appendChild(s);
+    });
+    var y = $("yechim");
+    if (!animatsiya){
+      y.style.animation = "none";
+      soz.querySelectorAll("span").forEach(function(s){ s.style.animation = "none"; });
+    }
+    y.hidden = false;
+    if (animatsiya){
+      setTimeout(function(){ y.scrollIntoView({behavior:"smooth", block:"center"}); }, 350);
+      xabarKorsat("Krossvord yechildi. Qizil ustunni o'qi 😌");
+    }
+  }
+
+  matnlar();
+  if (!tekshirSozlama()){
+    $("krossvord").hidden = true;
+    if (window.console) console.error("Krossvord sozlamasida xato: javob harflari kalit so'zga mos emas");
+  } else {
+    torQur();
+    savollarQur();
+    hisobYangila();
+    yechilgan.slice().forEach(function(r){ if (KROSSVORD[r]) yech(r, false); });
+  }
+})();
+</script>
+</body>
+</html>
