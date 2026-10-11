@@ -619,7 +619,7 @@
 
   function kuponBos(b, i){
     if (holat[i]){
-      xabarKorsat("Bu kupon allaqachon faol. Muharrir va'dasida turadi.", false);
+      xabarKorsat("Bu kupon allaqachon faol. " + ((SOZLAMA.MUHARRIR || "").trim() || "Muharrir") + " va'dasida turadi.", false);
       return;
     }
     var sana = bugungiSana();
