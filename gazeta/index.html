@@ -474,7 +474,7 @@
   ═══════════════════════════════════════════════ */
   var SOZLAMA = {
     ISM:      "Omina",
-    MUHARRIR: "",          // o'z isming; bo'sh bo'lsa "sendan xabari bor kimdir"
+    MUHARRIR: "Ramz",      // o'z isming; bo'sh bo'lsa "sendan xabari bor kimdir"
     TELEGRAM: "",          // Telegram username, @ belgisisiz. Bo'sh bo'lsa tugma chiqmaydi
     SHAHAR:   "Toshkent",
     SURAT:    ""           // rasm fayli, masalan "omina.jpg". Bo'sh bo'lsa hazil-ramka chiqadi
@@ -607,6 +607,16 @@
     b.setAttribute("aria-pressed", "true");
     b.setAttribute("aria-label", KUPONLAR[+b.dataset.i].nom + " kuponi faollashtirilgan, " + sana);
   }
+  // "Ramz" → "Ramzga", "Bek" → "Bekka", "Ortiq" → "Ortiqqa"
+  function kimga(){
+    var m = (SOZLAMA.MUHARRIR || "").trim();
+    if (!m) return "muharrirga";
+    var oxiri = m.slice(-1).toLowerCase();
+    if (oxiri === "k") return m + "ka";
+    if (oxiri === "q") return m + "qa";
+    return m + "ga";
+  }
+
   function kuponBos(b, i){
     if (holat[i]){
       xabarKorsat("Bu kupon allaqachon faol. Muharrir va'dasida turadi.", false);
@@ -618,7 +628,7 @@
     belgila(b, sana);
     setTimeout(function(){ b.classList.remove("yirtilmoqda"); }, 480);
     xabarKorsat(
-      "«" + KUPONLAR[i].nom + "» kuponi faollashtirildi. Skrinshot qilib, muharrirga yubor 😌",
+      "«" + KUPONLAR[i].nom + "» kuponi faollashtirildi. Skrinshot qilib, " + kimga() + " yubor 😌",
       true
     );
   }
