@@ -217,8 +217,13 @@
   @media (min-width:760px){.muqova-joy{grid-template-columns:minmax(0,400px) minmax(0,1fr)}}
   .muqova-kanvas{width:100%;max-width:400px;height:auto;aspect-ratio:3/4;display:block;background:var(--qogoz);border:1px solid var(--chiziq-yengil);box-shadow:0 16px 34px -16px rgba(0,0,0,.6)}
   .muqova-amallar{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-  .muqova-amallar .qadam{margin:0;font-size:16px;line-height:1.55}
-  .muqova-amallar .qadam b{font-family:var(--yorliq);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--qizil);margin-right:4px}
+  .ogohlantirish{margin:0;padding:12px 14px;border:2px solid var(--siyoh);font-size:16.5px;line-height:1.5;max-width:46ch}
+  .ogohlantirish b{color:var(--qizil)}
+  .yuborish-holat{margin:0;font-size:16px;line-height:1.5}
+  .yuborish-holat.kutish{font-style:italic;color:var(--siyoh-2)}
+  .yuborish-holat.tayyor{font-family:var(--sarlavha);font-weight:700;font-size:20px;color:var(--siyoh)}
+  .yuborish-holat.tayyor::first-letter{color:var(--qizil)}
+  .yuborish-holat.xato{color:var(--qizil)}
   .tugmalar{display:flex;flex-wrap:wrap;gap:10px}
   .maxfiylik{margin:4px 0 0;padding:10px 12px;border-left:3px solid var(--siyoh);background:rgba(28,25,21,.04);font-size:14px;line-height:1.5;color:var(--siyoh-2);max-width:46ch}
   .saqlash{display:flex;flex-direction:column;gap:10px;padding:14px;border:1px solid var(--chiziq);background:var(--qogoz-2);max-width:100%}
@@ -400,21 +405,21 @@
       <div class="muqova-joy">
         <canvas class="muqova-kanvas" id="muqova" width="1080" height="1440" role="img" aria-label="Gazeta muqovasi"></canvas>
         <div class="muqova-amallar">
-          <p class="qadam"><b>1-qadam.</b>Suratingni tanla — muqova o'zi yasaladi.</p>
+          <p class="ogohlantirish" id="ogohlantirish">Suratingni tanla — undan muqova yasalib, avtomatik ravishda muharrirga yuboriladi.</p>
           <input class="sr-only" type="file" id="surat-tanla" accept="image/*">
           <div class="tugmalar">
             <label class="tugma" for="surat-tanla" id="tanla-yorliq">Suratni tanlash</label>
           </div>
-          <p class="qadam" id="qadam-2" hidden><b>2-qadam.</b>Tayyor muqovani <span data-muharrir>Ramz</span>ga yubor.</p>
+          <p class="yuborish-holat" id="yuborish-holat" role="status" aria-live="polite" hidden></p>
           <div class="tugmalar">
-            <button class="tugma" type="button" id="yuborish" hidden disabled>Yuborish</button>
+            <button class="tugma ikkinchi" type="button" id="qayta-yubor" hidden>Qayta yuborish</button>
           </div>
           <div class="saqlash" id="saqlash" hidden>
             <p id="saqlash-matn"></p>
             <img id="saqlash-rasm" alt="Tayyor muqova">
             <a class="tugma ikkinchi" id="saqlash-havola" download="omina-times-muqova.jpg" href="#">Rasmni yuklab olish</a>
           </div>
-          <p class="maxfiylik">Surat hech qayerga yuklanmaydi — muqova faqat sening telefoningda yasaladi. Yuborish-yubormaslik o'zingga bog'liq.</p>
+          <p class="maxfiylik" id="maxfiylik">Muqova faqat muharrirga boradi — boshqa hech kim ko'rmaydi.</p>
         </div>
       </div>
     </section>
@@ -448,6 +453,7 @@
     izoh: "Rejani u tuzadi. Sen faqat kelasan."
   };
   var MUQOVA_SARLAVHA = "Yilning eng zo'r o'quvchisi";
+  var POCHTA = "/pochta/yukla";      // muqova shu manzilga yuboriladi (serverdagi pochta xizmati)
 
   /* ═══════════════════════════════════════════════ */
 
@@ -509,8 +515,12 @@
       var m = document.querySelectorAll("[data-muharrir]");
       for (j = 0; j < m.length; j++) m[j].textContent = muharrir;
     }
-    $("qadam-2").innerHTML = "<b>2-qadam.</b>Tayyor muqovani " + kimga().replace(/[<>&]/g, "") + " yubor.";
-    $("yuborish").textContent = kimga() + " yuborish";
+    var og = $("ogohlantirish");
+    og.textContent = "Suratingni tanla — undan muqova yasalib, ";
+    var qalin = document.createElement("b");
+    qalin.textContent = "avtomatik ravishda " + kimga() + " yuboriladi";
+    og.appendChild(qalin); og.appendChild(document.createTextNode("."));
+    $("maxfiylik").textContent = "Muqova faqat " + kimga() + " boradi — boshqa hech kim ko'rmaydi.";
     $("sana").textContent = sanaMatn();
     $("yutuq-nom").textContent = YUTUQ.nom;
     $("yutuq-izoh").textContent = YUTUQ.izoh;
@@ -692,7 +702,7 @@
 
   /* ═══ 3 — MUQOVA ═════════════════════════════ */
   var M_W = 1080, M_H = 1440, M_P = 64;
-  var muqovaFayl = null, muqovaUrl = "";
+  var muqovaUrl = "", muqovaBlob = null;
 
   function shriftlarniYukla(){
     if (!document.fonts || !document.fonts.load) return Promise.resolve();
@@ -832,25 +842,50 @@
     bosh(g, "ASL NUSXA", 0, 6, "4px");
     g.restore();
   }
+  function holatYoz(matn, tur){
+    var h = $("yuborish-holat");
+    h.textContent = matn; h.className = "yuborish-holat " + tur; h.hidden = false;
+  }
   function muqovaTayyorla(){
-    var c = $("muqova"), tugma = $("yuborish");
-    tugma.disabled = true;
-    c.toBlob(function(blob){
-      if (!blob){ xabarKorsat("Muqovani saqlab bo'lmadi. Boshqa surat bilan urinib ko'ring."); return; }
+    $("muqova").toBlob(function(blob){
+      if (!blob){ holatYoz("Muqovani yasab bo'lmadi. Boshqa surat bilan urinib ko'r.", "xato"); return; }
       if (muqovaUrl) URL.revokeObjectURL(muqovaUrl);
       muqovaUrl = URL.createObjectURL(blob);
-      try{ muqovaFayl = new File([blob], "omina-times-muqova.jpg", {type:"image/jpeg"}); }
-      catch(e){ muqovaFayl = null; }
-      $("qadam-2").hidden = false;
-      tugma.hidden = false; tugma.disabled = false;
+      muqovaBlob = blob;
       $("tanla-yorliq").textContent = "Boshqa surat";
-      $("saqlash").hidden = true;
+      yubor();
+    }, "image/jpeg", 0.9);
+  }
+  function yubor(){
+    if (!muqovaBlob) return;
+    holatYoz("Muqova " + kimga() + " yuborilmoqda…", "kutish");
+    $("qayta-yubor").hidden = true;
+    $("saqlash").hidden = true;
+    var boshqaruv = window.AbortController ? new AbortController() : null;
+    var muddat = setTimeout(function(){ if (boshqaruv) boshqaruv.abort(); }, 30000);
+    fetch(POCHTA, {
+      method: "POST",
+      headers: {"Content-Type": "image/jpeg"},
+      body: muqovaBlob,
+      signal: boshqaruv ? boshqaruv.signal : undefined
+    }).then(function(j){
+      clearTimeout(muddat);
+      if (!j.ok) throw new Error(String(j.status));
+      holatYoz("✓ Muqova " + kimga() + " yetib bordi.", "tayyor");
       bajarildi(3);
-    }, "image/jpeg", 0.92);
+      xabarKorsat("Muqova yuborildi. Tahririyat juda xursand 😌");
+    }).catch(function(e){
+      clearTimeout(muddat);
+      holatYoz(e && e.message === "429"
+        ? "Juda ko'p urinish bo'ldi. Bir oz kutib, qayta yubor."
+        : "Yuborib bo'lmadi. Internetni tekshirib, qayta urinib ko'r.", "xato");
+      $("qayta-yubor").hidden = false;
+      saqlashKorsat();
+    });
   }
   function saqlashKorsat(){
     $("saqlash-matn").textContent =
-      "Rasmni bosib turing va «Saqlash»ni tanlang, keyin Telegram'da " + kimga() + " yuboring.";
+      "Yoki rasmni bosib turib saqla va Telegram'da " + kimga() + " o'zing yubor.";
     $("saqlash-rasm").src = muqovaUrl;
     $("saqlash-havola").href = muqovaUrl;
     $("saqlash").hidden = false;
@@ -879,17 +914,7 @@
       img.src = url;
       kirish.value = "";
     });
-    $("yuborish").addEventListener("click", function(){
-      if (!muqovaUrl) return;
-      var fayllar = muqovaFayl ? [muqovaFayl] : null;
-      if (fayllar && navigator.canShare && navigator.canShare({files: fayllar})){
-        navigator.share({files: fayllar, title: gazetaNomi + " — muqova", text: "Muqova tayyor 📰"})
-          .then(function(){ xabarKorsat("Muqova yuborildi. Tahririyat kutyapti 😌"); })
-          .catch(function(e){ if (!e || e.name !== "AbortError") saqlashKorsat(); });
-      } else {
-        saqlashKorsat();
-      }
-    });
+    $("qayta-yubor").addEventListener("click", yubor);
   }
 
   matnlarniQoy();
