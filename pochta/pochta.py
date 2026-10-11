@@ -33,8 +33,8 @@ CHAT_ID = os.environ.get("CHAT_ID", "").strip()
 
 MAX_HAJM = 6 * 1024 * 1024          # bitta muqova uchun yuqori chegara
 MAX_FAYL = 300                      # disk to'lib qolmasligi uchun
-MAX_JAVOB_HAJM = 2048               # bitta javob so'rovi, bayt
-MAX_JAVOB_UZUNLIK = 120             # savol va javob matni, belgi
+MAX_JAVOB_HAJM = 8192               # bitta javob so'rovi, bayt
+MAX_JAVOB_UZUNLIK = 600             # savol va javob matni, belgi (test natijasi bir necha qator)
 MAX_JAVOB_SONI = 500
 LIMIT_SONI, LIMIT_DAVR = 6, 600     # bitta IP'dan 10 daqiqada 6 ta
 TOSHKENT = timezone(timedelta(hours=5))
@@ -144,7 +144,7 @@ SHABLON = """<!doctype html>
         letter-spacing:.14em;text-transform:uppercase;color:var(--siyoh-2);border-block:1px solid var(--siyoh);padding:6px 0}
   .javoblar{list-style:none;margin:0;padding:0;display:grid;gap:8px}
   .javoblar li{border:1px solid var(--siyoh);padding:10px 12px;display:grid;gap:2px}
-  .javoblar b{font-size:20px}
+  .javoblar b{font-size:18px;line-height:1.5;white-space:pre-line}
   .javoblar span,.javoblar time{font-size:14px;font-style:italic;color:var(--siyoh-2)}
   .tor{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
   figure{margin:0}

@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omina Times · Test</title>
+<meta name="description" content="Maxsus ilova: sen haqingda 8 savol.">
+<meta name="theme-color" content="#2B2722">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Omina Times · Maxsus ilova: Test">
+<meta property="og:description" content="Sen haqingda 8 savol. To'g'ri javob yo'q — hammasi to'g'ri.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Archivo+Narrow:wght@500;600;700&display=swap">
+<style>
+  :root{
+    --qogoz:#F2ECDF;
+    --qogoz-2:#E9E1CF;
+    --siyoh:#1C1915;
+    --siyoh-2:#4A443A;
+    --xira:#857B6B;
+    --qizil:#A8261C;
+    --stol:#2B2722;
+    --chiziq:rgba(28,25,21,.88);
+    --chiziq-yengil:rgba(28,25,21,.22);
+    --nom:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;
+    --sarlavha:"Old Standard TT",Georgia,"Times New Roman",serif;
+    --matn:"Libre Caslon Text",Georgia,"Times New Roman",serif;
+    --yorliq:"Archivo Narrow","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+    color-scheme:light;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0}
+  body{background:var(--stol);color:var(--siyoh);font-family:var(--matn);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  /* ── stol va qog'oz ─────────────────────────── */
+  .stol{
+    min-height:100vh;
+    background:radial-gradient(120% 70% at 50% 0%,#3A342D 0%,#2B2722 55%,#211E1A 100%);
+    padding-block:calc(22px + env(safe-area-inset-top,0px)) calc(64px + env(safe-area-inset-bottom,0px));
+    padding-inline:10px;
+    overflow-x:hidden;overflow-x:clip;   /* ochilish animatsiyasida qog'oz chetdan chiqmasin */
+    perspective:1600px;
+  }
+  .gazeta{
+    position:relative;max-width:760px;margin:0 auto;background-color:var(--qogoz);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .11 0 0 0 0 .1 0 0 0 0 .08 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    padding-block:18px 28px;padding-inline:16px;
+    box-shadow:0 1px 0 rgba(0,0,0,.25),0 34px 70px -24px rgba(0,0,0,.75);
+    transform-origin:50% 0;animation:ochil .9s cubic-bezier(.2,.8,.25,1) both;
+  }
+  @keyframes ochil{from{opacity:0;transform:translateY(26px) rotateX(9deg) scale(.985)}to{opacity:1;transform:none}}
+  @media (min-width:760px){
+    .stol{padding-inline:24px}
+    .gazeta{padding-inline:44px;padding-block:26px 36px}
+  }
+
+  /* ── bosh qism ──────────────────────────────── */
+  .bosh{text-align:center}
+  .nom{margin:0;font-family:var(--nom);font-weight:400;font-size:clamp(44px,12.5vw,92px);line-height:1;color:var(--siyoh)}
+  .shior{margin:6px 0 12px;font-family:var(--sarlavha);font-style:italic;font-size:14.5px;color:var(--siyoh-2)}
+  .qalin{height:3px;background:var(--siyoh);margin-bottom:2px}
+  .sana-qator{display:flex;justify-content:space-between;align-items:center;gap:6px 16px;flex-wrap:wrap;border-block:1px solid var(--chiziq);padding:6px 2px;font-family:var(--yorliq);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
+  .sana-qator .ilova{color:var(--qizil)}
+  @media (max-width:639px){.sana-qator{justify-content:center;text-align:center}}
+
+  /* ── umumiy ─────────────────────────────────── */
+  .kicker{margin:22px 0 6px;font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--qizil)}
+  .sarlavha{margin:0;font-family:var(--sarlavha);font-weight:700;font-size:clamp(36px,10vw,62px);line-height:1.02;letter-spacing:-.012em;text-wrap:balance}
+  .deck{margin:10px 0 14px;font-family:var(--sarlavha);font-style:italic;font-size:clamp(18px,4.6vw,22px);line-height:1.38;color:var(--siyoh-2);text-wrap:balance}
+  .oddiy{margin:0 0 14px;font-size:17px;line-height:1.62;max-width:58ch}
+  .tugma{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;
+    padding:14px 24px;border:none;border-radius:0;cursor:pointer;text-decoration:none;
+    background:var(--siyoh);color:var(--qogoz);
+    font-family:var(--yorliq);font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;
+    -webkit-tap-highlight-color:transparent;transition:background-color .2s ease;
+  }
+  .tugma:hover{background:var(--qizil)}
+  .tugma:focus-visible{outline:3px solid var(--qizil);outline-offset:3px}
+  .tugma:disabled{opacity:.45;cursor:not-allowed;background:var(--siyoh)}
+  .tugma.ikkinchi{background:transparent;color:var(--siyoh);border:1px solid var(--chiziq)}
+  .tugma.ikkinchi:hover{background:var(--siyoh);color:var(--qogoz)}
+  .tugmalar{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .shartlar{margin:16px 0 0;padding:10px 12px;border:1px dashed var(--chiziq);font-family:var(--yorliq);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--siyoh-2);line-height:1.5}
+
+  /* ── savol ──────────────────────────────────── */
+  .savol-joy{margin-top:20px;border-top:3px solid var(--siyoh)}
+  .s-bosh{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--chiziq);font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
+  .s-bosh .raqam{color:var(--qizil);font-variant-numeric:tabular-nums}
+  .bosqich{display:flex;gap:4px}
+  .bosqich i{width:14px;height:6px;background:var(--chiziq-yengil)}
+  .bosqich i.bitdi{background:var(--siyoh)}
+  .bosqich i.hozir{background:var(--qizil)}
+  .s-matn{margin:18px 0 16px;font-family:var(--sarlavha);font-weight:700;font-size:clamp(27px,7.2vw,40px);line-height:1.12;text-wrap:balance;animation:kir .5s cubic-bezier(.2,.8,.3,1) both}
+  @keyframes kir{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .variantlar{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .variant{
+    width:100%;display:grid;grid-template-columns:34px 1fr;align-items:center;gap:12px;
+    padding:14px 14px;border:1.5px solid var(--siyoh);border-radius:0;background:#FBF7EE;color:var(--siyoh);
+    font-family:var(--matn);font-size:18px;line-height:1.35;text-align:left;cursor:pointer;
+    transition:background-color .2s ease,color .2s ease,opacity .25s ease,transform .15s ease;
+    -webkit-tap-highlight-color:transparent;animation:kir .45s cubic-bezier(.2,.8,.3,1) both;
+  }
+  .variant:nth-child(2){animation-delay:.07s}
+  .variant:nth-child(3){animation-delay:.14s}
+  .variant .harf{
+    display:grid;place-items:center;width:34px;height:34px;border:1.5px solid var(--siyoh);
+    font-family:var(--yorliq);font-weight:700;font-size:15px;
+  }
+  .variant:hover:not(:disabled){background:var(--qogoz-2)}
+  .variant:active:not(:disabled){transform:scale(.985)}
+  .variant:focus-visible{outline:3px solid var(--qizil);outline-offset:2px}
+  .variant:disabled{cursor:default}
+  .variant.tanlandi{background:var(--siyoh);color:var(--qogoz)}
+  .variant.tanlandi .harf{border-color:var(--qogoz);background:var(--qizil)}
+  .variantlar.bitdi .variant{animation:none}          /* kirish animatsiyasi shaffoflikni bosib qo'ymasin */
+  .variantlar.bitdi .variant:not(.tanlandi){opacity:.38}
+  .variant.aylandi{animation:aylan .5s ease both}
+  @keyframes aylan{0%{transform:rotateX(0)}50%{transform:rotateX(90deg)}100%{transform:rotateX(0)}}
+
+  .kompliment{
+    margin-top:18px;padding:16px 16px 14px 18px;border-left:5px solid var(--qizil);background:rgba(168,38,28,.06);
+    animation:kir .4s ease both;
+  }
+  .kompliment .yorliq{margin:0 0 6px;font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--qizil)}
+  .kompliment .soz{margin:0;min-height:2.6em;font-family:var(--sarlavha);font-style:italic;font-size:clamp(21px,5.6vw,27px);line-height:1.32}
+  .kompliment .soz::after{content:"";display:inline-block;width:2px;height:1em;margin-left:2px;vertical-align:-.12em;background:var(--qizil);animation:kursor .8s steps(1) infinite}
+  .kompliment.tugadi .soz::after{display:none}
+  @keyframes kursor{50%{opacity:0}}
+  .keyingi-joy{margin-top:16px;display:flex;justify-content:flex-end}
+
+  /* ── natija ─────────────────────────────────── */
+  .natija{margin-top:20px;border-top:3px solid var(--siyoh);text-align:center}
+  .natija .s-bosh{justify-content:center}
+  .ball{margin:18px 0 0;font-family:var(--sarlavha);font-weight:700;font-size:clamp(84px,26vw,150px);line-height:.9;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .ball small{font-size:.4em;color:var(--xira);letter-spacing:0}
+  .ball-izoh{margin:6px 0 18px;font-family:var(--yorliq);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--siyoh-2)}
+  .tashxis{position:relative;margin:0 auto 18px;max-width:520px;padding:18px 16px;border:2px solid var(--siyoh);text-align:left}
+  .tashxis dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px}
+  .tashxis dt{font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;padding-top:3px}
+  .tashxis dd{margin:0;font-size:17px;line-height:1.45}
+  .muhr{
+    position:absolute;right:-6px;top:-18px;padding:6px 12px;border:3px double var(--qizil);border-radius:4px;
+    background:rgba(242,236,223,.92);color:var(--qizil);font-family:var(--yorliq);font-weight:700;font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+    transform:rotate(7deg);animation:muhr .55s .5s cubic-bezier(.2,1.6,.4,1) both;
+  }
+  @keyframes muhr{from{opacity:0;transform:rotate(7deg) scale(1.8)}to{opacity:1;transform:rotate(7deg) scale(1)}}
+  .yakuniy{margin:0 auto 22px;max-width:30ch;font-family:var(--sarlavha);font-style:italic;font-size:clamp(22px,5.8vw,28px);line-height:1.3;text-wrap:balance}
+  .imzo{display:block;margin-top:8px;font-style:normal;font-family:var(--yorliq);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--siyoh-2)}
+  .yuborish-joy{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px;border-block:1px solid var(--chiziq-yengil)}
+  .yuborish-joy p{margin:0;font-size:14.5px;font-style:italic;color:var(--siyoh-2)}
+  .yuborish-holat{font-style:normal!important;font-weight:700;color:var(--siyoh)!important}
+  .natija .tugmalar{justify-content:center;margin-top:16px}
+
+  /* "Boshqa — o'zim yozaman" */
+  .boshqa{margin-top:12px;display:grid;gap:8px;animation:kir .35s ease both}
+  .boshqa label{font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--siyoh-2)}
+  .boshqa-qator{display:flex;flex-wrap:wrap;gap:10px}
+  .boshqa input{
+    flex:1 1 200px;min-width:0;padding:12px 14px;border:2px solid var(--siyoh);border-radius:0;background:#FBF7EE;color:var(--siyoh);
+    font-family:var(--matn);font-size:18px;
+  }
+  .boshqa input:focus{outline:3px solid var(--qizil);outline-offset:2px}
+  .boshqa input::placeholder{color:var(--xira);font-style:italic}
+
+  /* javoblar ro'yxati */
+  .xulosa{margin:0 auto 18px;max-width:520px;text-align:left;border-top:1px solid var(--chiziq);padding-top:12px}
+  .xulosa-sarlavha{margin:0 0 10px;font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--siyoh-2);text-align:center}
+  .xulosa dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+  .xulosa dt{font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;padding-top:3px;color:var(--siyoh-2)}
+  .xulosa dd{margin:0;font-size:17px;line-height:1.4;padding-bottom:6px;border-bottom:1px solid var(--chiziq-yengil)}
+
+  /* ── oyoq ───────────────────────────────────── */
+  .oyoq{margin-top:30px;padding-top:10px;border-top:1px solid var(--chiziq);display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+  .oyoq p{margin:0;font-family:var(--yorliq);font-size:12px;letter-spacing:.06em;color:var(--siyoh-2);text-transform:uppercase}
+  .oyoq nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px}
+  .oyoq a{color:var(--siyoh-2);font-family:var(--yorliq);font-weight:600;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--chiziq-yengil)}
+  .oyoq a:hover{color:var(--qizil)}
+  .oyoq a:focus-visible{outline:2px solid var(--qizil);outline-offset:2px}
+
+  @media (prefers-reduced-motion:reduce){
+    .gazeta,.s-matn,.variant,.kompliment,.muhr,.variant.aylandi{animation:none}
+    .kompliment .soz::after{display:none}
+    .variant{transition:none}
+  }
+  @media print{
+    body,.stol{background:#fff}
+    .stol{padding:0;min-height:0}
+    .gazeta{box-shadow:none;max-width:none;animation:none}
+  }
+</style>
+</head>
+<body>
+<main class="stol">
+  <article class="gazeta">
+
+    <header class="bosh">
+      <h1 class="nom" id="nom">Omina Times</h1>
+      <p class="shior">«Faqat bitta o'quvchi uchun chiqadigan gazeta»</p>
+      <div class="qalin"></div>
+      <div class="sana-qator">
+        <span class="ilova">Maxsus ilova · Test</span>
+        <span id="sana">Maxsus nashr</span>
+        <span><span data-shahar>Toshkent</span></span>
+      </div>
+    </header>
+
+    <!-- Kirish -->
+    <section id="kirish" aria-labelledby="k-sarlavha">
+      <p class="kicker">Ilmiy test</p>
+      <h2 class="sarlavha" id="k-sarlavha">Sen haqingda <span id="savol-soni">11</span> savol</h2>
+      <p class="deck">To'g'ri javob yo'q. Aniqrog'i — hammasi to'g'ri.</p>
+      <p class="oddiy">Tahririyat sen haqingda ko'proq bilmoqchi. Har bir savolga ko'nglingga yoqqan javobni tanla — tahririyat har biriga rasmiy izoh beradi. Oxirida javoblaringni ko'rasan va xohlasang, muharrirga yuborasan.</p>
+      <div class="tugmalar"><button class="tugma" type="button" id="boshla">Testni boshlash</button></div>
+      <p class="shartlar">Davomiyligi: 3 daqiqa · Qiyinlik darajasi: juda oson · Muvaffaqiyatsizlik ehtimoli: 0%</p>
+    </section>
+
+    <!-- Savol -->
+    <section class="savol-joy" id="savol-joy" aria-live="polite" hidden>
+      <div class="s-bosh">
+        <span>Savol <span class="raqam" id="s-raqam">1 / 8</span></span>
+        <span class="bosqich" id="bosqich" aria-hidden="true"></span>
+      </div>
+      <h3 class="s-matn" id="s-matn" tabindex="-1"></h3>
+      <ul class="variantlar" id="variantlar"></ul>
+      <form class="boshqa" id="boshqa" hidden>
+        <label for="boshqa-matn">O'zing yoz</label>
+        <div class="boshqa-qator">
+          <input id="boshqa-matn" name="boshqa-matn" type="text" maxlength="60" autocomplete="off" placeholder="Shu yerga yoz…">
+          <button class="tugma" type="submit">Tasdiqlash</button>
+        </div>
+      </form>
+      <div class="kompliment" id="kompliment" hidden>
+        <p class="yorliq">Tahririyat izohi</p>
+        <p class="soz" id="kompliment-soz"></p>
+      </div>
+      <div class="keyingi-joy"><button class="tugma" type="button" id="keyingi" hidden>Keyingi savol →</button></div>
+    </section>
+
+    <!-- Natija -->
+    <section class="natija" id="natija" aria-labelledby="n-sarlavha" hidden>
+      <div class="s-bosh"><span id="n-sarlavha">Test natijalari</span></div>
+      <p class="ball" id="ball">8<small> / 8</small></p>
+      <p class="ball-izoh">Hamma javoblar to'g'ri — chunki ularni sen berding</p>
+      <div class="tashxis">
+        <span class="muhr" aria-hidden="true">Tasdiqlandi</span>
+        <dl>
+          <dt>Ism</dt><dd data-ism>Omina</dd>
+          <dt>Tashxis</dt><dd>Juda chiroyli. Davosi yo'q — kerak ham emas.</dd>
+          <dt>Daraja</dt><dd>Gazeta tarixidagi eng zo'r o'quvchi</dd>
+          <dt>Tavsiya</dt><dd>Shunday qolish. O'zgarish taqiqlanadi.</dd>
+        </dl>
+      </div>
+      <p class="yakuniy" id="yakuniy"></p>
+      <div class="xulosa" id="xulosa">
+        <p class="xulosa-sarlavha">Sening javoblaring</p>
+        <dl id="xulosa-royxat"></dl>
+      </div>
+      <div class="yuborish-joy">
+        <button class="tugma" type="button" id="yuborish">Javoblarni muharrirga yuborish</button>
+        <p id="yuborish-izoh">Yuqoridagi javoblar yuboriladi. Bosmaguningcha hech narsa ketmaydi.</p>
+      </div>
+      <div class="tugmalar">
+        <button class="tugma ikkinchi" type="button" id="qaytadan">Testni qaytadan topshirish</button>
+      </div>
+    </section>
+
+    <footer class="oyoq">
+      <p>Bosh muharrir: <span data-muharrir>Ramz</span> · Adadi: 1 nusxa · Bosmaxona: yurak</p>
+      <nav aria-label="Arxiv">
+        <a href="../">1-son</a>
+        <a href="../2/">2-son</a>
+        <a href="../3/">3-son</a>
+      </nav>
+    </footer>
+
+  </article>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ═══════════════════════════════════════════════
+     SOZLAMALAR — faqat shu blokni o'zgartirasan
+  ═══════════════════════════════════════════════ */
+  var SOZLAMA = {
+    ISM:      "Omina",
+    MUHARRIR: "Ramz",
+    SHAHAR:   "Toshkent",
+    POCHTA:   "/pochta/javob"       // javoblar shu manzilga yuboriladi (faqat tugma bosilganda)
+  };
+
+  // kalit   — javoblar ro'yxatidagi qisqa nom; bo'lmasa javob ro'yxatga kirmaydi
+  // boshqa  — "o'zim yozaman" varianti: bosilganda matn maydoni ochiladi
+  // aylan   — bosilganda tugma shu matnga aylanadi
+  var SAVOLLAR = [
+    {savol: "Bugun ko'zguga qaradingmi?", variantlar: [
+      {matn: "Ha",             javob: "Demak, bugun dunyodagi eng chiroyli manzarani ko'rding."},
+      {matn: "Yo'q",           javob: "Qara. Tahririyat ishonch bilan aytadi: u yerda eng chiroyli odam turibdi."},
+      {matn: "Hozir qarayman", javob: "Ehtiyot bo'l — ko'zgu ham sevib qolishi mumkin."}
+    ]},
+    {savol: "Eng yoqtirgan taoming qaysi?", kalit: "Taom", variantlar: [
+      {matn: "Palov",       javob: "Ajoyib tanlov. Lekin palov ham sen bilan yeganda mazaliroq."},
+      {matn: "Shirinliklar", javob: "Tushunarli. Shirin narsalar shirin odamlarga tortiladi."},
+      {matn: "Fast-food",   javob: "Muharrir eslab qoldi. Keyingi sarguzashtda menyu tayyor."},
+      {matn: "Boshqa — o'zim yozaman", boshqa: true, javob: "Yozib olindi. Muharrir allaqachon qayerda borligini qidiryapti."}
+    ]},
+    {savol: "Quyosh nega har kuni chiqadi?", variantlar: [
+      {matn: "Tabiat qonuni", javob: "Rasmiy versiya shunday. Norasmiy: sening kulishingni ko'rish uchun."},
+      {matn: "Bilmayman",     javob: "Senga havas qilib. Lekin baribir sendan yorug'roq bo'lolmaydi."},
+      {matn: "Men uchun",     javob: "To'g'ri javob. Tahririyat tasdiqlaydi."}
+    ]},
+    {savol: "Ideal dam olish kuning qanday?", kalit: "Dam olish", variantlar: [
+      {matn: "Uyda kino va adyol", javob: "Muharrirda adyol ham, kinolar ro'yxati ham bor. Faqat sen kerak."},
+      {matn: "Tabiatda sayr",      javob: "Tabiat sendan chiroyli bo'lolmaydi, lekin urinib ko'radi."},
+      {matn: "Kafe va suhbat",     javob: "Muharrir eng yaxshi stolni band qiladi — derazaning yonidagisini."},
+      {matn: "Boshqa — o'zim yozaman", boshqa: true, javob: "Qayd etildi. Muharrir rejani shunga moslab tuzadi."}
+    ]},
+    {savol: "Qaysi sovg'a seni ko'proq quvontiradi?", kalit: "Sovg'a", variantlar: [
+      {matn: "Gullar",             javob: "Gullar senga sovg'a emas — sen gullarga sovg'asan."},
+      {matn: "Kutilmagan sayohat", javob: "Chamadonni yig'ishni boshlayver. Muharrir xaritani ochdi."},
+      {matn: "Qo'lda yozilgan xat", javob: "Bu gazetalar ham shunaqa xat edi. Davomi bor."},
+      {matn: "Boshqa — o'zim yozaman", boshqa: true, javob: "Qayd etildi. Bu ro'yxat muharrirning yostig'i ostida saqlanadi."}
+    ]},
+    {savol: "Sening kulishing nimaga o'xshaydi?", variantlar: [
+      {matn: "Oddiy kulgiga", javob: "Xato. Oddiy kulgi odamning kunini tuzatmaydi. Seniki tuzatadi."},
+      {matn: "Musiqaga",      javob: "Ha. Va muharrir uni takror-takror tinglashga tayyor."},
+      {matn: "Bilmayman",     javob: "Muharrir biladi. Hisobot: yurak tez uradi, hamma muammo esdan chiqadi."}
+    ]},
+    {savol: "Sevimli guling qaysi?", kalit: "Gul", variantlar: [
+      {matn: "Atirgul",    javob: "Atirgulning tikani bor. Seniki — faqat chiroy. Boshqa gullarga nisbatan adolatsizlik."},
+      {matn: "Lola",       javob: "Lola bahorda bir marta ochiladi. Sen esa har kuni."},
+      {matn: "Moychechak", javob: "Oddiy ko'rinadi, lekin eng samimiysi. Xuddi sening jilmayishingdek."},
+      {matn: "Boshqa — o'zim yozaman", boshqa: true, javob: "Yozib olindi. Gul do'koni allaqachon ogohlantirildi."}
+    ]},
+    {savol: "Kayfiyating tushganda senga nima yordam beradi?", kalit: "Kayfiyat uchun", variantlar: [
+      {matn: "Quchoq",     javob: "Muharrirda bundan cheksiz miqdorda bor. Istalgan vaqtda."},
+      {matn: "Shirinlik",  javob: "Muharrir endi cho'ntagida doim bittasini olib yuradi."},
+      {matn: "Gaplashish", javob: "Muharrir tinglashga tayyor. Kecha-kunduz."},
+      {matn: "Boshqa — o'zim yozaman", boshqa: true, javob: "Qayd etildi. Bu — eng muhim ma'lumot. Muharrir yodlab oldi."}
+    ]},
+    {savol: "Qayerga sayohat qilishni orzu qilasan?", kalit: "Sayohat", variantlar: [
+      {matn: "Dengiz bo'yiga",  javob: "Dengiz ham sening ko'zlaringdek chuqur bo'lishga harakat qiladi."},
+      {matn: "Tog'larga",       javob: "Tog' havosi toza, lekin sen bilan nafas olish undan ham yengil."},
+      {matn: "Boshqa davlatga", javob: "Pasporting tayyormi? Muharrirniki tayyor."},
+      {matn: "Boshqa — o'zim yozaman", boshqa: true, javob: "Qayd etildi. Muharrir sayohat rejasini tuzishni boshladi."}
+    ]},
+    {savol: "Muharrir seni kuniga necha marta o'ylaydi?", variantlar: [
+      {matn: "Bir marta", javob: "Kam aytding. Bir marta — faqat nonushta paytida."},
+      {matn: "Ko'p",      javob: "Hisoblagich buzildi. Raqamlar yetmadi."},
+      {matn: "Hamisha",   javob: "To'g'ri. Hatto shu savolni yozayotganida ham."}
+    ]},
+    {savol: "Oxirgi savol: sen chiroylimisan?", kalit: "Chiroylimisan", variantlar: [
+      {matn: "Ha",        javob: "Javob to'g'ri. Ball: 100 dan 100."},
+      {matn: "Yo'q",      javob: "Bu javob qabul qilinmaydi. Tahririyat uni avtomatik ravishda «ha»ga o'zgartirdi.", aylan: "Ha ✓"},
+      {matn: "Bilmayman", javob: "Muharrir biladi. Va hech qachon shubha qilmagan."}
+    ]}
+  ];
+
+  var YAKUNIY = "Agar chiroylilik jinoyat bo'lganida, sen umrbod qamalgan bo'larding. Muharrir esa ixtiyoriy ravishda yoningda o'tirardi.";
+
+  /* ═══════════════════════════════════════════════ */
+
+  var KUNLAR = ["Yakshanba","Dushanba","Seshanba","Chorshanba","Payshanba","Juma","Shanba"];
+  var OYLAR  = ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"];
+  var HARFLAR = ["A","B","D","E"];            // o'zbek alifbosi tartibi
+  var KALIT  = "omina-times-test-2";
+  var sekin = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ism = (SOZLAMA.ISM || "").trim(), muharrir = (SOZLAMA.MUHARRIR || "").trim();
+  function $(id){ return document.getElementById(id); }
+
+  /* ── holat (faqat shu qurilmada) ──────────── */
+  function boshHolat(){ return {tanlov: [], yuborildi: false}; }
+  var holat = (function(){
+    try{
+      if (/[?&]tozala\b/.test(location.search)) localStorage.removeItem(KALIT);
+      var x = JSON.parse(localStorage.getItem(KALIT) || "null");
+      if (x && Array.isArray(x.tanlov)) return {tanlov: x.tanlov.slice(0, SAVOLLAR.length), yuborildi: !!x.yuborildi};
+    }catch(e){}
+    return boshHolat();
+  })();
+  function saqla(){ try{ localStorage.setItem(KALIT, JSON.stringify(holat)); }catch(e){} }
+  // Javoblar ketma-ket saqlanadi, shuning uchun soni — keyingi savol raqami
+  function bajarilgan(){ return holat.tanlov.filter(Boolean).length; }
+
+  /* ── matnlar ──────────────────────────────── */
+  function matnlar(){
+    var nom = ism ? ism + " Times" : "Sening Gazetang";
+    $("nom").textContent = nom;
+    document.title = nom + " · Test";
+    var i, x = document.querySelectorAll("[data-ism]");
+    for (i = 0; i < x.length; i++) x[i].textContent = ism || "O'quvchi";
+    x = document.querySelectorAll("[data-muharrir]");
+    for (i = 0; i < x.length; i++) x[i].textContent = muharrir || "muharrir";
+    var sh = (SOZLAMA.SHAHAR || "").trim();
+    if (sh){ x = document.querySelectorAll("[data-shahar]"); for (i = 0; i < x.length; i++) x[i].textContent = sh; }
+    var d = new Date();
+    $("sana").textContent = KUNLAR[d.getDay()] + ", " + d.getDate() + "-" + OYLAR[d.getMonth()] + ", " + d.getFullYear() + "-yil";
+    $("savol-soni").textContent = SAVOLLAR.length;
+    $("yakuniy").textContent = YAKUNIY;
+    var imzo = document.createElement("span"); imzo.className = "imzo"; imzo.textContent = "— " + (muharrir || "Muharrir");
+    $("yakuniy").appendChild(imzo);
+    $("yuborish").textContent = "Javoblarni " + (muharrir ? kimga() : "muharrirga") + " yuborish";
+  }
+  // "Ramz" → "Ramzga", "Bek" → "Bekka", "Ortiq" → "Ortiqqa"
+  function kimga(){
+    var oxiri = muharrir.slice(-1).toLowerCase();
+    if (oxiri === "k") return muharrir + "ka";
+    if (oxiri === "q") return muharrir + "qa";
+    return muharrir + "ga";
+  }
+
+  /* ── teletayp effekti ─────────────────────── */
+  var yozishVaqti = 0;
+  function teletayp(el, matn, tugadi){
+    clearTimeout(yozishVaqti);
+    var quti = el.parentNode;
+    quti.classList.remove("tugadi");
+    if (sekin){ el.textContent = matn; quti.classList.add("tugadi"); tugadi(); return; }
+    var i = 0;
+    el.textContent = "";
+    (function qadam(){
+      i = Math.min(matn.length, i + 2);
+      el.textContent = matn.slice(0, i);
+      if (i < matn.length) yozishVaqti = setTimeout(qadam, 22);
+      else { quti.classList.add("tugadi"); tugadi(); }
+    })();
+  }
+
+  /* ── savol ────────────────────────────────── */
+  var joriy = 0;
+  function bosqichChiz(){
+    var b = $("bosqich"); b.innerHTML = "";
+    for (var i = 0; i < SAVOLLAR.length; i++){
+      var t = document.createElement("i");
+      if (i < joriy) t.className = "bitdi"; else if (i === joriy) t.className = "hozir";
+      b.appendChild(t);
+    }
+  }
+  function savolKorsat(i){
+    joriy = i;
+    var s = SAVOLLAR[i];
+    $("kirish").hidden = true; $("natija").hidden = true; $("savol-joy").hidden = false;
+    $("s-raqam").textContent = (i + 1) + " / " + SAVOLLAR.length;
+    bosqichChiz();
+    var sm = $("s-matn");
+    sm.textContent = s.savol;
+    sm.style.animation = "none"; void sm.offsetWidth; sm.style.animation = "";
+    $("kompliment").hidden = true;
+    $("keyingi").hidden = true;
+    $("boshqa").hidden = true;
+    $("boshqa-matn").value = "";
+    var royxat = $("variantlar");
+    royxat.className = "variantlar";
+    royxat.innerHTML = "";
+    s.variantlar.forEach(function(v, k){
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "variant";
+      var h = document.createElement("span"); h.className = "harf"; h.textContent = HARFLAR[k] || String(k + 1);
+      var m = document.createElement("span"); m.className = "m"; m.textContent = v.matn;
+      b.appendChild(h); b.appendChild(m);
+      b.addEventListener("click", function(){ v.boshqa ? boshqaOch(k, b) : tanla(k, b, v.matn); });
+      li.appendChild(b); royxat.appendChild(li);
+    });
+    $("savol-joy").scrollIntoView({behavior: sekin ? "auto" : "smooth", block: "start"});
+    sm.focus({preventScroll: true});
+  }
+  function variantlarniYop(tugma){
+    var royxat = $("variantlar"), hammasi = royxat.querySelectorAll(".variant");
+    for (var i = 0; i < hammasi.length; i++){
+      hammasi[i].disabled = true;
+      hammasi[i].classList.toggle("tanlandi", hammasi[i] === tugma);
+    }
+    royxat.classList.add("bitdi");
+    $("boshqa").hidden = true;
+  }
+
+  // "Boshqa" — matn maydonini ochadi; javob tasdiqlangach tanla() chaqiriladi
+  var boshqaTugma = null, boshqaIndeks = -1;
+  function boshqaOch(k, tugma){
+    var hammasi = $("variantlar").querySelectorAll(".variant");
+    for (var i = 0; i < hammasi.length; i++) hammasi[i].classList.toggle("tanlandi", hammasi[i] === tugma);
+    boshqaTugma = tugma; boshqaIndeks = k;
+    $("boshqa").hidden = false;
+    $("boshqa-matn").focus();
+  }
+  $("boshqa").addEventListener("submit", function(e){
+    e.preventDefault();
+    var matn = $("boshqa-matn").value.replace(/\s+/g, " ").trim();
+    if (!matn){ $("boshqa-matn").focus(); return; }
+    $("boshqa").hidden = true;
+    boshqaTugma.querySelector(".m").textContent = matn;
+    tanla(boshqaIndeks, boshqaTugma, matn);
+  });
+
+  function tanla(k, tugma, qayd){
+    var v = SAVOLLAR[joriy].variantlar[k];
+    variantlarniYop(tugma);
+    if (v.aylan){
+      tugma.classList.add("aylandi");
+      setTimeout(function(){ tugma.querySelector(".m").textContent = v.aylan; }, sekin ? 0 : 250);
+      qayd = v.matn + " → " + v.aylan.replace(/\s*✓\s*$/, "");
+    }
+    holat.tanlov[joriy] = qayd; saqla();
+    $("kompliment").hidden = false;
+    teletayp($("kompliment-soz"), v.javob, function(){
+      var kt = $("keyingi");
+      kt.textContent = joriy === SAVOLLAR.length - 1 ? "Natijani ko'rish →" : "Keyingi savol →";
+      kt.hidden = false;
+      kt.focus({preventScroll: true});
+    });
+  }
+  $("keyingi").addEventListener("click", function(){
+    if (joriy < SAVOLLAR.length - 1) savolKorsat(joriy + 1);
+    else natijaKorsat(true);
+  });
+
+  /* ── natija ───────────────────────────────── */
+  function xulosaQatorlari(){
+    var q = [];
+    SAVOLLAR.forEach(function(s, i){ if (s.kalit && holat.tanlov[i]) q.push([s.kalit, holat.tanlov[i]]); });
+    return q;
+  }
+  function natijaKorsat(animatsiya){
+    $("kirish").hidden = true; $("savol-joy").hidden = true;
+    var n = $("natija");
+    if (!animatsiya){ var m = n.querySelector(".muhr"); if (m) m.style.animation = "none"; }
+    $("ball").firstChild.nodeValue = String(SAVOLLAR.length);
+    $("ball").querySelector("small").textContent = " / " + SAVOLLAR.length;
+    var dl = $("xulosa-royxat"); dl.innerHTML = "";
+    xulosaQatorlari().forEach(function(q){
+      var dt = document.createElement("dt"); dt.textContent = q[0];
+      var dd = document.createElement("dd"); dd.textContent = q[1];
+      dl.appendChild(dt); dl.appendChild(dd);
+    });
+    if (holat.yuborildi) yuborildiKorsat();
+    n.hidden = false;
+    n.scrollIntoView({behavior: sekin || !animatsiya ? "auto" : "smooth", block: "start"});
+  }
+  function yuborildiKorsat(){
+    $("yuborish").hidden = true;
+    var iz = $("yuborish-izoh");
+    iz.textContent = "✓ Javoblar " + (muharrir ? kimga() : "muharrirga") + " yetib bordi.";
+    iz.className = "yuborish-holat";
+  }
+  $("yuborish").addEventListener("click", function(){
+    var t = $("yuborish"), iz = $("yuborish-izoh");
+    t.disabled = true;
+    iz.className = ""; iz.textContent = "Yuborilmoqda…";
+    var matn = xulosaQatorlari().map(function(q){ return q[0] + ": " + q[1]; }).join("\n");
+    var bosh = window.AbortController ? new AbortController() : null;
+    var muddat = setTimeout(function(){ if (bosh) bosh.abort(); }, 20000);
+    fetch(SOZLAMA.POCHTA, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({savol: "Test: sen haqingda " + SAVOLLAR.length + " savol", javob: matn || "—"}),
+      signal: bosh ? bosh.signal : undefined
+    }).then(function(j){
+      clearTimeout(muddat);
+      if (!j.ok) throw new Error(String(j.status));
+      holat.yuborildi = true; saqla();
+      yuborildiKorsat();
+    }).catch(function(e){
+      clearTimeout(muddat);
+      t.disabled = false;
+      iz.className = "";
+      iz.textContent = e && e.message === "429"
+        ? "Juda ko'p urinish bo'ldi. Bir oz kutib, qayta bos."
+        : "Yuborib bo'lmadi. Internetni tekshirib, qayta bos.";
+    });
+  });
+  $("qaytadan").addEventListener("click", function(){
+    holat = boshHolat(); saqla();
+    $("yuborish").hidden = false; $("yuborish").disabled = false;
+    $("yuborish-izoh").className = "";
+    $("yuborish-izoh").textContent = "Yuqoridagi javoblar yuboriladi. Bosmaguningcha hech narsa ketmaydi.";
+    savolKorsat(0);
+  });
+  $("boshla").addEventListener("click", function(){
+    var b = bajarilgan();
+    savolKorsat(b > 0 && b < SAVOLLAR.length ? b : 0);
+  });
+
+  /* ── ishga tushirish ──────────────────────── */
+  matnlar();
+  if (bajarilgan() >= SAVOLLAR.length) natijaKorsat(false);
+  else if (bajarilgan() > 0) $("boshla").textContent = "Davom ettirish (" + (bajarilgan() + 1) + "-savol)";
+})();
+</script>
+</body>
+</html>
