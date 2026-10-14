@@ -44,6 +44,8 @@ TOSHKENT = timezone(timedelta(hours=5))
 NOM_RE = re.compile(r"^[0-9]{8}-[0-9]{6}-[0-9a-f]{8}\.jpg$")
 GALEREYA = f"/pochta/{KALIT}/"
 JAVOBLAR = os.path.join(PAPKA, "javoblar.jsonl")
+OYIN_ARXIV = os.path.join(PAPKA, "oyin_tarixi.jsonl")
+MAX_ARXIV = 5000                    # o'yin arxividagi yozuvlar soni chegarasi
 
 if not re.fullmatch(r"[0-9a-f]{16,64}", KALIT):
     raise SystemExit("POCHTA_KALIT 16–64 belgili hex bo'lishi kerak")
@@ -93,6 +95,42 @@ def javoblar():
         return []
     natija = []
     for q in reversed(qatorlar):
+        try:
+            natija.append(json.loads(q))
+        except ValueError:
+            continue
+    return natija
+
+
+# ── o'yin arxivi ────────────────────────────────────────────────────────────
+_arxiv_qulfi = threading.Lock()
+
+
+def arxivga(yozuv):
+    """oyin.py tarixga yozgan har bir kartani diskka ham saqlaydi."""
+    with _arxiv_qulfi:
+        try:
+            with open(OYIN_ARXIV, encoding="utf-8") as f:
+                soni = sum(1 for _ in f)
+        except FileNotFoundError:
+            soni = 0
+        if soni >= MAX_ARXIV:
+            return
+        with open(OYIN_ARXIV, "a", encoding="utf-8") as f:
+            f.write(json.dumps(yozuv, ensure_ascii=False) + "\n")
+
+
+oyin.ARXIVGA = arxivga
+
+
+def arxiv_oqi():
+    try:
+        with open(OYIN_ARXIV, encoding="utf-8") as f:
+            qatorlar = f.readlines()
+    except FileNotFoundError:
+        return []
+    natija = []
+    for q in qatorlar:
         try:
             natija.append(json.loads(q))
         except ValueError:
@@ -171,10 +209,14 @@ SHABLON = """<!doctype html>
   figcaption{margin-top:6px;font-style:italic;font-size:14px;color:var(--siyoh-2)}
   .bosh{font-style:italic;color:var(--siyoh-2);margin:0}
   a:focus-visible{outline:3px solid var(--qizil);outline-offset:3px}
+  .havola{margin:12px 0 0;text-align:center}
+  .havola a{display:inline-block;padding:10px 16px;background:var(--siyoh);color:var(--qogoz);text-decoration:none;
+            font-family:"Arial Narrow",sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
 </style></head>
 <body><main><div class="varaq">
 <h1>Tahririyat pochtasi</h1>
 <p class="soni">Javoblar: {{JAVOB_SONI}} · Muqovalar: {{SONI}} · sahifa har 30 soniyada yangilanadi</p>
+<p class="havola"><a href="oyin">«Rost yoki jasorat» arxivi →</a></p>
 <h2>Javoblar</h2>
 {{JAVOBLAR}}
 <h2>Muqovalar</h2>
@@ -205,6 +247,92 @@ def galereya():
             .replace("{{JAVOB_SONI}}", str(len(jv)))
             .replace("{{JAVOBLAR}}", javob_html)
             .replace("{{KARTALAR}}", kartalar))
+
+
+ARXIV_SHABLON = """<!doctype html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="refresh" content="30">
+<title>Rost yoki jasorat — arxiv</title>
+<style>
+  :root{--qogoz:#F2ECDF;--siyoh:#1C1915;--siyoh-2:#4A443A;--qizil:#A8261C;--kok:#2F4A7A;--stol:#2B2722}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--stol);color:var(--siyoh);font-family:Georgia,"Times New Roman",serif}
+  main{max-width:760px;margin:0 auto;padding:24px 12px 48px}
+  .varaq{background:var(--qogoz);padding:20px 16px 28px}
+  h1{margin:0;font-size:30px;text-align:center}
+  .orqa{display:block;margin:0 0 12px;font-family:"Arial Narrow",sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--siyoh-2)}
+  .soni{margin:6px 0 0;text-align:center;font-family:"Arial Narrow",sans-serif;font-size:12px;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--siyoh-2);border-block:1px solid var(--siyoh);padding:6px 0}
+  .oyin{margin-top:22px}
+  .oyin h2{margin:0;padding:7px 0;border-top:3px solid var(--siyoh);border-bottom:1px solid var(--siyoh);
+           display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+           font-family:"Arial Narrow",sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+  .oyin h2 span:last-child{color:var(--siyoh-2)}
+  ol{list-style:none;margin:0;padding:0}
+  li{padding:12px 0;border-bottom:1px solid rgba(28,25,21,.2);display:grid;gap:4px}
+  .bosh{display:flex;justify-content:space-between;gap:10px;font-family:"Arial Narrow",sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
+  .rost{color:var(--kok)} .jasorat{color:var(--qizil)}
+  .savol{font-style:italic;color:var(--siyoh-2);font-size:15px}
+  .javob{font-size:18px;line-height:1.45;word-break:break-word}
+  .yoq{font-style:italic;color:var(--siyoh-2)}
+  .bosh-holat{font-style:italic;color:var(--siyoh-2);text-align:center;margin:24px 0 0}
+  a:focus-visible{outline:3px solid var(--qizil);outline-offset:3px}
+</style></head>
+<body><main><div class="varaq">
+<a class="orqa" href="./">← Tahririyat pochtasi</a>
+<h1>«Rost yoki jasorat» arxivi</h1>
+<p class="soni">O'yinlar: {{OYIN_SONI}} · Kartalar: {{KARTA_SONI}} · sahifa har 30 soniyada yangilanadi</p>
+{{OYINLAR}}
+</div></main></body></html>"""
+
+
+def oyin_arxivi():
+    yozuvlar = arxiv_oqi()
+    guruhlar = {}
+    for y in yozuvlar:
+        guruhlar.setdefault(str(y.get("xona", "?")), []).append(y)
+    # eng so'nggi o'ynalgan xona birinchi
+    tartib = sorted(guruhlar.items(), key=lambda g: max(float(y.get("vaqt", 0)) for y in g[1]), reverse=True)
+
+    def vaqt_matn(t):
+        try:
+            return datetime.fromtimestamp(float(t), TOSHKENT).strftime("%d.%m.%Y, %H:%M")
+        except (TypeError, ValueError):
+            return ""
+
+    bloklar = []
+    for kod, royxat in tartib:
+        oyinchilar = " va ".join(html.escape(str(i)) for i in (royxat[0].get("oyinchilar") or []) if i)
+        boshlandi = vaqt_matn(min(float(y.get("vaqt", 0)) for y in royxat))
+        satrlar = []
+        for y in reversed(royxat):        # o'yin ichida eng yangisi tepada
+            tur = "rost" if y.get("tur") == "rost" else "jasorat"
+            if y.get("natija") == "qabul":
+                ochko = f"+{int(y.get('ochko', 0))} ✓"
+            else:
+                ochko = "o'tkazdi" + (f" ({int(y.get('ochko', 0))})" if y.get("ochko") else "")
+            if y.get("javob"):
+                javob = f'<div class="javob">«{html.escape(str(y["javob"]))}»</div>'
+            elif y.get("natija") == "qabul":
+                javob = '<div class="javob yoq">Bajarildi ✓</div>'
+            else:
+                javob = '<div class="javob yoq">Javob berilmadi</div>'
+            satrlar.append(
+                f'<li><div class="bosh"><span>{html.escape(str(y.get("kim", "")))} · '
+                f'<span class="{tur}">{"Rost" if tur == "rost" else "Jasorat"}</span></span>'
+                f'<span>{ochko} · {vaqt_matn(y.get("vaqt"))[-5:]}</span></div>'
+                f'<div class="savol">{html.escape(str(y.get("savol", "")))}</div>{javob}</li>'
+            )
+        bloklar.append(
+            f'<section class="oyin"><h2><span>Xona {html.escape(kod)} · {oyinchilar}</span>'
+            f"<span>{boshlandi}</span></h2><ol>{''.join(satrlar)}</ol></section>"
+        )
+    return (ARXIV_SHABLON
+            .replace("{{OYIN_SONI}}", str(len(guruhlar)))
+            .replace("{{KARTA_SONI}}", str(len(yozuvlar)))
+            .replace("{{OYINLAR}}", "".join(bloklar) or '<p class="bosh-holat">Hozircha o\'yin bo\'lmadi.</p>'))
 
 
 # ── HTTP ────────────────────────────────────────────────────────────────────
@@ -362,6 +490,8 @@ class Ishlovchi(BaseHTTPRequestHandler):
         maxfiy = {"X-Robots-Tag": "noindex, nofollow", "Referrer-Policy": "no-referrer"}
         if yol == GALEREYA:
             return self._javob(200, galereya(), "text/html; charset=utf-8", maxfiy)
+        if yol in (GALEREYA + "oyin", GALEREYA + "oyin/"):
+            return self._javob(200, oyin_arxivi(), "text/html; charset=utf-8", maxfiy)
         if yol.startswith(GALEREYA):
             nom = yol[len(GALEREYA):]
             to_liq = os.path.join(PAPKA, nom)

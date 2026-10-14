@@ -170,6 +170,9 @@
   .tarix .t-javob{font-size:16px;line-height:1.4;word-break:break-word}
   .tarix .bosh-holat{padding:12px 0;font-style:italic;color:var(--siyoh-2)}
 
+  .chiqish-joy{margin-top:22px;text-align:center}
+  .saqlanadi{margin:8px 0 0;font-style:italic;font-size:13.5px;color:var(--xira)}
+
   .xabar{
     position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:10;
     width:min(calc(100vw - 32px),440px);transform:translateX(-50%);padding:14px 16px;background:var(--siyoh);color:var(--qogoz);
@@ -226,6 +229,7 @@
       </div>
       <a class="tugma toliq" id="tg-ulash" href="#" target="_blank" rel="noopener">Telegram'da yuborish</a>
       <p class="kutilmoqda">Sherigingiz kutilmoqda<span class="nuqtalar"></span></p>
+      <button class="matn-tugma" type="button" data-chiqish>Bekor qilish</button>
     </section>
 
     <!-- 3. O'yin -->
@@ -238,8 +242,10 @@
       <div class="sahna" id="sahna" aria-live="polite"></div>
       <section class="tarix" aria-labelledby="tarix-sarlavha">
         <h3 id="tarix-sarlavha">O'yin tarixi</h3>
+        <p class="saqlanadi">Javoblar o'yindan keyin ham tahririyat arxivida saqlanadi.</p>
         <ol id="tarix"></ol>
       </section>
+      <div class="chiqish-joy"><button class="tugma ikkinchi" type="button" data-chiqish>Yangi o'yin — xonadan chiqish</button></div>
     </section>
   </article>
 </main>
@@ -301,9 +307,10 @@
     });
   }
   function harakat(tur, qoshimcha){
-    var d = {kod: sessiya.kod, token: sessiya.token, tur: tur};
+    var mening = sessiya;
+    var d = {kod: mening.kod, token: mening.token, tur: tur};
     for (var k in qoshimcha) d[k] = qoshimcha[k];
-    return soro("harakat", d).then(function(r){ yangila(r.holat); return r.holat; })
+    return soro("harakat", d).then(function(r){ if (sessiya === mening) yangila(r.holat); return r.holat; })
       .catch(function(e){ xabar(e.message); throw e; });
   }
 
@@ -556,31 +563,50 @@
     if (!aylanmoqda) sahnaChiz();
   }
 
+  /* ── xonadan chiqish ──────────────────────── */
+  function xonadanChiq(){
+    sessiya = null; sessiyaOchir();
+    holat = null; korsatilganVersiya = 0; aylanganKarta = 0; oxirgiTarixSoni = -1; aylanmoqda = false;
+    urlKod = "";
+    history.replaceState(null, "", location.pathname);
+    $("kirish-xato").textContent = "";
+    $("kirish-tugma").disabled = false;
+    kirishTayyorla();
+    window.scrollTo(0, 0);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-chiqish]"), function(b){
+    b.addEventListener("click", function(){
+      if (holat && holat.bosqich !== "kutish" && !window.confirm("Xonadan chiqasanmi? Bu telefonda o'yin yopiladi.")) return;
+      xonadanChiq();
+    });
+  });
+
   /* ── holatni kuzatish ─────────────────────── */
-  var tinglanmoqda = false;
+  var tinglanmoqda = null;      // qaysi sessiya kuzatilyapti
   function tinglash(){
-    if (tinglanmoqda) return;
-    tinglanmoqda = true;
+    if (tinglanmoqda === sessiya) return;
+    var mening = tinglanmoqda = sessiya;
     var birinchi = true;
     (function sikl(){
-      if (!sessiya) return;
+      if (sessiya !== mening) return;          // xonadan chiqilgan yoki boshqa xonaga o'tilgan
       // Yashirin sahifada so'ramaymiz (batareya) — lekin birinchi holat darhol olinadi
       if (document.hidden && !birinchi){ setTimeout(sikl, POLL_MS); return; }
       birinchi = false;
-      soro("holat?kod=" + encodeURIComponent(sessiya.kod) + "&token=" + encodeURIComponent(sessiya.token))
-        .then(function(r){ $("aloqa").hidden = true; yangila(r.holat); })
+      soro("holat?kod=" + encodeURIComponent(mening.kod) + "&token=" + encodeURIComponent(mening.token))
+        .then(function(r){
+          if (sessiya !== mening) return;      // kech kelgan eski javob — e'tiborsiz
+          $("aloqa").hidden = true; yangila(r.holat);
+        })
         .catch(function(e){
+          if (sessiya !== mening) return;
           if (e.kod === 403 || e.kod === 404){
-            sessiya = null; sessiyaOchir(); tinglanmoqda = false;
             xabar(e.message);
-            history.replaceState(null, "", location.pathname);
-            urlKod = "";
-            kirishTayyorla();
+            xonadanChiq();
             return;
           }
           $("aloqa").hidden = false;
         })
-        .then(function(){ if (sessiya) setTimeout(sikl, POLL_MS); });
+        .then(function(){ if (sessiya === mening) setTimeout(sikl, POLL_MS); });
     })();
   }
 

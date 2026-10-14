@@ -75,6 +75,10 @@ KARTALAR = {"rost": ROST, "jasorat": JASORAT}
 _xonalar = {}
 _qulf = threading.Lock()
 
+# pochta.py o'rnatadi: tarix yozuvini doimiy arxivga (diskka) saqlaydigan funksiya.
+# O'yin mantig'i faylga bog'lanib qolmasligi uchun shu yerda faqat chaqiriladi.
+ARXIVGA = None
+
 
 class OyinXatosi(Exception):
     """Foydalanuvchiga ko'rsatiladigan xato (HTTP kodi bilan)."""
@@ -162,11 +166,19 @@ def _karta_ol(x, tur, gildirak):
 
 def _tarixga(x, natija, ochko):
     o = x["oyinchilar"][x["navbat"]]
-    x["tarix"].append({
+    yozuv = {
         "kim": o["ism"], "rol": x["navbat"], "tur": x["karta"]["tur"], "savol": x["karta"]["matn"],
         "javob": x["javob"], "natija": natija, "ochko": ochko,
-    })
+    }
+    x["tarix"].append(yozuv)
     del x["tarix"][:-TARIX_SAQLASH]
+    if ARXIVGA:
+        oy = x["oyinchilar"]
+        try:
+            ARXIVGA(dict(yozuv, xona=x["kod"], vaqt=time.time(),
+                         oyinchilar=[oy["a"]["ism"], oy["b"]["ism"] if oy["b"] else ""]))
+        except Exception as e:  # arxiv xatosi o'yinni to'xtatmasin
+            print("arxiv xatosi:", type(e).__name__, flush=True)
 
 
 # ── tashqi funksiyalar ──────────────────────────────────────────────────────
