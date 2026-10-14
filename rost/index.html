@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rost yoki jasorat · Omina Times</title>
+<meta name="description" content="Ikki o'yinchi, ikki telefon: rost gapir yoki jasorat ko'rsat.">
+<meta name="theme-color" content="#2B2722">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rost yoki jasorat — o'ynaymizmi? 😏">
+<meta property="og:description" content="Omina Times o'yinlar bo'limi. Linkni bos va xonaga kir.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Archivo+Narrow:wght@500;600;700&display=swap">
+<style>
+  :root{
+    --qogoz:#F2ECDF;
+    --qogoz-2:#E9E1CF;
+    --siyoh:#1C1915;
+    --siyoh-2:#4A443A;
+    --xira:#857B6B;
+    --qizil:#A8261C;
+    --kok:#2F4A7A;
+    --stol:#2B2722;
+    --chiziq:rgba(28,25,21,.88);
+    --chiziq-yengil:rgba(28,25,21,.22);
+    --nom:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;
+    --sarlavha:"Old Standard TT",Georgia,"Times New Roman",serif;
+    --matn:"Libre Caslon Text",Georgia,"Times New Roman",serif;
+    --yorliq:"Archivo Narrow","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+    color-scheme:light;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0}
+  body{background:var(--stol);color:var(--siyoh);font-family:var(--matn);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  .stol{
+    min-height:100vh;
+    background:radial-gradient(120% 70% at 50% 0%,#3A342D 0%,#2B2722 55%,#211E1A 100%);
+    padding-block:calc(18px + env(safe-area-inset-top,0px)) calc(48px + env(safe-area-inset-bottom,0px));
+    padding-inline:10px;overflow-x:hidden;overflow-x:clip;
+  }
+  .varaq{
+    position:relative;max-width:560px;margin:0 auto;background-color:var(--qogoz);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .11 0 0 0 0 .1 0 0 0 0 .08 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    padding-block:16px 26px;padding-inline:16px;
+    box-shadow:0 1px 0 rgba(0,0,0,.25),0 34px 70px -24px rgba(0,0,0,.75);
+  }
+  @media (min-width:600px){.varaq{padding-inline:28px}}
+
+  /* ── bosh ───────────────────────────────────── */
+  .bosh{text-align:center}
+  .nom{margin:0;font-family:var(--nom);font-weight:400;font-size:clamp(34px,10vw,52px);line-height:1}
+  .bolim{margin:8px 0 0;padding:5px 0;border-block:1px solid var(--chiziq);font-family:var(--yorliq);font-weight:700;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase}
+  .oyin-nomi{margin:14px 0 4px;font-family:var(--sarlavha);font-weight:700;font-size:clamp(34px,10vw,50px);line-height:1;letter-spacing:-.01em}
+  .oyin-nomi .r{color:var(--kok)} .oyin-nomi .j{color:var(--qizil)}
+  .oyin-nomi i{font-weight:400;font-size:.6em;color:var(--siyoh-2)}
+
+  /* ── umumiy ─────────────────────────────────── */
+  .izoh{margin:10px 0 0;font-size:16.5px;line-height:1.55;color:var(--siyoh-2);text-align:center;text-wrap:balance}
+  .tugma{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:14px 22px;
+    border:none;border-radius:0;cursor:pointer;text-decoration:none;background:var(--siyoh);color:var(--qogoz);
+    font-family:var(--yorliq);font-weight:700;font-size:14.5px;letter-spacing:.12em;text-transform:uppercase;
+    -webkit-tap-highlight-color:transparent;transition:background-color .2s ease,transform .12s ease;
+  }
+  .tugma:hover{background:#000}
+  .tugma:active{transform:scale(.98)}
+  .tugma:focus-visible{outline:3px solid var(--qizil);outline-offset:3px}
+  .tugma:disabled{opacity:.45;cursor:not-allowed}
+  .tugma.ikkinchi{background:transparent;color:var(--siyoh);border:1.5px solid var(--siyoh)}
+  .tugma.ikkinchi:hover{background:var(--qogoz-2)}
+  .tugma.kok{background:var(--kok)} .tugma.kok:hover{background:#243a61}
+  .tugma.qizil{background:var(--qizil)} .tugma.qizil:hover{background:#8c1f17}
+  .tugma.toliq{width:100%}
+  .matn-tugma{background:none;border:none;padding:8px 0;cursor:pointer;font-family:var(--matn);font-style:italic;font-size:15px;color:var(--siyoh-2);text-decoration:underline;text-underline-offset:3px}
+  .matn-tugma:hover{color:var(--qizil)}
+  .matn-tugma:focus-visible{outline:2px solid var(--qizil);outline-offset:2px}
+  .xato-matn{margin:10px 0 0;min-height:1.4em;font-size:15px;color:var(--qizil);text-align:center}
+  .maydon{display:grid;gap:6px}
+  .maydon label{font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--siyoh-2)}
+  .maydon input,.maydon textarea{
+    width:100%;padding:13px 14px;border:2px solid var(--siyoh);border-radius:0;background:#FBF7EE;color:var(--siyoh);
+    font-family:var(--matn);font-size:18px;line-height:1.4;
+  }
+  .maydon textarea{min-height:110px;resize:vertical}
+  .maydon input:focus,.maydon textarea:focus{outline:3px solid var(--qizil);outline-offset:2px}
+
+  /* ── kirish ─────────────────────────────────── */
+  .kirish{display:grid;gap:14px;margin-top:20px}
+  .qoidalar{margin:18px 0 0;padding:12px 14px;border:1px dashed var(--chiziq);display:grid;gap:6px;font-size:15px;line-height:1.45}
+  .qoidalar b{font-family:var(--yorliq);letter-spacing:.08em;text-transform:uppercase;font-size:12.5px}
+
+  /* ── kutish ─────────────────────────────────── */
+  .kutish{margin-top:20px;display:grid;gap:12px;text-align:center}
+  .kod{font-family:var(--sarlavha);font-weight:700;font-size:56px;letter-spacing:.18em;line-height:1;padding:10px 0;border-block:3px double var(--siyoh)}
+  .havola-qator{display:flex;gap:8px}
+  .havola-qator input{flex:1;min-width:0;padding:12px;border:1.5px solid var(--siyoh);background:#FBF7EE;font-family:var(--yorliq);font-size:14px;color:var(--siyoh)}
+  .nuqtalar::after{content:"";animation:nuqta 1.4s steps(4) infinite}
+  @keyframes nuqta{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+  .kutilmoqda{margin:6px 0 0;font-style:italic;color:var(--siyoh-2)}
+
+  /* ── tablo ──────────────────────────────────── */
+  .tablo{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--siyoh)}
+  .oyinchi{padding:10px 12px;text-align:center;position:relative;transition:background-color .3s ease,color .3s ease}
+  .oyinchi + .oyinchi{border-left:2px solid var(--siyoh)}
+  .oyinchi .ism{font-family:var(--yorliq);font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .oyinchi .ochko{font-family:var(--sarlavha);font-weight:700;font-size:38px;line-height:1.05;font-variant-numeric:tabular-nums}
+  .oyinchi .sen{font-family:var(--yorliq);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--xira)}
+  .oyinchi.navbatda{background:var(--siyoh);color:var(--qogoz)}
+  .oyinchi.navbatda .sen{color:var(--qogoz)}
+  .oyinchi .sen b{color:var(--qizil);background:var(--qogoz);padding:1px 5px;font-weight:700}
+  .aloqa{margin:8px 0 0;text-align:center;font-family:var(--yorliq);font-size:12.5px;letter-spacing:.06em;color:var(--qizil)}
+
+  /* ── sahna ──────────────────────────────────── */
+  .sahna{margin-top:18px;display:grid;gap:14px}
+  .sahna-sarlavha{margin:0;text-align:center;font-family:var(--sarlavha);font-weight:700;font-size:clamp(24px,6.6vw,32px);line-height:1.15;text-wrap:balance}
+  .kutish-matn{margin:0;text-align:center;font-style:italic;font-size:17px;color:var(--siyoh-2)}
+  .tanlovlar{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tanlovlar .gildirak-tugma{grid-column:1 / -1}
+
+  /* g'ildirak */
+  .gildirak-joy{position:relative;width:min(240px,64vw);aspect-ratio:1;margin:4px auto 0}
+  .gildirak{
+    position:absolute;inset:0;border-radius:50%;border:4px solid var(--siyoh);
+    background:conic-gradient(var(--kok) 0 45deg,var(--qizil) 45deg 90deg,var(--kok) 90deg 135deg,var(--qizil) 135deg 180deg,var(--kok) 180deg 225deg,var(--qizil) 225deg 270deg,var(--kok) 270deg 315deg,var(--qizil) 315deg 360deg);
+    box-shadow:0 14px 30px -14px rgba(0,0,0,.6),inset 0 0 0 6px rgba(242,236,223,.25);
+    transition:transform 2s cubic-bezier(.17,.84,.24,1);
+  }
+  .gildirak::after{content:"";position:absolute;inset:38%;border-radius:50%;background:var(--qogoz);border:3px solid var(--siyoh)}
+  .gildirak-joy::before{
+    content:"";position:absolute;z-index:2;top:-8px;left:50%;transform:translateX(-50%);
+    border-left:13px solid transparent;border-right:13px solid transparent;border-top:24px solid var(--siyoh);
+  }
+  .gildirak-legenda{display:flex;justify-content:center;gap:16px;font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .gildirak-legenda span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+  .gildirak-legenda .l-r::before{background:var(--kok)} .gildirak-legenda .l-j::before{background:var(--qizil)}
+
+  /* karta */
+  .karta{
+    position:relative;padding:20px 18px 18px;border:2px solid var(--siyoh);background:#FBF7EE;
+    box-shadow:6px 6px 0 var(--siyoh);animation:karta .5s cubic-bezier(.2,1.3,.4,1) both;
+  }
+  .karta.rost{border-color:var(--kok);box-shadow:6px 6px 0 var(--kok)}
+  .karta.jasorat{border-color:var(--qizil);box-shadow:6px 6px 0 var(--qizil)}
+  @keyframes karta{from{opacity:0;transform:translateY(14px) rotate(-1.5deg) scale(.96)}to{opacity:1;transform:none}}
+  .karta .tur{margin:0 0 8px;font-family:var(--yorliq);font-weight:700;font-size:13px;letter-spacing:.22em;text-transform:uppercase}
+  .karta.rost .tur{color:var(--kok)} .karta.jasorat .tur{color:var(--qizil)}
+  .karta .kimga{float:right;color:var(--xira);letter-spacing:.1em}
+  .karta .savol{margin:0;font-family:var(--sarlavha);font-weight:700;font-size:clamp(22px,6vw,28px);line-height:1.22;text-wrap:balance}
+  .rad-izoh{margin:0;padding:10px 12px;background:rgba(168,38,28,.08);border-left:4px solid var(--qizil);font-size:15.5px}
+  .javob-pufak{
+    margin:0;padding:14px 16px;background:#FFFFFF;border-radius:16px 16px 16px 4px;box-shadow:0 8px 20px -12px rgba(0,0,0,.4);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:19px;line-height:1.4;white-space:pre-wrap;word-break:break-word;
+    animation:karta .4s ease both;
+  }
+  .javob-kim{margin:0 0 -6px;font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--siyoh-2)}
+  .ikkitalik{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .pastki-amal{text-align:center}
+
+  /* tarix */
+  .tarix{margin-top:28px;border-top:3px solid var(--siyoh)}
+  .tarix h3{margin:0;padding:7px 0;border-bottom:1px solid var(--chiziq);font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase}
+  .tarix ol{list-style:none;margin:0;padding:0}
+  .tarix li{padding:10px 0;border-bottom:1px solid var(--chiziq-yengil);display:grid;gap:3px}
+  .tarix .t-bosh{display:flex;justify-content:space-between;gap:10px;font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .tarix .t-bosh .rost{color:var(--kok)} .tarix .t-bosh .jasorat{color:var(--qizil)}
+  .tarix .t-savol{font-size:14.5px;color:var(--siyoh-2);font-style:italic}
+  .tarix .t-javob{font-size:16px;line-height:1.4;word-break:break-word}
+  .tarix .bosh-holat{padding:12px 0;font-style:italic;color:var(--siyoh-2)}
+
+  .xabar{
+    position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:10;
+    width:min(calc(100vw - 32px),440px);transform:translateX(-50%);padding:14px 16px;background:var(--siyoh);color:var(--qogoz);
+    font-family:var(--matn);font-size:16px;line-height:1.4;text-align:center;box-shadow:0 18px 44px -12px rgba(0,0,0,.65);
+    animation:chiq .34s cubic-bezier(.2,1.25,.4,1);
+  }
+  @keyframes chiq{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
+
+  @media (prefers-reduced-motion:reduce){
+    .karta,.javob-pufak,.xabar,.nuqtalar::after{animation:none}
+    .gildirak{transition-duration:.01ms}
+  }
+</style>
+</head>
+<body>
+<main class="stol">
+  <article class="varaq">
+    <header class="bosh">
+      <h1 class="nom">Omina Times</h1>
+      <p class="bolim">O'yinlar bo'limi</p>
+      <h2 class="oyin-nomi"><span class="r">Rost</span> <i>yoki</i> <span class="j">jasorat</span></h2>
+    </header>
+
+    <!-- 1. Kirish -->
+    <section id="kirish" class="kirish" aria-labelledby="kirish-izoh">
+      <p class="izoh" id="kirish-izoh">Ikki o'yinchi, ikki telefon. Navbatma-navbat: rost gapirasan yoki jasorat ko'rsatasan.</p>
+      <form class="maydon" id="kirish-forma" novalidate>
+        <label for="ism">Isming</label>
+        <input id="ism" name="ism" type="text" maxlength="20" autocomplete="given-name" required>
+        <button class="tugma toliq" type="submit" id="kirish-tugma">Xona ochish</button>
+      </form>
+      <p class="xato-matn" id="kirish-xato" role="alert"></p>
+      <div class="qoidalar">
+        <span><b>Rost</b> — savolga yozib javob berasan. +1 ochko</span>
+        <span><b>Jasorat</b> — vazifani bajarasan. +2 ochko</span>
+        <span><b>Baho</b> — sherigingning javobini sen qabul qilasan yoki rad etasan</span>
+        <span><b>O'tkazish</b> — mumkin, lekin −1 ochko</span>
+      </div>
+    </section>
+
+    <!-- Saqlangan sessiya tiklanayotganda -->
+    <section id="ulanish" hidden aria-live="polite">
+      <p class="izoh">Xonaga ulanmoqda<span class="nuqtalar"></span></p>
+    </section>
+
+    <!-- 2. Kutish -->
+    <section id="kutish" class="kutish" hidden aria-live="polite">
+      <p class="izoh" style="margin:0">Xona tayyor. Kodi:</p>
+      <div class="kod" id="xona-kod">····</div>
+      <p class="izoh" style="margin:0">Bu linkni sherigingga yubor:</p>
+      <div class="havola-qator">
+        <input id="havola" type="text" readonly aria-label="Xona havolasi">
+        <button class="tugma ikkinchi" type="button" id="nusxa">Nusxa</button>
+      </div>
+      <a class="tugma toliq" id="tg-ulash" href="#" target="_blank" rel="noopener">Telegram'da yuborish</a>
+      <p class="kutilmoqda">Sherigingiz kutilmoqda<span class="nuqtalar"></span></p>
+    </section>
+
+    <!-- 3. O'yin -->
+    <section id="oyin" hidden>
+      <div class="tablo" id="tablo">
+        <div class="oyinchi" id="o-a"><div class="ism"></div><div class="ochko">0</div><div class="sen"></div></div>
+        <div class="oyinchi" id="o-b"><div class="ism"></div><div class="ochko">0</div><div class="sen"></div></div>
+      </div>
+      <p class="aloqa" id="aloqa" role="status" hidden>Aloqa uzildi — qayta ulanmoqda…</p>
+      <div class="sahna" id="sahna" aria-live="polite"></div>
+      <section class="tarix" aria-labelledby="tarix-sarlavha">
+        <h3 id="tarix-sarlavha">O'yin tarixi</h3>
+        <ol id="tarix"></ol>
+      </section>
+    </section>
+  </article>
+</main>
+<div class="xabar" id="xabar" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ═══════════════════════════════════════════════
+     SOZLAMALAR
+  ═══════════════════════════════════════════════ */
+  var API = "/pochta/oyin/";
+  var POLL_MS = 1500;
+  var GILDIRAK_MS = 2100;
+  var ULASH_MATNI = "Rost yoki jasorat o'ynaymizmi? 😏 Linkni bos va kir:";
+  var ISM_YARATUVCHI = "Ramz";       // xona ochuvchi uchun taklif qilinadigan ism
+  var ISM_MEHMON = "Omina";          // link orqali kiruvchi uchun
+
+  /* ═══════════════════════════════════════════════ */
+
+  var SAQLASH = "rost-oyin";
+  var sekin = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function $(id){ return document.getElementById(id); }
+  function el(teg, sinf, matn){
+    var e = document.createElement(teg);
+    if (sinf) e.className = sinf;
+    if (matn != null) e.textContent = matn;
+    return e;
+  }
+
+  var urlKod = (new URLSearchParams(location.search).get("xona") || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4);
+  var sessiya = null;          // {kod, token}
+  var holat = null;
+  var korsatilganVersiya = 0;
+  var aylanganKarta = 0;       // g'ildirak animatsiyasi ko'rsatilgan oxirgi karta
+  var gildirakBurchak = 0;
+  var oxirgiTarixSoni = -1;
+  var aylanmoqda = false;
+
+  /* ── saqlash ──────────────────────────────── */
+  function sessiyaOl(){
+    try{ var x = JSON.parse(localStorage.getItem(SAQLASH) || "null"); return x && x.kod && x.token ? x : null; }
+    catch(e){ return null; }
+  }
+  function sessiyaSaqla(s){ try{ localStorage.setItem(SAQLASH, JSON.stringify(s)); }catch(e){} }
+  function sessiyaOchir(){ try{ localStorage.removeItem(SAQLASH); }catch(e){} }
+
+  /* ── tarmoq ───────────────────────────────── */
+  function soro(yol, malumot){
+    var opts = malumot
+      ? {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(malumot)}
+      : {cache: "no-store"};
+    return fetch(API + yol, opts).then(function(j){
+      return j.json().catch(function(){ return {}; }).then(function(d){
+        if (!j.ok || !d.ok){ var e = new Error(d.xato || "Xatolik yuz berdi."); e.kod = j.status; throw e; }
+        return d;
+      });
+    });
+  }
+  function harakat(tur, qoshimcha){
+    var d = {kod: sessiya.kod, token: sessiya.token, tur: tur};
+    for (var k in qoshimcha) d[k] = qoshimcha[k];
+    return soro("harakat", d).then(function(r){ yangila(r.holat); return r.holat; })
+      .catch(function(e){ xabar(e.message); throw e; });
+  }
+
+  /* ── xabar ────────────────────────────────── */
+  var xabarVaqt = 0;
+  function xabar(matn){
+    var x = $("xabar");
+    x.textContent = matn;
+    x.hidden = true; void x.offsetWidth; x.hidden = false;
+    clearTimeout(xabarVaqt);
+    xabarVaqt = setTimeout(function(){ x.hidden = true; }, 3500);
+  }
+
+  /* ── ekranlar ─────────────────────────────── */
+  function ekran(nom){
+    $("ulanish").hidden = nom !== "ulanish";
+    $("kirish").hidden = nom !== "kirish";
+    $("kutish").hidden = nom !== "kutish";
+    $("oyin").hidden = nom !== "oyin";
+  }
+
+  /* ── 1. Kirish ────────────────────────────── */
+  function kirishTayyorla(){
+    ekran("kirish");
+    $("ism").value = urlKod ? ISM_MEHMON : ISM_YARATUVCHI;
+    $("kirish-tugma").textContent = urlKod ? "Xonaga kirish (" + urlKod + ")" : "Xona ochish";
+  }
+  $("kirish-forma").addEventListener("submit", function(e){
+    e.preventDefault();
+    var ism = $("ism").value.trim(), tugma = $("kirish-tugma");
+    if (!ism){ $("kirish-xato").textContent = "Ismingni yoz."; $("ism").focus(); return; }
+    $("kirish-xato").textContent = "";
+    tugma.disabled = true;
+    var so = urlKod ? soro("qoshil", {kod: urlKod, ism: ism}) : soro("yangi", {ism: ism});
+    so.then(function(r){
+      sessiya = {kod: r.kod, token: r.token};
+      sessiyaSaqla(sessiya);
+      if (!urlKod) history.replaceState(null, "", "?xona=" + r.kod);
+      yangila(r.holat);
+      tinglash();
+    }).catch(function(e){
+      $("kirish-xato").textContent = e.message;
+      tugma.disabled = false;
+    });
+  });
+
+  /* ── 2. Kutish ────────────────────────────── */
+  function kutishKorsat(h){
+    ekran("kutish");
+    $("xona-kod").textContent = h.kod;
+    var havola = location.origin + location.pathname + "?xona=" + h.kod;
+    $("havola").value = havola;
+    $("tg-ulash").href = "https://t.me/share/url?url=" + encodeURIComponent(havola) + "&text=" + encodeURIComponent(ULASH_MATNI);
+  }
+  $("nusxa").addEventListener("click", function(){
+    var v = $("havola").value;
+    (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject())
+      .then(function(){ xabar("Link nusxalandi ✓"); })
+      .catch(function(){ $("havola").select(); xabar("Linkni belgilab, nusxa oling."); });
+  });
+
+  /* ── 3. O'yin ─────────────────────────────── */
+  function ism(rol){ var o = holat.oyinchilar[rol]; return o ? o.ism : ""; }
+  function boshqa(rol){ return rol === "a" ? "b" : "a"; }
+
+  function tabloChiz(){
+    ["a", "b"].forEach(function(r){
+      var q = $("o-" + r), o = holat.oyinchilar[r];
+      q.querySelector(".ism").textContent = o ? o.ism : "—";
+      q.querySelector(".ochko").textContent = o ? o.ochko : 0;
+      var navbatda = holat.bosqich !== "kutish" && holat.navbat === r;
+      var sen = q.querySelector(".sen");
+      sen.textContent = r === holat.men ? "sen" : " ";
+      if (navbatda){
+        if (r === holat.men) sen.appendChild(document.createTextNode(" · "));
+        else sen.textContent = "";
+        sen.appendChild(el("b", "", "navbat"));
+      }
+      q.classList.toggle("navbatda", navbatda);
+    });
+  }
+
+  function tarixChiz(){
+    var ol = $("tarix"); ol.innerHTML = "";
+    if (!holat.tarix.length){ ol.appendChild(el("li", "bosh-holat", "Hali hech narsa bo'lmadi. Birinchi navbat — " + ism(holat.navbat) + "da.")); return; }
+    holat.tarix.forEach(function(t){
+      var li = el("li");
+      var bosh = el("div", "t-bosh");
+      var chap = el("span"); chap.appendChild(document.createTextNode(t.kim + " · ")); chap.appendChild(el("span", t.tur, t.tur === "rost" ? "Rost" : "Jasorat"));
+      var ong = el("span", "", t.natija === "qabul" ? "+" + t.ochko + " ✓" : (t.ochko ? t.ochko + " · o'tkazdi" : "o'tkazdi"));
+      bosh.appendChild(chap); bosh.appendChild(ong);
+      li.appendChild(bosh);
+      li.appendChild(el("div", "t-savol", t.savol));
+      if (t.javob) li.appendChild(el("div", "t-javob", "«" + t.javob + "»"));
+      else if (t.natija === "qabul") li.appendChild(el("div", "t-javob", "Bajarildi ✓"));
+      ol.appendChild(li);
+    });
+  }
+
+  function kartaEl(k){
+    var d = el("div", "karta " + k.tur);
+    var tur = el("p", "tur", k.tur === "rost" ? "Rost" : "Jasorat");
+    tur.appendChild(el("span", "kimga", ism(holat.navbat) + " uchun"));
+    d.appendChild(tur);
+    d.appendChild(el("p", "savol", k.matn));
+    return d;
+  }
+
+  function gildirakEl(){
+    var joy = el("div", "gildirak-joy");
+    var g = el("div", "gildirak"); g.style.transform = "rotate(" + gildirakBurchak + "deg)";
+    joy.appendChild(g);
+    var leg = el("div", "gildirak-legenda");
+    leg.appendChild(el("span", "l-r", "Rost")); leg.appendChild(el("span", "l-j", "Jasorat"));
+    var f = document.createDocumentFragment(); f.appendChild(joy); f.appendChild(leg);
+    return {f: f, g: g};
+  }
+
+  // G'ildirakni kartaning turiga to'xtaydigan qilib aylantiradi
+  function gildirakAylantir(g, tur, tugadi){
+    var segment = 45, juft = tur === "rost" ? 0 : 1;
+    var tanlangan = (Math.floor(Math.random() * 4) * 2 + juft);      // 0..7, rost — juft, jasorat — toq
+    var markaz = tanlangan * segment + segment / 2;
+    var hozirgi = ((gildirakBurchak % 360) + 360) % 360;
+    var kerak = (360 - markaz) % 360;
+    var farq = (kerak - hozirgi + 360) % 360;
+    gildirakBurchak += 360 * 4 + farq;
+    requestAnimationFrame(function(){
+      void g.offsetWidth;                 // yangi chizilgan g'ildirak avval joyida tursin, keyin aylansin
+      g.style.transform = "rotate(" + gildirakBurchak + "deg)";
+    });
+    setTimeout(tugadi, sekin ? 50 : GILDIRAK_MS);
+  }
+
+  function sahnaChiz(){
+    var s = $("sahna"); s.innerHTML = "";
+    var men = holat.men, navbatim = holat.navbat === men, k = holat.karta;
+    var u = ism(boshqa(men)), navbatdagi = ism(holat.navbat);
+
+    if (holat.bosqich === "tanlov"){
+      if (navbatim){
+        s.appendChild(el("h3", "sahna-sarlavha", "Sening navbating, " + ism(men) + "!"));
+        var t = el("div", "tanlovlar");
+        var r = el("button", "tugma kok", "Rost"); r.type = "button";
+        var j = el("button", "tugma qizil", "Jasorat"); j.type = "button";
+        var g = el("button", "tugma ikkinchi gildirak-tugma", "🎲 G'ildirakka ishonaman"); g.type = "button";
+        [[r, "rost"], [j, "jasorat"], [g, "gildirak"]].forEach(function(p){
+          p[0].addEventListener("click", function(){
+            [r, j, g].forEach(function(b){ b.disabled = true; });
+            harakat("tanla", {tanlov: p[1]}).catch(function(){ [r, j, g].forEach(function(b){ b.disabled = false; }); });
+          });
+          t.appendChild(p[0]);
+        });
+        s.appendChild(t);
+      } else {
+        s.appendChild(el("h3", "sahna-sarlavha", navbatdagi + " tanlayapti…"));
+        s.appendChild(el("p", "kutish-matn", "Rostmi yoki jasoratmi — hozir bilamiz."));
+      }
+      return;
+    }
+
+    if (holat.bosqich === "karta" || holat.bosqich === "baho"){
+      // G'ildirak tanlangan bo'lsa — kartadan oldin ikkala telefonda ham aylanadi
+      if (k.gildirak && aylanganKarta !== k.id){
+        aylanganKarta = k.id;
+        aylanmoqda = true;
+        s.appendChild(el("h3", "sahna-sarlavha", "G'ildirak aylanmoqda…"));
+        var gw = gildirakEl(); s.appendChild(gw.f);
+        gildirakAylantir(gw.g, k.tur, function(){ aylanmoqda = false; sahnaChiz(); });
+        return;
+      }
+      aylanganKarta = k.id;
+      s.appendChild(kartaEl(k));
+
+      if (holat.bosqich === "karta"){
+        if (holat.izoh === "rad" && navbatim) s.appendChild(el("p", "rad-izoh", u + " qabul qilmadi 🤨 Qaytadan urin."));
+        if (navbatim){
+          if (k.tur === "rost"){
+            var forma = el("form", "maydon");
+            var lb = el("label", "", "Javobing"); lb.setAttribute("for", "javob-matn");
+            var ta = el("textarea"); ta.id = "javob-matn"; ta.maxLength = 300; ta.placeholder = "Rostini yoz…";
+            var yub = el("button", "tugma kok toliq", "Javob berish"); yub.type = "submit";
+            forma.appendChild(lb); forma.appendChild(ta); forma.appendChild(yub);
+            forma.addEventListener("submit", function(e){
+              e.preventDefault();
+              var m = ta.value.trim();
+              if (!m){ ta.focus(); return; }
+              yub.disabled = true;
+              harakat("javob", {matn: m}).catch(function(){ yub.disabled = false; });
+            });
+            s.appendChild(forma);
+          } else {
+            s.appendChild(el("p", "kutish-matn", "Vazifani bajar, keyin tugmani bos — " + u + " tekshiradi."));
+            var bj = el("button", "tugma qizil toliq", "Bajardim ✓"); bj.type = "button";
+            bj.addEventListener("click", function(){ bj.disabled = true; harakat("bajardim").catch(function(){ bj.disabled = false; }); });
+            s.appendChild(bj);
+          }
+          var ot = el("button", "matn-tugma", "O'tkazib yuborish (−1 ochko)"); ot.type = "button";
+          ot.addEventListener("click", function(){ ot.disabled = true; harakat("otkaz").catch(function(){ ot.disabled = false; }); });
+          var pa = el("div", "pastki-amal"); pa.appendChild(ot); s.appendChild(pa);
+        } else {
+          s.appendChild(el("p", "kutish-matn", k.tur === "rost" ? navbatdagi + " javob yozyapti…" : navbatdagi + " jasoratni bajaryapti…"));
+        }
+        return;
+      }
+
+      // baho
+      if (k.tur === "rost"){
+        s.appendChild(el("p", "javob-kim", navbatdagi + " javobi:"));
+        s.appendChild(el("p", "javob-pufak", holat.javob));
+      } else {
+        s.appendChild(el("p", "kutish-matn", navbatdagi + " «bajardim» deyapti."));
+      }
+      if (!navbatim){
+        var ik = el("div", "ikkitalik");
+        var ha = el("button", "tugma " + (k.tur === "rost" ? "kok" : "qizil"), k.tur === "rost" ? "Qabul ❤️" : "Ishonaman ✓"); ha.type = "button";
+        var yoq = el("button", "tugma ikkinchi", k.tur === "rost" ? "Rostini ayt 🤨" : "Ishonmayman ✗"); yoq.type = "button";
+        [[ha, true], [yoq, false]].forEach(function(p){
+          p[0].addEventListener("click", function(){
+            ha.disabled = yoq.disabled = true;
+            harakat("baho", {qabul: p[1]}).catch(function(){ ha.disabled = yoq.disabled = false; });
+          });
+          ik.appendChild(p[0]);
+        });
+        s.appendChild(ik);
+      } else {
+        s.appendChild(el("p", "kutish-matn", u + " baholayapti…"));
+      }
+    }
+  }
+
+  function natijaXabari(){
+    if (oxirgiTarixSoni >= 0 && holat.tarix.length > oxirgiTarixSoni && holat.tarix[0]){
+      var t = holat.tarix[0];
+      xabar(t.natija === "qabul" ? t.kim + ": +" + t.ochko + " ochko ❤️" : t.kim + " o'tkazib yubordi" + (t.ochko ? " (" + t.ochko + ")" : ""));
+    }
+    oxirgiTarixSoni = holat.tarix.length;
+  }
+
+  function yangila(h){
+    if (!h) return;
+    if (holat && h.versiya === korsatilganVersiya && h.bosqich === holat.bosqich) return;
+    holat = h;
+    korsatilganVersiya = h.versiya;
+    if (h.bosqich === "kutish"){ kutishKorsat(h); return; }
+    ekran("oyin");
+    tabloChiz();
+    tarixChiz();
+    natijaXabari();
+    if (!aylanmoqda) sahnaChiz();
+  }
+
+  /* ── holatni kuzatish ─────────────────────── */
+  var tinglanmoqda = false;
+  function tinglash(){
+    if (tinglanmoqda) return;
+    tinglanmoqda = true;
+    var birinchi = true;
+    (function sikl(){
+      if (!sessiya) return;
+      // Yashirin sahifada so'ramaymiz (batareya) — lekin birinchi holat darhol olinadi
+      if (document.hidden && !birinchi){ setTimeout(sikl, POLL_MS); return; }
+      birinchi = false;
+      soro("holat?kod=" + encodeURIComponent(sessiya.kod) + "&token=" + encodeURIComponent(sessiya.token))
+        .then(function(r){ $("aloqa").hidden = true; yangila(r.holat); })
+        .catch(function(e){
+          if (e.kod === 403 || e.kod === 404){
+            sessiya = null; sessiyaOchir(); tinglanmoqda = false;
+            xabar(e.message);
+            history.replaceState(null, "", location.pathname);
+            urlKod = "";
+            kirishTayyorla();
+            return;
+          }
+          $("aloqa").hidden = false;
+        })
+        .then(function(){ if (sessiya) setTimeout(sikl, POLL_MS); });
+    })();
+  }
+
+  /* ── ishga tushirish ──────────────────────── */
+  var saqlangan = sessiyaOl();
+  if (saqlangan && (!urlKod || saqlangan.kod === urlKod)){
+    sessiya = saqlangan;           // sahifa yangilansa — o'yin davom etadi
+    ekran("ulanish");
+    tinglash();
+  } else {
+    kirishTayyorla();
+  }
+})();
+</script>
+</body>
+</html>

@@ -5,6 +5,7 @@ O'quvchi yuborgan narsalarni qabul qiladi va muharrirga maxfiy havola orqali
 ko'rsatadi:
   POST /pochta/yukla  — muqova surati (image/jpeg)
   POST /pochta/javob  — qisqa matnli javob (application/json: {savol, javob})
+  /pochta/oyin/...    — «Rost yoki jasorat» o'yini (mantig'i oyin.py'da)
 BOT_TOKEN va CHAT_ID berilsa, har biri Telegram'ga ham yuboriladi.
 
 Muhit o'zgaruvchilari:
@@ -26,6 +27,8 @@ from collections import defaultdict, deque
 from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+import oyin
+
 PAPKA = os.environ.get("POCHTA_PAPKA", "/data")
 KALIT = os.environ["POCHTA_KALIT"].strip()
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "").strip()
@@ -45,7 +48,11 @@ JAVOBLAR = os.path.join(PAPKA, "javoblar.jsonl")
 if not re.fullmatch(r"[0-9a-f]{16,64}", KALIT):
     raise SystemExit("POCHTA_KALIT 16–64 belgili hex bo'lishi kerak")
 
+OYIN_LIMIT, OYIN_DAVR = 120, 60     # o'yin harakatlari: bitta IP'dan daqiqada 120 ta
+OYIN_HAJM = 4096
+
 _urinishlar = defaultdict(deque)
+_oyin_urinishlar = defaultdict(deque)
 _qulf = threading.Lock()
 _javob_qulfi = threading.Lock()
 
@@ -57,6 +64,18 @@ def ruxsatmi(ip):
         while q and hozir - q[0] > LIMIT_DAVR:
             q.popleft()
         if len(q) >= LIMIT_SONI:
+            return False
+        q.append(hozir)
+        return True
+
+
+def oyin_ruxsatmi(ip):
+    hozir = time.monotonic()
+    with _qulf:
+        q = _oyin_urinishlar[ip]
+        while q and hozir - q[0] > OYIN_DAVR:
+            q.popleft()
+        if len(q) >= OYIN_LIMIT:
             return False
         q.append(hozir)
         return True
@@ -195,6 +214,8 @@ class Ishlovchi(BaseHTTPRequestHandler):
 
     def log_message(self, fmt, *args):
         yol = self.path.split("?")[0]
+        if yol == "/pochta/oyin/holat":   # har 1.5 soniyada so'raladi — logni to'ldirmasin
+            return
         if yol.startswith(GALEREYA):
             yol = "/pochta/[galereya]/"
         print(f"{self.command} {yol[:60]}", flush=True)
@@ -203,10 +224,10 @@ class Ishlovchi(BaseHTTPRequestHandler):
         xf = self.headers.get("X-Forwarded-For", "")
         return xf.split(",")[0].strip() or self.client_address[0]
 
-    def _javob(self, kod, tana=b"", tur="application/json; charset=utf-8", qoshimcha=None):
+    def _javob(self, http_kod, tana=b"", tur="application/json; charset=utf-8", qoshimcha=None):
         if isinstance(tana, str):
             tana = tana.encode()
-        self.send_response(kod)
+        self.send_response(http_kod)
         self.send_header("Content-Type", tur)
         self.send_header("Content-Length", str(len(tana)))
         self.send_header("Cache-Control", "no-store")
@@ -216,8 +237,8 @@ class Ishlovchi(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(tana)
 
-    def _json(self, kod, **d):
-        self._javob(kod, json.dumps(d, ensure_ascii=False))
+    def _json(self, http_kod, **d):
+        self._javob(http_kod, json.dumps(d, ensure_ascii=False))
 
     def _turi(self):
         return self.headers.get("Content-Type", "").split(";")[0].strip().lower()
@@ -234,7 +255,49 @@ class Ishlovchi(BaseHTTPRequestHandler):
             return self._muqova_qabul()
         if yol == "/pochta/javob":
             return self._javob_qabul()
+        if yol.startswith("/pochta/oyin/"):
+            return self._oyin_post(yol[len("/pochta/oyin/"):])
         self._json(404, ok=False)
+
+    # ── o'yin ──────────────────────────────────────────────────────────────
+    def _json_oqi(self, chegara):
+        if self._turi() != "application/json":
+            raise oyin.OyinXatosi(415, "faqat json")
+        hajm = self._hajm()
+        if hajm <= 0 or hajm > chegara:
+            raise oyin.OyinXatosi(413, "hajm")
+        try:
+            d = json.loads(self.rfile.read(hajm).decode("utf-8"))
+        except (ValueError, UnicodeDecodeError):
+            raise oyin.OyinXatosi(400, "json emas")
+        if not isinstance(d, dict):
+            raise oyin.OyinXatosi(400, "json emas")
+        return d
+
+    def _oyin_post(self, amal):
+        if not oyin_ruxsatmi(self._ip()):
+            return self._json(429, ok=False, xato="Juda tez. Bir soniya kut.")
+        try:
+            d = self._json_oqi(OYIN_HAJM)
+            if amal == "yangi":
+                natija = oyin.yangi(d.get("ism"))
+            elif amal == "qoshil":
+                natija = oyin.qoshil(d.get("kod"), d.get("ism"))
+            elif amal == "harakat":
+                natija = {"holat": oyin.harakat(d.get("kod"), d.get("token"), d.get("tur"), d)}
+            else:
+                return self._json(404, ok=False)
+        except oyin.OyinXatosi as e:
+            return self._json(e.kod, ok=False, xato=e.matn)
+        self._json(200, ok=True, **natija)
+
+    def _oyin_holat(self):
+        so_rov = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
+        try:
+            h = oyin.holat(so_rov.get("kod", [""])[0], so_rov.get("token", [""])[0])
+        except oyin.OyinXatosi as e:
+            return self._json(e.kod, ok=False, xato=e.matn)
+        self._json(200, ok=True, holat=h)
 
     def _muqova_qabul(self):
         if self._turi() != "image/jpeg":
@@ -292,6 +355,8 @@ class Ishlovchi(BaseHTTPRequestHandler):
         yol = self.path.split("?")[0]
         if yol == "/pochta/salomat":
             return self._json(200, ok=True)
+        if yol == "/pochta/oyin/holat":
+            return self._oyin_holat()
         if yol == GALEREYA[:-1]:
             return self._javob(301, qoshimcha={"Location": GALEREYA})
         maxfiy = {"X-Robots-Tag": "noindex, nofollow", "Referrer-Policy": "no-referrer"}
