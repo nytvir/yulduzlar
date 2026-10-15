@@ -6,6 +6,7 @@ ko'rsatadi:
   POST /pochta/yukla  — muqova surati (image/jpeg)
   POST /pochta/javob  — qisqa matnli javob (application/json: {savol, javob})
   /pochta/oyin/...    — «Rost yoki jasorat» o'yini (mantig'i oyin.py'da)
+  /pochta/tele/...    — «Telepatiya» o'yini (mantig'i telepatiya.py'da)
 BOT_TOKEN va CHAT_ID berilsa, har biri Telegram'ga ham yuboriladi.
 
 Muhit o'zgaruvchilari:
@@ -28,6 +29,9 @@ from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import oyin
+import telepatiya
+
+OYINLAR = {"oyin": oyin, "tele": telepatiya}     # /pochta/<nom>/... → o'yin moduli
 
 PAPKA = os.environ.get("POCHTA_PAPKA", "/data")
 KALIT = os.environ["POCHTA_KALIT"].strip()
@@ -121,6 +125,7 @@ def arxivga(yozuv):
 
 
 oyin.ARXIVGA = arxivga
+telepatiya.ARXIVGA = arxivga
 
 
 def arxiv_oqi():
@@ -216,7 +221,7 @@ SHABLON = """<!doctype html>
 <body><main><div class="varaq">
 <h1>Tahririyat pochtasi</h1>
 <p class="soni">Javoblar: {{JAVOB_SONI}} · Muqovalar: {{SONI}} · sahifa har 30 soniyada yangilanadi</p>
-<p class="havola"><a href="oyin">«Rost yoki jasorat» arxivi →</a></p>
+<p class="havola"><a href="oyin">O'yinlar arxivi →</a></p>
 <h2>Javoblar</h2>
 {{JAVOBLAR}}
 <h2>Muqovalar</h2>
@@ -254,7 +259,7 @@ ARXIV_SHABLON = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <meta http-equiv="refresh" content="30">
-<title>Rost yoki jasorat — arxiv</title>
+<title>O'yinlar arxivi</title>
 <style>
   :root{--qogoz:#F2ECDF;--siyoh:#1C1915;--siyoh-2:#4A443A;--qizil:#A8261C;--kok:#2F4A7A;--stol:#2B2722}
   *{box-sizing:border-box}
@@ -273,7 +278,7 @@ ARXIV_SHABLON = """<!doctype html>
   ol{list-style:none;margin:0;padding:0}
   li{padding:12px 0;border-bottom:1px solid rgba(28,25,21,.2);display:grid;gap:4px}
   .bosh{display:flex;justify-content:space-between;gap:10px;font-family:"Arial Narrow",sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase}
-  .rost{color:var(--kok)} .jasorat{color:var(--qizil)}
+  .rost{color:var(--kok)} .jasorat{color:var(--qizil)} .telepatiya{color:#6B3FA0}
   .savol{font-style:italic;color:var(--siyoh-2);font-size:15px}
   .javob{font-size:18px;line-height:1.45;word-break:break-word}
   .yoq{font-style:italic;color:var(--siyoh-2)}
@@ -282,10 +287,13 @@ ARXIV_SHABLON = """<!doctype html>
 </style></head>
 <body><main><div class="varaq">
 <a class="orqa" href="./">← Tahririyat pochtasi</a>
-<h1>«Rost yoki jasorat» arxivi</h1>
+<h1>O'yinlar arxivi</h1>
 <p class="soni">O'yinlar: {{OYIN_SONI}} · Kartalar: {{KARTA_SONI}} · sahifa har 30 soniyada yangilanadi</p>
 {{OYINLAR}}
 </div></main></body></html>"""
+
+
+TUR_NOMI = {"rost": "Rost", "jasorat": "Jasorat", "telepatiya": "Telepatiya"}
 
 
 def oyin_arxivi():
@@ -308,9 +316,11 @@ def oyin_arxivi():
         boshlandi = vaqt_matn(min(float(y.get("vaqt", 0)) for y in royxat))
         satrlar = []
         for y in reversed(royxat):        # o'yin ichida eng yangisi tepada
-            tur = "rost" if y.get("tur") == "rost" else "jasorat"
+            tur = y.get("tur") if y.get("tur") in TUR_NOMI else "jasorat"
             if y.get("natija") == "qabul":
                 ochko = f"+{int(y.get('ochko', 0))} ✓"
+            elif tur == "telepatiya":
+                ochko = "topilmadi"
             else:
                 ochko = "o'tkazdi" + (f" ({int(y.get('ochko', 0))})" if y.get("ochko") else "")
             if y.get("javob"):
@@ -321,7 +331,7 @@ def oyin_arxivi():
                 javob = '<div class="javob yoq">Javob berilmadi</div>'
             satrlar.append(
                 f'<li><div class="bosh"><span>{html.escape(str(y.get("kim", "")))} · '
-                f'<span class="{tur}">{"Rost" if tur == "rost" else "Jasorat"}</span></span>'
+                f'<span class="{tur}">{TUR_NOMI[tur]}</span></span>'
                 f'<span>{ochko} · {vaqt_matn(y.get("vaqt"))[-5:]}</span></div>'
                 f'<div class="savol">{html.escape(str(y.get("savol", "")))}</div>{javob}</li>'
             )
@@ -342,8 +352,8 @@ class Ishlovchi(BaseHTTPRequestHandler):
 
     def log_message(self, fmt, *args):
         yol = self.path.split("?")[0]
-        if yol == "/pochta/oyin/holat":   # har 1.5 soniyada so'raladi — logni to'ldirmasin
-            return
+        if yol.endswith("/holat") and yol.split("/")[2:3] and yol.split("/")[2] in OYINLAR:
+            return                        # har 1.5 soniyada so'raladi — logni to'ldirmasin
         if yol.startswith(GALEREYA):
             yol = "/pochta/[galereya]/"
         print(f"{self.command} {yol[:60]}", flush=True)
@@ -383,8 +393,9 @@ class Ishlovchi(BaseHTTPRequestHandler):
             return self._muqova_qabul()
         if yol == "/pochta/javob":
             return self._javob_qabul()
-        if yol.startswith("/pochta/oyin/"):
-            return self._oyin_post(yol[len("/pochta/oyin/"):])
+        qismlar = yol.split("/")                       # ["", "pochta", "<o'yin>", "<amal>"]
+        if len(qismlar) == 4 and qismlar[2] in OYINLAR:
+            return self._oyin_post(OYINLAR[qismlar[2]], qismlar[3])
         self._json(404, ok=False)
 
     # ── o'yin ──────────────────────────────────────────────────────────────
@@ -402,27 +413,27 @@ class Ishlovchi(BaseHTTPRequestHandler):
             raise oyin.OyinXatosi(400, "json emas")
         return d
 
-    def _oyin_post(self, amal):
+    def _oyin_post(self, modul, amal):
         if not oyin_ruxsatmi(self._ip()):
             return self._json(429, ok=False, xato="Juda tez. Bir soniya kut.")
         try:
             d = self._json_oqi(OYIN_HAJM)
             if amal == "yangi":
-                natija = oyin.yangi(d.get("ism"))
+                natija = modul.yangi(d.get("ism"))
             elif amal == "qoshil":
-                natija = oyin.qoshil(d.get("kod"), d.get("ism"))
+                natija = modul.qoshil(d.get("kod"), d.get("ism"))
             elif amal == "harakat":
-                natija = {"holat": oyin.harakat(d.get("kod"), d.get("token"), d.get("tur"), d)}
+                natija = {"holat": modul.harakat(d.get("kod"), d.get("token"), d.get("tur"), d)}
             else:
                 return self._json(404, ok=False)
         except oyin.OyinXatosi as e:
             return self._json(e.kod, ok=False, xato=e.matn)
         self._json(200, ok=True, **natija)
 
-    def _oyin_holat(self):
+    def _oyin_holat(self, modul):
         so_rov = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query)
         try:
-            h = oyin.holat(so_rov.get("kod", [""])[0], so_rov.get("token", [""])[0])
+            h = modul.holat(so_rov.get("kod", [""])[0], so_rov.get("token", [""])[0])
         except oyin.OyinXatosi as e:
             return self._json(e.kod, ok=False, xato=e.matn)
         self._json(200, ok=True, holat=h)
@@ -483,8 +494,9 @@ class Ishlovchi(BaseHTTPRequestHandler):
         yol = self.path.split("?")[0]
         if yol == "/pochta/salomat":
             return self._json(200, ok=True)
-        if yol == "/pochta/oyin/holat":
-            return self._oyin_holat()
+        q = yol.split("/")
+        if len(q) == 4 and q[2] in OYINLAR and q[3] == "holat":
+            return self._oyin_holat(OYINLAR[q[2]])
         if yol == GALEREYA[:-1]:
             return self._javob(301, qoshimcha={"Location": GALEREYA})
         maxfiy = {"X-Robots-Tag": "noindex, nofollow", "Referrer-Policy": "no-referrer"}

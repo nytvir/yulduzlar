@@ -105,7 +105,7 @@ def _karta_matni(shablon, ism):
     )
 
 
-def _ism_tozala(ism):
+def ism_tozala(ism):
     ism = " ".join(str(ism or "").split())[:MAX_ISM]
     if not ism:
         raise OyinXatosi(400, "Ismingni yoz.")
@@ -203,7 +203,7 @@ def _korinish(x, rol):
 
 
 def yangi(ism):
-    ism = _ism_tozala(ism)
+    ism = ism_tozala(ism)
     with _qulf:
         _eskilarni_tozala()
         if len(_xonalar) >= MAX_XONA:
@@ -225,7 +225,7 @@ def yangi(ism):
 
 
 def qoshil(kod, ism):
-    ism = _ism_tozala(ism)
+    ism = ism_tozala(ism)
     with _qulf:
         x = _xona(kod)
         if x["oyinchilar"]["b"]:
