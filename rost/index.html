@@ -171,6 +171,25 @@
   .tarix .bosh-holat{padding:12px 0;font-style:italic;color:var(--siyoh-2)}
 
   .chiqish-joy{margin-top:22px;text-align:center}
+  .rejim-yorliq{margin:6px 0 0;font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--qizil)}
+  .rejimlar{margin:0;padding:0;border:none;display:grid;gap:8px}
+  .rejimlar legend{padding:0;margin-bottom:6px;font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--siyoh-2)}
+  .rejim{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--chiziq-yengil);background:#FBF7EE;cursor:pointer}
+  .maydon .rejim{font-family:var(--matn);font-weight:400;font-size:16px;letter-spacing:0;text-transform:none;color:var(--siyoh)}  /* umumiy label uslubi tushmasin */
+  .rejim:has(input:checked){border-color:var(--siyoh);box-shadow:4px 4px 0 var(--siyoh)}
+  .rejim input{margin:3px 0 0;width:18px;height:18px;accent-color:var(--qizil);flex:none}
+  .rejim b{display:block;font-family:var(--sarlavha);font-size:19px}
+  .rejim small{display:block;font-size:14.5px;color:var(--siyoh-2);line-height:1.4}
+  .karta .muallif{margin:10px 0 0;font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--xira)}
+  .karta .kutilmoqda-matn{color:var(--xira);font-style:italic;font-weight:400}
+  .goyalar{display:grid;gap:8px}
+  .goyalar-bosh{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--yorliq);font-weight:700;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--siyoh-2)}
+  .goya{
+    text-align:left;padding:10px 12px;border:1px dashed var(--chiziq);background:transparent;cursor:pointer;
+    font-family:var(--matn);font-size:15.5px;line-height:1.4;color:var(--siyoh);-webkit-tap-highlight-color:transparent;
+  }
+  .goya:hover{background:var(--qogoz-2)}
+  .goya:focus-visible{outline:2px solid var(--qizil);outline-offset:2px}
   .saqlanadi{margin:8px 0 0;font-style:italic;font-size:13.5px;color:var(--xira)}
 
   .xabar{
@@ -194,6 +213,7 @@
       <h1 class="nom">Omina Times</h1>
       <p class="bolim">O'yinlar bo'limi</p>
       <h2 class="oyin-nomi"><span class="r">Rost</span> <i>yoki</i> <span class="j">jasorat</span></h2>
+      <p class="rejim-yorliq" id="rejim-yorliq">2-qism</p>
     </header>
 
     <!-- 1. Kirish -->
@@ -202,6 +222,12 @@
       <form class="maydon" id="kirish-forma" novalidate>
         <label for="ism">Isming</label>
         <input id="ism" name="ism" type="text" maxlength="20" autocomplete="given-name" required>
+        <fieldset class="rejimlar" id="rejimlar">
+          <legend>Qaysi o'yin?</legend>
+          <label class="rejim"><input type="radio" name="rejim" value="ikkinchi" checked><span><b>🔥 2-qism</b><small>Yangi savollar va jasoratlar — kechagilardan birortasi takrorlanmaydi</small></span></label>
+          <label class="rejim"><input type="radio" name="rejim" value="shaxsiy"><span><b>✍️ O'z savollarimiz</b><small>Savolni yoki jasoratni sherigingiz o'zi yozadi</small></span></label>
+          <label class="rejim"><input type="radio" name="rejim" value="odatiy"><span><b>1-qism</b><small>Kechagi savollar</small></span></label>
+        </fieldset>
         <button class="tugma toliq" type="submit" id="kirish-tugma">Xona ochish</button>
       </form>
       <p class="xato-matn" id="kirish-xato" role="alert"></p>
@@ -264,6 +290,25 @@
   var ULASH_MATNI = "Rost yoki jasorat o'ynaymizmi? 😏 Linkni bos va kir:";
   var ISM_YARATUVCHI = "Ramz";       // xona ochuvchi uchun taklif qilinadigan ism
   var ISM_MEHMON = "Omina";          // link orqali kiruvchi uchun
+
+  // «O'z savollarimiz» rejimida savol yozuvchiga tayyor g'oyalar (bosib, o'zgartirsa bo'ladi)
+  var GOYALAR = {
+    rost: [
+      "Menda eng ko'p nima yoqadi?", "Birinchi marta qachon meni sog'inganingni bilding?",
+      "Mendan qachon xafa bo'lgansan, lekin aytmagansan?", "Bizning eng kulgili xotiramiz qaysi?",
+      "Menga hech aytmagan bitta siring bormi?", "Meni bir so'z bilan tasvirla.",
+      "Qaysi kiyimimni eng yaxshi ko'rasan?", "Kelajakda men bilan nima qilishni orzu qilasan?",
+      "Mening qaysi odatim seni kuldiradi?", "Meni birinchi ko'rganingda nima deb o'ylading?"
+    ],
+    jasorat: [
+      "Menga 30 soniyada 5 ta kompliment yoz.", "Ovozli xabarda menga qo'shiq kuylab ber.",
+      "Menga ertangi kun uchun 3 gaplik sevgi maktubi yoz.", "Menga yangi laqab o'ylab top va bugun shunday chaqir.",
+      "Keyingi navbatgacha faqat she'r bilan gapir.", "Bizning eng sevimli suratimizni yubor.",
+      "Keyingi dam olish kunimizni rejalashtir.", "Hech kimga aytmagan bitta orzuingni yoz.",
+      "Menga hozirgi kayfiyatingni bitta qo'shiq bilan yubor.", "Ovozli xabarda ismimni 3 xil shirin ohangda ayt."
+    ]
+  };
+  var REJIM_NOMI = {odatiy: "1-qism", ikkinchi: "2-qism", shaxsiy: "O'z savollarimiz"};
 
   /* ═══════════════════════════════════════════════ */
 
@@ -336,6 +381,8 @@
   function kirishTayyorla(){
     ekran("kirish");
     $("ism").value = urlKod ? ISM_MEHMON : ISM_YARATUVCHI;
+    $("rejimlar").hidden = !!urlKod;          // rejimni xona ochuvchi tanlaydi
+    $("rejim-yorliq").hidden = !!urlKod;
     $("kirish-tugma").textContent = urlKod ? "Xonaga kirish (" + urlKod + ")" : "Xona ochish";
   }
   $("kirish-forma").addEventListener("submit", function(e){
@@ -344,7 +391,9 @@
     if (!ism){ $("kirish-xato").textContent = "Ismingni yoz."; $("ism").focus(); return; }
     $("kirish-xato").textContent = "";
     tugma.disabled = true;
-    var so = urlKod ? soro("qoshil", {kod: urlKod, ism: ism}) : soro("yangi", {ism: ism});
+    var tanlangan = document.querySelector('input[name="rejim"]:checked');
+    var so = urlKod ? soro("qoshil", {kod: urlKod, ism: ism})
+                    : soro("yangi", {ism: ism, rejim: tanlangan ? tanlangan.value : "ikkinchi"});
     so.then(function(r){
       sessiya = {kod: r.kod, token: r.token};
       sessiyaSaqla(sessiya);
@@ -403,7 +452,7 @@
       var ong = el("span", "", t.natija === "qabul" ? "+" + t.ochko + " ✓" : (t.ochko ? t.ochko + " · o'tkazdi" : "o'tkazdi"));
       bosh.appendChild(chap); bosh.appendChild(ong);
       li.appendChild(bosh);
-      li.appendChild(el("div", "t-savol", t.savol));
+      li.appendChild(el("div", "t-savol", (t.muallif ? t.muallif + " so'radi: " : "") + t.savol));
       if (t.javob) li.appendChild(el("div", "t-javob", "«" + t.javob + "»"));
       else if (t.natija === "qabul") li.appendChild(el("div", "t-javob", "Bajarildi ✓"));
       ol.appendChild(li);
@@ -415,7 +464,9 @@
     var tur = el("p", "tur", k.tur === "rost" ? "Rost" : "Jasorat");
     tur.appendChild(el("span", "kimga", ism(holat.navbat) + " uchun"));
     d.appendChild(tur);
-    d.appendChild(el("p", "savol", k.matn));
+    if (k.matn) d.appendChild(el("p", "savol", k.matn));
+    else d.appendChild(el("p", "savol kutilmoqda-matn", (k.tur === "rost" ? "Savol" : "Jasorat") + " yozilmoqda…"));
+    if (k.muallif) d.appendChild(el("p", "muallif", "— " + k.muallif + " so'radi"));
     return d;
   }
 
@@ -445,6 +496,50 @@
     setTimeout(tugadi, sekin ? 50 : GILDIRAK_MS);
   }
 
+  // «O'z savollarimiz»: sherik uchun savol/jasorat yozish
+  function aralash(royxat, n){
+    var a = royxat.slice();
+    for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a.slice(0, n);
+  }
+  function savolYozishChiz(s, k, kimga){
+    var rost = k.tur === "rost";
+    var forma = el("form", "maydon");
+    var lb = el("label", "", (rost ? "Savolingni yoz — " : "Jasoratni yoz — ") + kimga + " bajaradi");
+    lb.setAttribute("for", "savol-matn");
+    var ta = el("textarea"); ta.id = "savol-matn"; ta.maxLength = 200;
+    ta.placeholder = rost ? "Eng qiziq savolingni ber…" : "Nima qilsin?…";
+    var yub = el("button", "tugma " + (rost ? "kok" : "qizil") + " toliq", "Yuborish"); yub.type = "submit";
+    forma.appendChild(lb); forma.appendChild(ta); forma.appendChild(yub);
+    forma.addEventListener("submit", function(e){
+      e.preventDefault();
+      var m = ta.value.trim();
+      if (!m){ ta.focus(); return; }
+      yub.disabled = true;
+      harakat("savol", {matn: m}).catch(function(){ yub.disabled = false; });
+    });
+    s.appendChild(forma);
+
+    var g = el("div", "goyalar");
+    var bosh = el("div", "goyalar-bosh");
+    bosh.appendChild(el("span", "", "💡 G'oya kerakmi?"));
+    var yangi = el("button", "matn-tugma", "Boshqalari ↻"); yangi.type = "button";
+    bosh.appendChild(yangi);
+    var royxat = el("div", "goyalar");
+    function chiz(){
+      royxat.innerHTML = "";
+      aralash(GOYALAR[k.tur], 3).forEach(function(matn){
+        var b = el("button", "goya", matn); b.type = "button";
+        b.addEventListener("click", function(){ ta.value = matn; ta.focus(); });
+        royxat.appendChild(b);
+      });
+    }
+    yangi.addEventListener("click", chiz);
+    chiz();
+    g.appendChild(bosh); g.appendChild(royxat);
+    s.appendChild(g);
+  }
+
   function sahnaChiz(){
     var s = $("sahna"); s.innerHTML = "";
     var men = holat.men, navbatim = holat.navbat === men, k = holat.karta;
@@ -453,6 +548,7 @@
     if (holat.bosqich === "tanlov"){
       if (navbatim){
         s.appendChild(el("h3", "sahna-sarlavha", "Sening navbating, " + ism(men) + "!"));
+        if (holat.rejim === "shaxsiy") s.appendChild(el("p", "kutish-matn", "Tanla — savolni " + u + " o'zi yozadi 😏"));
         var t = el("div", "tanlovlar");
         var r = el("button", "tugma kok", "Rost"); r.type = "button";
         var j = el("button", "tugma qizil", "Jasorat"); j.type = "button";
@@ -472,7 +568,7 @@
       return;
     }
 
-    if (holat.bosqich === "karta" || holat.bosqich === "baho"){
+    if (holat.bosqich === "yozish" || holat.bosqich === "karta" || holat.bosqich === "baho"){
       // G'ildirak tanlangan bo'lsa — kartadan oldin ikkala telefonda ham aylanadi
       if (k.gildirak && aylanganKarta !== k.id){
         aylanganKarta = k.id;
@@ -484,6 +580,15 @@
       }
       aylanganKarta = k.id;
       s.appendChild(kartaEl(k));
+
+      if (holat.bosqich === "yozish"){
+        if (navbatim){
+          s.appendChild(el("p", "kutish-matn", u + " senga " + (k.tur === "rost" ? "savol" : "jasorat") + " yozyapti… 😏"));
+        } else {
+          savolYozishChiz(s, k, navbatdagi);
+        }
+        return;
+      }
 
       if (holat.bosqich === "karta"){
         if (holat.izoh === "rad" && navbatim) s.appendChild(el("p", "rad-izoh", u + " qabul qilmadi 🤨 Qaytadan urin."));
@@ -555,6 +660,8 @@
     if (holat && h.versiya === korsatilganVersiya && h.bosqich === holat.bosqich) return;
     holat = h;
     korsatilganVersiya = h.versiya;
+    $("rejim-yorliq").hidden = false;
+    $("rejim-yorliq").textContent = REJIM_NOMI[h.rejim] || "";
     if (h.bosqich === "kutish"){ kutishKorsat(h); return; }
     ekran("oyin");
     tabloChiz();

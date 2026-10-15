@@ -146,8 +146,8 @@ def holat(kod, token):
         return _korinish(x, _kim(x, token))
 
 
-def yangi(ism):
-    ism = ism_tozala(ism)
+def yangi(d):
+    ism = ism_tozala(d.get("ism"))
     with _qulf:
         _eskilarni_tozala()
         if len(_xonalar) >= MAX_XONA:
@@ -231,3 +231,19 @@ def harakat(kod, token, tur, d):
 
         _ozgardi(x)
         return _korinish(x, rol)
+
+# ── qayta ishga tushganda xonalar yo'qolmasin ───────────────────────────────
+def eksport():
+    with _qulf:
+        _eskilarni_tozala()
+        return {kod: dict(x, taqiq=sorted(x["taqiq"])) if "taqiq" in x else dict(x)
+                for kod, x in _xonalar.items()}
+
+
+def import_(malumot):
+    with _qulf:
+        for kod, x in (malumot or {}).items():
+            if "taqiq" in x:
+                x["taqiq"] = set(x["taqiq"])
+            _xonalar[kod] = x
+        _eskilarni_tozala()

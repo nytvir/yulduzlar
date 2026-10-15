@@ -3,9 +3,15 @@
 HTTP'dan mustaqil: pochta.py so'rovlarni shu yerdagi funksiyalarga uzatadi.
 Xonalar xotirada saqlanadi va XONA_MUDDAT o'tgach o'chadi.
 
+Rejimlar:
+  odatiy   — 1-qism: savol/jasorat tayyor to'plamdan olinadi
+  ikkinchi — 2-qism: yangi to'plam
+  shaxsiy — savolni yoki jasoratni sherik o'zi yozadi
+
 O'yin bosqichlari:
   kutish  — xona ochilgan, ikkinchi o'yinchi hali kirmagan
   tanlov  — navbatdagi o'yinchi rost / jasorat / g'ildirakni tanlaydi
+  yozish  — (faqat shaxsiy) sherik savol yoki jasorat matnini yozadi
   karta   — navbatdagi o'yinchi javob yozadi yoki jasoratni bajaradi
   baho    — ikkinchi o'yinchi qabul qiladi yoki rad etadi
 """
@@ -18,6 +24,8 @@ XONA_MUDDAT = 12 * 3600
 MAX_XONA = 100
 MAX_ISM = 20
 MAX_JAVOB = 300
+MAX_SAVOL = 200
+REJIMLAR = ("odatiy", "ikkinchi", "shaxsiy")
 TARIX_SAQLASH = 50
 TARIX_KORSATISH = 20
 KOD_HARFLAR = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"   # O/0 va I/1 chalkashmasin
@@ -70,7 +78,61 @@ JASORAT = [
     "{u_ga} telefoningdagi eng shirin stikerni yubor.",
     "{u_ga} hozirgi kayfiyatingni bitta surat bilan ko'rsat — yuzing bilan.",
 ]
-KARTALAR = {"rost": ROST, "jasorat": JASORAT}
+
+# ── 2-qism: yangi to'plam (1-qism bilan takrorlanmaydi) ──────────────────────
+ROST2 = [
+    "{u_ning} qaysi gapidan keyin «mana shu odam» deb o'ylading?",
+    "{u} bilan bo'lgan eng romantik lahzang qaysi?",
+    "{u_ga} hali aytmagan bitta orzuing bormi?",
+    "{u_ning} qaysi kiyimda eng chiroyli ko'rinishini aytib ber.",
+    "{u} bilan bog'liq eng uyatli, lekin kulgili holating qaysi?",
+    "Bir kunga {u} bilan o'rningizni almashtirsangiz, birinchi nima qilarding?",
+    "{u_ning} ovozini qaysi paytda eng yaxshi ko'rasan?",
+    "{u_dan} qachon eng ko'p faxrlangansan?",
+    "{u} haqida birinchi marta kimga gapirib bergansan va nima degansan?",
+    "{u_ga} qaysi qo'shiqni bag'ishlagan bo'larding?",
+    "{u} bilan qaysi filmni qayta ko'rishni xohlarding?",
+    "{u_ning} qaysi tomonini hech kim bilmaydi, faqat sen bilasan?",
+    "Oxirgi marta {u_dan} rashk qilganmisan? Rostini ayt.",
+    "{u} uchun qila oladigan eng aqldan ozgan ishing nima bo'lardi?",
+    "{u} bilan 10 yildan keyin qayerda bo'lishni xohlaysan?",
+    "{u_ning} qaysi odatini yashirincha takrorlaysan?",
+    "{u_ga} qanday laqab qo'ygan bo'larding — va nega?",
+    "Bugun {u_ning} nimasi senga eng yoqdi?",
+    "{u} bilan hali hech qachon qilmagan, lekin qilmoqchi bo'lgan narsang?",
+    "{u_ni} uch so'z bilan tasvirla.",
+    "{u_ga} qachon «kechirasan» deyishing kerak edi, lekin aytmagansan?",
+    "{u_ning} tayyorlagan narsalaridan qaysi biri eng mazali?",
+]
+JASORAT2 = [
+    "{u_ga} 30 soniyalik ovozli xabarda sevgi izhor qil — xuddi birinchi martadek.",
+    "{u_ning} ismini 5 xil ohangda ovozli xabarda ayt.",
+    "{u_ga} ertangi kun uchun 3 ta kichik va'da yoz.",
+    "{u} bilan eng sevimli suratingizni yubor va nega yoqishini yoz.",
+    "{u_ga} she'r yoz — har qatori uning ismidagi bir harf bilan boshlansin.",
+    "{u_ga} eng kulgili ovozingda «seni sevaman» de.",
+    "Bugungi kuningni 3 ta emoji bilan tasvirla va {u_ga} tushuntirib ber.",
+    "Ovozli xabarda {u_ga} oddiy bir narsani — choynak, qalam — televizordagidek reklama qilib ber.",
+    "{u} uchun 1 daqiqada kichik sovg'a o'ylab top va qachon berishingni yoz.",
+    "{u_ga} hozirgi kayfiyatingga mos qo'shiq yubor.",
+    "{u_ning} 5 ta yaxshi fazilatini yoz — birontasi takrorlanmasin.",
+    "Keyingi navbatgacha {u_ga} faqat savol bilan javob ber.",
+    "Birinchi uchrashuvingizni {u_ga} ertakdek hikoya qilib ber: «Bir bor ekan…»",
+    "{u} bilan kelajakdagi bitta kuningizni ertalabdan kechgacha rejalashtir.",
+    "{u_dan} kechirim so'ra — hech narsa uchun, shunchaki chiroyli qilib.",
+    "Telefoningdagi {u_ning} eng yaxshi suratini yubor va unga sarlavha yoz.",
+    "{u_ni} videoqo'ng'iroqqa chaqir va 15 soniya gapirmasdan qarab tur.",
+    "«Omina Times» uchun {u} haqida bitta gazeta sarlavhasi yoz.",
+    "{u} bugun qilgan eng yaxshi ishni sport sharhlovchisidek ovozli xabarda maqta.",
+    "Eng shirin laqabingni o'ylab top va bugun {u_ni} shunday chaqir.",
+]
+
+# rejim → to'plam; «shaxsiy» rejimda matnni sherik yozadi, to'plam kerak emas
+TOPLAMLAR = {
+    "odatiy":   {"rost": ROST,  "jasorat": JASORAT},
+    "ikkinchi": {"rost": ROST2, "jasorat": JASORAT2},
+}
+TURLAR = ("rost", "jasorat")
 
 _xonalar = {}
 _qulf = threading.Lock()
@@ -152,7 +214,7 @@ def _keyingi_navbat(x):
 
 def _karta_ol(x, tur, gildirak):
     ishlatilgan = x["ishlatilgan"][tur]
-    toplam = KARTALAR[tur]
+    toplam = TOPLAMLAR[x["rejim"]][tur]
     qolgan = [i for i in range(len(toplam)) if i not in ishlatilgan]
     if not qolgan:
         ishlatilgan.clear()
@@ -161,21 +223,28 @@ def _karta_ol(x, tur, gildirak):
     ishlatilgan.add(i)
     sherik = x["oyinchilar"][_boshqa(x["navbat"])]["ism"]
     x["karta_soni"] += 1
-    x["karta"] = {"id": x["karta_soni"], "tur": tur, "matn": _karta_matni(toplam[i], sherik), "gildirak": gildirak}
+    x["karta"] = {"id": x["karta_soni"], "tur": tur, "matn": _karta_matni(toplam[i], sherik),
+                  "gildirak": gildirak, "muallif": None}
+
+
+def _karta_bosh(x, tur, gildirak):
+    """Shaxsiy rejim: karta turi tanlandi, matnini sherik keyin yozadi."""
+    x["karta_soni"] += 1
+    x["karta"] = {"id": x["karta_soni"], "tur": tur, "matn": None, "gildirak": gildirak, "muallif": None}
 
 
 def _tarixga(x, natija, ochko):
     o = x["oyinchilar"][x["navbat"]]
     yozuv = {
         "kim": o["ism"], "rol": x["navbat"], "tur": x["karta"]["tur"], "savol": x["karta"]["matn"],
-        "javob": x["javob"], "natija": natija, "ochko": ochko,
+        "muallif": x["karta"]["muallif"], "javob": x["javob"], "natija": natija, "ochko": ochko,
     }
     x["tarix"].append(yozuv)
     del x["tarix"][:-TARIX_SAQLASH]
     if ARXIVGA:
         oy = x["oyinchilar"]
         try:
-            ARXIVGA(dict(yozuv, xona=x["kod"], vaqt=time.time(),
+            ARXIVGA(dict(yozuv, xona=x["kod"], vaqt=time.time(), rejim=x["rejim"],
                          oyinchilar=[oy["a"]["ism"], oy["b"]["ism"] if oy["b"] else ""]))
         except Exception as e:  # arxiv xatosi o'yinni to'xtatmasin
             print("arxiv xatosi:", type(e).__name__, flush=True)
@@ -194,7 +263,7 @@ def _korinish(x, rol):
         o = x["oyinchilar"].get(r)
         return {"ism": o["ism"], "ochko": o["ochko"]} if o else None
     return {
-        "kod": x["kod"], "men": rol, "versiya": x["versiya"],
+        "kod": x["kod"], "men": rol, "versiya": x["versiya"], "rejim": x["rejim"],
         "oyinchilar": {"a": oyinchi("a"), "b": oyinchi("b")},
         "navbat": x["navbat"], "bosqich": x["bosqich"],
         "karta": x["karta"], "javob": x["javob"], "izoh": x["izoh"],
@@ -202,8 +271,9 @@ def _korinish(x, rol):
     }
 
 
-def yangi(ism):
-    ism = ism_tozala(ism)
+def yangi(d):
+    ism = ism_tozala(d.get("ism"))
+    rejim = d.get("rejim") if d.get("rejim") in REJIMLAR else "odatiy"
     with _qulf:
         _eskilarni_tozala()
         if len(_xonalar) >= MAX_XONA:
@@ -215,7 +285,7 @@ def yangi(ism):
         token = secrets.token_hex(16)
         hozir = time.time()
         x = {
-            "kod": kod, "yaratildi": hozir, "yangilandi": hozir, "versiya": 1,
+            "kod": kod, "yaratildi": hozir, "yangilandi": hozir, "versiya": 1, "rejim": rejim,
             "oyinchilar": {"a": {"ism": ism, "token": token, "ochko": 0}, "b": None},
             "navbat": "b", "bosqich": "kutish", "karta": None, "javob": None, "izoh": "",
             "tarix": [], "karta_soni": 0, "ishlatilgan": {"rost": set(), "jasorat": set()},
@@ -249,14 +319,28 @@ def harakat(kod, token, tur, d):
             if bosqich != "tanlov" or not navbatim:
                 raise OyinXatosi(409, "Hozir sening navbating emas.")
             tanlov = d.get("tanlov")
-            if tanlov == "gildirak":
-                _karta_ol(x, random.choice(["rost", "jasorat"]), True)
-            elif tanlov in KARTALAR:
-                _karta_ol(x, tanlov, False)
-            else:
+            gildirak = tanlov == "gildirak"
+            if gildirak:
+                tanlov = random.choice(["rost", "jasorat"])
+            elif tanlov not in TURLAR:
                 raise OyinXatosi(400, "Noma'lum tanlov.")
-            x["bosqich"] = "karta"
+            if x["rejim"] == "shaxsiy":
+                _karta_bosh(x, tanlov, gildirak)
+                x["bosqich"] = "yozish"
+            else:
+                _karta_ol(x, tanlov, gildirak)
+                x["bosqich"] = "karta"
             x["izoh"] = ""
+
+        elif tur == "savol":
+            if bosqich != "yozish" or navbatim:
+                raise OyinXatosi(409, "Hozir savol yozish navbati senda emas.")
+            matn = " ".join(str(d.get("matn") or "").split())[:MAX_SAVOL]
+            if not matn:
+                raise OyinXatosi(400, "Savolni yoz.")
+            x["karta"]["matn"] = matn
+            x["karta"]["muallif"] = x["oyinchilar"][rol]["ism"]
+            x["bosqich"] = "karta"
 
         elif tur == "javob":
             if bosqich != "karta" or not navbatim or x["karta"]["tur"] != "rost":
@@ -299,3 +383,20 @@ def harakat(kod, token, tur, d):
 
         _ozgardi(x)
         return _korinish(x, rol)
+
+# ── qayta ishga tushganda xonalar yo'qolmasin ───────────────────────────────
+def eksport():
+    """Ochiq xonalarni JSON'ga yaroqli ko'rinishda qaytaradi (to'plamlar — ro'yxat)."""
+    with _qulf:
+        _eskilarni_tozala()
+        return {kod: dict(x, ishlatilgan={t: sorted(v) for t, v in x["ishlatilgan"].items()})
+                for kod, x in _xonalar.items()}
+
+
+def import_(malumot):
+    with _qulf:
+        for kod, x in (malumot or {}).items():
+            x["ishlatilgan"] = {t: set(v) for t, v in x.get("ishlatilgan", {}).items()}
+            x.setdefault("rejim", "odatiy")
+            _xonalar[kod] = x
+        _eskilarni_tozala()

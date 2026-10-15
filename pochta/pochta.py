@@ -294,6 +294,8 @@ ARXIV_SHABLON = """<!doctype html>
 
 
 TUR_NOMI = {"rost": "Rost", "jasorat": "Jasorat", "telepatiya": "Telepatiya"}
+QISM_NOMI = {"odatiy": "Rost yoki jasorat 1", "ikkinchi": "Rost yoki jasorat 2",
+             "shaxsiy": "O'z savollarimiz", "telepatiya": "Telepatiya"}
 
 
 def oyin_arxivi():
@@ -313,10 +315,12 @@ def oyin_arxivi():
     bloklar = []
     for kod, royxat in tartib:
         oyinchilar = " va ".join(html.escape(str(i)) for i in (royxat[0].get("oyinchilar") or []) if i)
+        qism = QISM_NOMI.get(royxat[0].get("rejim") or ("telepatiya" if royxat[0].get("tur") == "telepatiya" else "odatiy"), "")
         boshlandi = vaqt_matn(min(float(y.get("vaqt", 0)) for y in royxat))
         satrlar = []
         for y in reversed(royxat):        # o'yin ichida eng yangisi tepada
             tur = y.get("tur") if y.get("tur") in TUR_NOMI else "jasorat"
+            muallif = f'<b>{html.escape(str(y["muallif"]))} so\'radi:</b> ' if y.get("muallif") else ""
             if y.get("natija") == "qabul":
                 ochko = f"+{int(y.get('ochko', 0))} ✓"
             elif tur == "telepatiya":
@@ -333,10 +337,10 @@ def oyin_arxivi():
                 f'<li><div class="bosh"><span>{html.escape(str(y.get("kim", "")))} · '
                 f'<span class="{tur}">{TUR_NOMI[tur]}</span></span>'
                 f'<span>{ochko} · {vaqt_matn(y.get("vaqt"))[-5:]}</span></div>'
-                f'<div class="savol">{html.escape(str(y.get("savol", "")))}</div>{javob}</li>'
+                f'<div class="savol">{muallif}{html.escape(str(y.get("savol", "")))}</div>{javob}</li>'
             )
         bloklar.append(
-            f'<section class="oyin"><h2><span>Xona {html.escape(kod)} · {oyinchilar}</span>'
+            f'<section class="oyin"><h2><span>{qism} · Xona {html.escape(kod)} · {oyinchilar}</span>'
             f"<span>{boshlandi}</span></h2><ol>{''.join(satrlar)}</ol></section>"
         )
     return (ARXIV_SHABLON
@@ -419,7 +423,7 @@ class Ishlovchi(BaseHTTPRequestHandler):
         try:
             d = self._json_oqi(OYIN_HAJM)
             if amal == "yangi":
-                natija = modul.yangi(d.get("ism"))
+                natija = modul.yangi(d)
             elif amal == "qoshil":
                 natija = modul.qoshil(d.get("kod"), d.get("ism"))
             elif amal == "harakat":
@@ -513,7 +517,41 @@ class Ishlovchi(BaseHTTPRequestHandler):
         self._javob(404, "Topilmadi", "text/plain; charset=utf-8")
 
 
+XONALAR_FAYLI = os.path.join(PAPKA, "xonalar.json")
+
+
+def xonalarni_saqla():
+    malumot = {nom: modul.eksport() for nom, modul in OYINLAR.items()}
+    with open(XONALAR_FAYLI + ".tmp", "w", encoding="utf-8") as f:
+        json.dump(malumot, f, ensure_ascii=False)
+    os.replace(XONALAR_FAYLI + ".tmp", XONALAR_FAYLI)
+    return sum(len(v) for v in malumot.values())
+
+
+def xonalarni_tikla():
+    try:
+        with open(XONALAR_FAYLI, encoding="utf-8") as f:
+            malumot = json.load(f)
+    except (FileNotFoundError, ValueError):
+        return 0
+    for nom, modul in OYINLAR.items():
+        modul.import_(malumot.get(nom))
+    os.remove(XONALAR_FAYLI)
+    return sum(len(v) for v in malumot.values())
+
+
 if __name__ == "__main__":
+    import signal
+    import sys
+
     os.makedirs(PAPKA, exist_ok=True)
+    print("tiklangan xonalar:", xonalarni_tikla(), flush=True)
+
+    def toxta(*_):
+        # docker restart/stop SIGTERM yuboradi — ochiq o'yinlar diskka yoziladi
+        print("saqlangan xonalar:", xonalarni_saqla(), flush=True)
+        sys.exit(0)
+
+    signal.signal(signal.SIGTERM, toxta)
     print("Omina pochtasi ishga tushdi; telegram:", "yoqilgan" if BOT_TOKEN and CHAT_ID else "o'chiq", flush=True)
     ThreadingHTTPServer(("0.0.0.0", 8080), Ishlovchi).serve_forever()
