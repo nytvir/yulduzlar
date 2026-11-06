@@ -105,6 +105,7 @@
   .oxir h2{margin:0;font-family:var(--sarlavha);font-style:italic;font-weight:400;font-size:clamp(28px,8vw,36px)}
   .oxir p{margin:0;font-size:16px;line-height:1.55;color:var(--siyoh-2);max-width:26ch}
   .oxir .chiqish{margin-top:10px;font-family:var(--yorliq);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--xira);line-height:1.8}
+  .oxir .keyingi{margin-top:6px;padding:10px 18px;border:1px solid var(--qizil);border-radius:999px;font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--qizil);text-decoration:none}
   .oxir .chiqish b{font-family:var(--nom);font-weight:400;font-size:20px;letter-spacing:0;text-transform:none;color:var(--siyoh)}
 
   /* bob sahifasi */
@@ -324,7 +325,10 @@
     c.appendChild(document.createTextNode("nashriyoti")); c.appendChild(el("br"));
     c.appendChild(document.createTextNode("Adadi: 1 nusxa")); c.appendChild(el("br"));
     c.appendChild(document.createTextNode("Bosmaxona: yurak"));
-    i.appendChild(c); b.appendChild(i);
+    i.appendChild(c);
+    var a = el("a", "keyingi", "Ikkinchi kitob: Sirlar →"); a.href = "2/";
+    i.appendChild(a);
+    b.appendChild(i);
     return b;
   }
 
@@ -479,7 +483,7 @@
     if (boshX === null) return;
     var dx = e.clientX - boshX, dy = e.clientY - boshY;
     boshX = null;
-    if (e.target.closest("button")) return;
+    if (e.target.closest("button, a")) return;
     if (Math.abs(dy) > 40 && Math.abs(dy) > Math.abs(dx)) return;
     if (Math.abs(dx) > 40){ bor(dx < 0 ? joriy + 1 : joriy - 1); return; }
     var r = kitob.getBoundingClientRect();
