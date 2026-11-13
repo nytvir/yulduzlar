@@ -844,7 +844,9 @@
     var qator = el("div", "qator");
     var yubor = el("button", "katta-tugma", MUALLIF + "ga yuborish"); yubor.type = "button";
     var qayta = el("button", "oddiy-tugma", "↺ Boshidan ko'rish"); qayta.type = "button";
-    qator.appendChild(yubor); qator.appendChild(qayta);
+    var mavsum2 = el("a", "oddiy-tugma", "❄️ 2-mavsum: Birinchi qor"); mavsum2.href = "2/";
+    mavsum2.style.textDecoration = "none";
+    qator.appendChild(yubor); qator.appendChild(qayta); qator.appendChild(mavsum2);
     s.appendChild(qator);
     ekran.appendChild(s);
 

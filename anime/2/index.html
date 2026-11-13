@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omina · 2-mavsum: Birinchi qor</title>
+<meta name="description" content="Anime 2-mavsum: Birinchi qor. Olti qism. Bosh rolda — Omina.">
+<meta name="theme-color" content="#1B1430">
+<meta property="og:title" content="OMINA · 2-mavsum: Birinchi qor ❄️">
+<meta property="og:description" content="Olti sovg'a. Bitta sir. Va birinchi qor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Dela+Gothic+One&family=Caveat:wght@500;700&display=swap">
+<style>
+  :root{
+    --matn:"M PLUS Rounded 1c",ui-rounded,"Hiragino Maru Gothic ProN",system-ui,sans-serif;
+    --katta:"Dela Gothic One","M PLUS Rounded 1c",Impact,system-ui,sans-serif;
+    --pushti:#FF5C8A;
+    --pushti-och:#FFD0DE;
+    --kok:#4D7CFE;
+    --siyoh:#2A2140;
+    --oq:#FFFDFB;
+    color-scheme:light;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0;height:100%;overflow:hidden;background:#1B1430}
+  body{font-family:var(--matn);color:var(--siyoh);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+  button{font-family:inherit}
+  button:focus-visible,textarea:focus-visible{outline:3px solid var(--pushti);outline-offset:3px}
+
+  /* ── sahna ─────────────────────────────────── */
+  .ekran{position:fixed;inset:0;overflow:hidden;cursor:pointer}
+  .fon{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+  .fon.faol{opacity:1}
+  .fon svg.shahar{position:absolute;left:0;right:0;bottom:0;width:100%;height:34%;}
+
+  .fon-tong{background:linear-gradient(180deg,#8EC5F2 0%,#BFD9F5 30%,#F8D3E0 62%,#FCE6D6 100%)}
+  .fon-tong .shahar{color:#B790B8;opacity:.75}
+  .fon-tong .quyosh{position:absolute;left:62%;top:46%;width:150px;height:150px;margin:-75px;border-radius:50%;background:radial-gradient(circle,#FFF6E8 0%,rgba(255,226,200,.75) 35%,rgba(255,210,200,0) 70%)}
+
+  .fon-yomgir{background:linear-gradient(180deg,#38435E 0%,#56627E 50%,#7A8099 100%)}
+  .fon-yomgir .shahar{color:#2A3149}
+  .fon-yomgir .chiroq{position:absolute;bottom:30%;width:140px;height:140px;margin-left:-70px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,140,.55),rgba(255,214,140,0) 65%)}
+  .yomgir-qatlam{position:absolute;inset:-20% -20% 0;
+    background-image:repeating-linear-gradient(100deg,rgba(220,232,255,0) 0 18px,rgba(220,232,255,.35) 18px 19px,rgba(220,232,255,0) 19px 46px);
+    background-size:120px 220px;animation:yomgir .45s linear infinite}
+  .yomgir-qatlam.ikki{background-size:80px 160px;opacity:.6;animation-duration:.32s}
+  @keyframes yomgir{to{background-position:-40px 220px}}
+
+  .fon-bayram{background:linear-gradient(180deg,#0A0F2E 0%,#221A4E 55%,#4A2A5E 100%)}
+  .fon-bayram .shahar{color:#120D28}
+  .fon-tom{background:linear-gradient(180deg,#040918 0%,#0F1C44 55%,#2B3466 80%,#6A4A6E 100%)}
+  .fon-tom .shahar{color:#0A1029;height:26%}
+  .fon-tom .oy{position:absolute;right:16%;top:12%;width:64px;height:64px;border-radius:50%;background:#FFF6DC;box-shadow:0 0 40px 10px rgba(255,240,200,.35),inset -10px -6px 0 rgba(220,200,160,.35)}
+  .fon-tom .panjara{position:absolute;left:0;right:0;bottom:0;height:16%;
+    background:linear-gradient(#0A0F22,#0A0F22) 0 0/100% 5px no-repeat,repeating-linear-gradient(90deg,#0A0F22 0 4px,transparent 4px 34px);opacity:.95}
+  .fon-oxir{background:linear-gradient(180deg,#5A6BC6 0%,#C88BB8 38%,#FFA98A 66%,#FFD49A 100%)}
+  .fon-oxir .shahar{color:#7A4F7E;opacity:.7}
+  .fon-oxir .quyosh{position:absolute;left:50%;bottom:28%;width:220px;height:220px;margin-left:-110px;border-radius:50%;background:radial-gradient(circle,#FFF4D6 0%,rgba(255,220,160,.8) 30%,rgba(255,200,150,0) 70%)}
+
+
+  /* ═══ 2-mavsum: qishki sahnalar ═══ */
+  .fon-eshik{background:linear-gradient(180deg,#9FB3CC 0%,#C9D6E6 45%,#E9EEF5 80%,#F5F7FA 100%)}
+  .fon-eshik .shahar{color:#8496B0;opacity:.8}
+  .fon-eshik .daraxtlar{position:absolute;left:0;right:0;bottom:18%;width:100%;height:auto}
+  .fon-muqova{background:linear-gradient(180deg,#0B1430 0%,#22325E 55%,#5C6A9E 85%,#8C93BE 100%)}
+  .fon-muqova .shahar{color:#141D3A}
+  .fon-muqova .oy{position:absolute;right:14%;top:10%;width:58px;height:58px;border-radius:50%;background:#FFF6DC;box-shadow:0 0 50px 14px rgba(255,240,200,.3),inset -10px -6px 0 rgba(220,200,160,.35)}
+  .fon-chorsu{background:linear-gradient(180deg,#8FA2BC 0%,#BCCADB 55%,#E3E9F1 100%)}
+  .fon-chorsu .gumbaz{position:absolute;left:50%;bottom:20%;width:min(130vw,640px);transform:translateX(-50%)}
+  .fon-minora{background:linear-gradient(180deg,#0F1A36 0%,#25345E 45%,#5A5F8E 72%,#B08AA8 100%)}
+  .fon-minora .minora{position:absolute;right:6%;bottom:0;height:88%;width:auto}
+  .fon-minora .shahar-chiroq{position:absolute;left:0;right:0;bottom:0;height:30%;background:radial-gradient(circle,#FFD27A 1.1px,transparent 1.8px) 0 0/13px 9px,linear-gradient(transparent,rgba(10,14,30,.85));opacity:.9;
+    -webkit-mask:linear-gradient(transparent,#000 40%);mask:linear-gradient(transparent,#000 40%)}
+  .fon-chimyon{background:linear-gradient(180deg,#6FA6DD 0%,#A9CBEC 45%,#E6F0FA 100%)}
+  .fon-chimyon .toglar{position:absolute;left:0;right:0;bottom:0;width:100%;height:62%}
+  .fon-balkon{background:linear-gradient(180deg,#060B1A 0%,#15203D 55%,#2A3558 100%)}
+  .fon-balkon .fonar{position:absolute;left:18%;bottom:24%;width:180px;height:180px;margin-left:-90px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,140,.6),rgba(255,214,140,0) 65%)}
+  .fon-balkon .bino{position:absolute;right:0;bottom:0;width:46%;height:100%;background:linear-gradient(90deg,#1B2440,#222C4C);box-shadow:-2px 0 0 rgba(255,255,255,.05)}
+  .fon-balkon .bino i{position:absolute;left:22%;width:56%;height:16%;background:linear-gradient(#FFCB7A,#E9A64E);border:4px solid #141A30;box-shadow:0 0 40px rgba(255,200,120,.45)}
+  .fon-balkon .panjara{position:absolute;right:0;bottom:30%;width:46%;height:10%;background:linear-gradient(#C9D2E6,#C9D2E6) 0 0/100% 4px no-repeat,repeating-linear-gradient(90deg,#C9D2E6 0 3px,transparent 3px 22px);opacity:.75}
+  .fon-kelajak{background:linear-gradient(180deg,#1D2A4E 0%,#3B4C7A 60%,#7E8DB5 100%)}
+  .fon-kelajak .shahar{color:#16203E}
+  .fon-kelajak .rom{position:absolute;inset:0;pointer-events:none;
+    box-shadow:inset 0 0 0 16px #5A3A22,inset 0 0 0 20px #3E2716,inset 0 0 120px 40px rgba(255,170,90,.45);
+    background:linear-gradient(#5A3A22,#5A3A22) 50% 0/12px 100% no-repeat,linear-gradient(#5A3A22,#5A3A22) 0 46%/100% 12px no-repeat}
+  .ayoz{position:absolute;inset:0;pointer-events:none;background:
+    radial-gradient(60% 40% at 0 0,rgba(255,255,255,.75),rgba(255,255,255,0) 70%),radial-gradient(60% 40% at 100% 0,rgba(255,255,255,.7),rgba(255,255,255,0) 70%),
+    radial-gradient(50% 30% at 0 100%,rgba(255,255,255,.55),rgba(255,255,255,0) 70%),radial-gradient(50% 30% at 100% 100%,rgba(255,255,255,.55),rgba(255,255,255,0) 70%)}
+  .yer{position:absolute;left:-5%;right:-5%;bottom:0;height:24%;border-radius:50% 50% 0 0/22% 22% 0 0;background:linear-gradient(#FFFFFF,#E3EAF4)}
+  .qor{position:absolute;inset:0;pointer-events:none;transition:opacity 2.5s ease}
+  .qor.kutmoqda{opacity:0}
+  .qor i{position:absolute;top:-12px;border-radius:50%;background:#fff;animation:qorTush linear infinite}
+  .qor i.kuchli{display:none}
+  .qor.boron i.kuchli{display:block}
+  @keyframes qorTush{0%{transform:translate(0,0)}50%{transform:translate(var(--d,20px),55vh)}100%{transform:translate(calc(var(--d,20px) * -.5),112vh)}}
+
+  /* buyumlar va xatlar */
+  .buyum-oyna{position:absolute;inset:0;z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;cursor:pointer;
+    background:radial-gradient(circle at 50% 45%,rgba(30,40,70,.35),rgba(8,12,26,.78));animation:buyumKir .5s ease both}
+  .buyum-oyna.ket{animation:buyumKet .35s ease forwards}
+  @keyframes buyumKir{from{opacity:0}}
+  @keyframes buyumKet{to{opacity:0}}
+  .buyum-oyna svg{width:min(72vw,300px);height:auto;filter:drop-shadow(0 16px 26px rgba(0,0,0,.45));animation:suzish 3s ease-in-out infinite}
+  @keyframes suzish{50%{transform:translateY(-8px)}}
+  .buyum-izoh{max-width:30ch;margin:0;padding:10px 16px;border-radius:14px;background:rgba(255,253,251,.92);text-align:center;font-weight:700;font-size:clamp(14px,4vw,16px);line-height:1.45;color:var(--siyoh)}
+  .xat-qogoz{
+    position:relative;width:min(88vw,400px);max-height:76vh;overflow-y:auto;padding:24px 22px 20px;border-radius:4px;transform:rotate(-1.2deg);
+    background:#FFFDF6;box-shadow:0 18px 40px rgba(0,0,0,.45);font-family:"Caveat",cursive;font-weight:500;font-size:clamp(21px,6vw,25px);line-height:1.3;color:#24304E;white-space:pre-line;
+  }
+  .xat-qogoz .imzo{display:block;margin-top:12px;text-align:right;font-weight:700;color:#7A2E3A}
+  .xat-qogoz.bola{
+    transform:rotate(1.4deg);color:#3C3FA6;font-weight:700;font-size:clamp(18px,5.2vw,24px);line-height:28px;padding:24px 16px 16px 44px;
+    background:linear-gradient(90deg,transparent 34px,rgba(220,80,90,.55) 34px 36px,transparent 36px),repeating-linear-gradient(transparent 0 27px,rgba(90,120,200,.35) 27px 28px),#FFFEF8;
+  }
+  .xat-qogoz.bola::after{content:"♡";position:absolute;right:16px;bottom:8px;font-size:30px;color:#E0607A;transform:rotate(-12deg)}
+  .buyum-oyna .bos{margin:0;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+  .ism.boshqa{background:linear-gradient(90deg,#5F7A8C,#87A0B0)}
+  .ism.nevara{background:linear-gradient(90deg,#C77B4A,#E7A86B)}
+
+  .yulduzlar i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:miltilla 2.4s ease-in-out infinite}
+  @keyframes miltilla{50%{opacity:.2}}
+
+  .barglar i{
+    position:absolute;top:-30px;width:12px;height:9px;border-radius:12px 0 12px 0;background:linear-gradient(135deg,#FFF 0%,#FFD3E1 70%);
+    box-shadow:0 0 2px rgba(255,140,170,.4);animation:barg linear infinite;
+  }
+  @keyframes barg{
+    0%{transform:translate(0,0) rotate(0)}
+    50%{transform:translate(-40px,55vh) rotate(200deg)}
+    100%{transform:translate(20px,110vh) rotate(420deg)}
+  }
+
+  .salyut{position:absolute;width:0;height:0}
+  .salyut i{position:absolute;width:7px;height:7px;margin:-3.5px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px var(--r),0 0 16px 4px var(--r);animation:portla 1.6s cubic-bezier(.12,.8,.3,1) forwards}
+  @keyframes portla{0%{transform:translate(0,0) scale(1.2);opacity:1}65%{opacity:1}100%{transform:translate(var(--x),var(--y)) scale(.5);opacity:0}}
+
+  /* ── effektlar ─────────────────────────────── */
+  .ekran.silkin{animation:silkin .45s}
+  @keyframes silkin{15%{transform:translate(-9px,4px)}30%{transform:translate(8px,-5px)}45%{transform:translate(-6px,-3px)}60%{transform:translate(5px,4px)}75%{transform:translate(-3px,2px)}}
+  .chaqnash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:6}
+  .chaqnash.yon{animation:chaqnash .5s ease-out}
+  @keyframes chaqnash{0%{opacity:.95}100%{opacity:0}}
+  .doki{position:absolute;inset:0;pointer-events:none;z-index:4;opacity:0;background:radial-gradient(ellipse at center,rgba(255,92,138,0) 45%,rgba(255,92,138,.45) 100%)}
+  .doki.yon{animation:doki 1.4s ease-out}
+  @keyframes doki{0%,100%{opacity:0}12%{opacity:1}24%{opacity:.35}36%{opacity:1}}
+  .doki-yozuv{
+    position:absolute;z-index:5;pointer-events:none;font-family:var(--katta);font-size:clamp(22px,7vw,34px);color:var(--pushti);
+    -webkit-text-stroke:2px #fff;paint-order:stroke fill;transform:rotate(-12deg);animation:dokiYozuv 1.5s ease-out forwards;
+  }
+  @keyframes dokiYozuv{0%{opacity:0;transform:rotate(-12deg) scale(.4)}15%{opacity:1;transform:rotate(-12deg) scale(1.15)}30%{transform:rotate(-12deg) scale(.95)}45%{transform:rotate(-12deg) scale(1.1)}80%{opacity:1}100%{opacity:0;transform:rotate(-12deg) translateY(-30px) scale(1)}}
+  .porlash i{position:absolute;z-index:4;pointer-events:none;color:#FFF7C2;text-shadow:0 0 8px #FFD86B;animation:porla 1.6s ease-out forwards}
+  @keyframes porla{0%{opacity:0;transform:scale(.2) rotate(0)}30%{opacity:1;transform:scale(1.2) rotate(40deg)}100%{opacity:0;transform:scale(.6) rotate(120deg)}}
+  .katta-yozuv{
+    position:absolute;left:50%;top:34%;z-index:5;pointer-events:none;white-space:nowrap;
+    font-family:var(--katta);font-size:clamp(46px,16vw,84px);color:#FFE14D;-webkit-text-stroke:3px var(--siyoh);paint-order:stroke fill;
+    animation:taq 1s cubic-bezier(.2,1.6,.4,1) forwards;
+  }
+  @keyframes taq{0%{transform:translate(-50%,-50%) scale(2.4) rotate(-8deg);opacity:0}25%{transform:translate(-50%,-50%) scale(1) rotate(-8deg);opacity:1}80%{opacity:1}100%{transform:translate(-50%,-50%) scale(1.05) rotate(-8deg);opacity:0}}
+  .tezlik{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;
+    background:repeating-conic-gradient(from 0deg at 50% 40%,rgba(255,255,255,0) 0 3deg,rgba(255,255,255,.55) 3deg 4deg,rgba(255,255,255,0) 4deg 9deg);
+    -webkit-mask:radial-gradient(circle at 50% 40%,transparent 22%,#000 60%);mask:radial-gradient(circle at 50% 40%,transparent 22%,#000 60%)}
+  .tezlik.yon{animation:tezlik .9s ease-out}
+  @keyframes tezlik{0%{opacity:1}100%{opacity:0}}
+  .hujum{
+    position:absolute;left:-10%;right:-10%;top:30%;z-index:5;pointer-events:none;padding:14px 14%;text-align:center;
+    background:linear-gradient(90deg,#FF5C8A,#FF9A5C);transform:rotate(-6deg);box-shadow:0 10px 30px rgba(0,0,0,.35);
+    animation:hujum 2.2s ease forwards;
+  }
+  .hujum small{display:block;font-weight:800;font-size:12px;letter-spacing:.3em;color:#FFE6EE}
+  .hujum b{display:block;font-family:var(--katta);font-weight:400;font-size:clamp(20px,6.5vw,32px);line-height:1.15;color:#fff;-webkit-text-stroke:1px rgba(42,33,64,.4)}
+  @keyframes hujum{0%{transform:rotate(-6deg) translateX(110%)}15%,80%{transform:rotate(-6deg) translateX(0)}100%{transform:rotate(-6deg) translateX(-110%)}}
+
+  /* ── yuqori panel ──────────────────────────── */
+  .panel{
+    position:absolute;z-index:7;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:calc(12px + env(safe-area-inset-top,0px)) 16px 0;pointer-events:none;
+  }
+  .qism-nomi{padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.75);font-weight:800;font-size:12px;letter-spacing:.06em;color:var(--siyoh);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .yurak-olchov{display:flex;align-items:center;gap:3px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:15px;line-height:1}
+  .yurak-olchov span{color:#E3CCD5;transition:color .4s,transform .4s}
+  .yurak-olchov span.tol{color:var(--pushti)}
+  .yurak-olchov span.yangi{animation:yurakYangi .7s ease}
+  @keyframes yurakYangi{40%{transform:scale(1.8)}}
+
+  /* ── dialog ────────────────────────────────── */
+  .dialog{
+    position:absolute;z-index:7;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
+    max-width:640px;margin:0 auto;min-height:150px;padding:26px 20px 30px;border-radius:20px;
+    background:rgba(255,253,251,.9);border:2px solid #fff;box-shadow:0 16px 40px -12px rgba(30,10,40,.55),inset 0 0 0 1px rgba(255,92,138,.2);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:opacity .3s, transform .3s;
+  }
+  .dialog.yashirin{opacity:0;transform:translateY(20px);pointer-events:none}
+  .ism{
+    position:absolute;left:16px;top:-16px;padding:5px 16px;border-radius:999px;font-weight:800;font-size:14px;letter-spacing:.04em;color:#fff;
+    background:var(--kok);box-shadow:0 4px 12px -4px rgba(0,0,0,.35);
+  }
+  .ism.ramz{background:linear-gradient(90deg,#4D7CFE,#6C5CE7)}
+  .ism.omina{background:linear-gradient(90deg,#FF5C8A,#FF8FB1)}
+  .ism.ichki{background:linear-gradient(90deg,#8E7CC3,#B39DDB)}
+  .gap{margin:0;min-height:3.2em;font-weight:500;font-size:clamp(16px,4.4vw,19px);line-height:1.6;white-space:pre-line}
+  .gap.hikoya{font-style:italic;color:#5A4E70}
+  .gap.ichki-ovoz{color:#5B4A8C}
+  .gap .ajrat{color:var(--pushti);font-weight:800}
+  .davom{position:absolute;right:18px;bottom:10px;color:var(--pushti);font-size:14px;animation:sakra 1s ease-in-out infinite;opacity:0}
+  .davom.bor{opacity:1}
+  @keyframes sakra{50%{transform:translateY(4px)}}
+
+
+  /* ── personajlar ───────────────────────────── */
+  .personajlar{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .personaj{
+    position:absolute;bottom:calc(118px + env(safe-area-inset-bottom,0px));width:min(60vw,320px);
+    opacity:0;transform:translateY(30px);transition:opacity .5s ease,transform .5s ease,filter .3s ease;
+  }
+  .personaj svg{display:block;width:100%;height:auto;filter:drop-shadow(0 8px 14px rgba(20,10,30,.35))}
+  .personaj.ramz{left:max(-4vw,-18px)}
+  .personaj.omina{right:max(-4vw,-18px)}
+  .personaj.bor{opacity:1;transform:none}
+  .personaj.bor.xira{filter:brightness(.7) saturate(.75);transform:translateY(10px) scale(.97)}
+  .personaj.bor.sakra{animation:sakra2 .35s ease}
+  @keyframes sakra2{40%{transform:translateY(-8px)}}
+
+  .tanlovlar{
+    position:absolute;z-index:8;left:16px;right:16px;bottom:calc(30px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;
+    display:grid;gap:10px;
+  }
+  .tanlovlar p{margin:0 0 2px;text-align:center;font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+  .tanlovlar button{
+    width:100%;min-height:54px;padding:12px 18px;border-radius:16px;border:2px solid #fff;cursor:pointer;text-align:left;
+    background:rgba(255,253,251,.92);font-weight:700;font-size:clamp(15px,4.2vw,17px);line-height:1.35;color:var(--siyoh);
+    box-shadow:0 8px 20px -10px rgba(30,10,40,.6);animation:tanlovChiq .4s ease both;transition:transform .15s,background .15s;
+  }
+  .tanlovlar button:nth-of-type(2){animation-delay:.08s}
+  .tanlovlar button:nth-of-type(3){animation-delay:.16s}
+  .tanlovlar button::before{content:"♡";margin-right:10px;color:var(--pushti)}
+  .tanlovlar button:active{transform:scale(.97);background:var(--pushti-och)}
+  @keyframes tanlovChiq{from{opacity:0;transform:translateY(16px)}}
+
+  /* ── qism kartasi ──────────────────────────── */
+  .karta{
+    position:absolute;inset:0;z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;
+    background:linear-gradient(115deg,#1B1430 0 14%,#FF5C8A 14% 16%,#1B1430 16% 84%,#FF5C8A 84% 86%,#1B1430 86%);color:#fff;animation:kartaKir .6s ease both;
+  }
+  .karta.ket{animation:kartaKet .5s ease forwards}
+  @keyframes kartaKir{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes kartaKet{to{opacity:0;transform:scale(1.06)}}
+  .karta small{font-weight:800;font-size:13px;letter-spacing:.4em;color:var(--pushti)}
+  .karta h2{margin:0;padding:0 20px;font-family:var(--katta);font-weight:400;font-size:clamp(32px,10vw,56px);line-height:1.1;text-shadow:4px 4px 0 var(--pushti)}
+  .karta span{font-weight:700;font-size:13px;letter-spacing:.2em;color:rgba(255,255,255,.55)}
+
+  /* ── bosh ekran ────────────────────────────── */
+  .bosh{
+    position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;text-align:center;cursor:default;
+    background:linear-gradient(180deg,rgba(27,20,48,.15),rgba(27,20,48,.55));
+  }
+  .bosh .kichik{margin:0;font-weight:800;font-size:12px;letter-spacing:.4em;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .bosh h1{margin:0;font-family:var(--katta);font-weight:400;font-size:clamp(52px,17vw,110px);line-height:.95;color:#fff;-webkit-text-stroke:3px var(--pushti);paint-order:stroke fill;text-shadow:6px 6px 0 rgba(255,92,138,.55)}
+  .bosh .ost{margin:0;font-weight:800;font-size:clamp(15px,4.4vw,19px);color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+  .bosh .ogoh{max-width:30ch;margin:6px 0 10px;font-weight:500;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.92);text-shadow:0 1px 6px rgba(0,0,0,.5)}
+  .katta-tugma{
+    min-width:220px;min-height:54px;padding:12px 26px;border-radius:999px;border:3px solid #fff;cursor:pointer;
+    background:linear-gradient(90deg,#FF5C8A,#FF8F6B);font-weight:800;font-size:17px;letter-spacing:.06em;color:#fff;box-shadow:0 10px 26px -8px rgba(255,92,138,.8);
+  }
+  .oddiy-tugma{min-height:46px;padding:10px 22px;border-radius:999px;border:2px solid rgba(255,255,255,.8);background:rgba(255,255,255,.18);cursor:pointer;font-weight:800;font-size:14px;color:#fff;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+
+  /* ── titrlar va oxirgi so'z ────────────────── */
+  .titr{position:absolute;inset:0;z-index:9;overflow:hidden;background:rgba(15,10,30,.72);color:#fff;text-align:center;cursor:default}
+  .titr-lenta{position:absolute;left:0;right:0;top:100%;padding:0 24px;animation:titr 26s linear forwards}
+  @keyframes titr{to{transform:translateY(calc(-100% - 100vh))}}
+  .titr-lenta h2{margin:0 0 6px;font-family:var(--katta);font-weight:400;font-size:48px;color:#fff;-webkit-text-stroke:2px var(--pushti);paint-order:stroke fill}
+  .titr-lenta .ost{margin:0 0 50px;font-weight:700;color:var(--pushti-och)}
+  .titr-lenta dl{margin:0 0 40px}
+  .titr-lenta dt{font-weight:700;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .titr-lenta dd{margin:4px 0 26px;font-weight:800;font-size:20px}
+  .titr-lenta .keyingi{margin:60px 0 0;font-family:var(--katta);font-size:22px;color:#FFE14D}
+  .otkaz{position:absolute;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:2}
+
+  .songi{
+    position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;text-align:center;cursor:default;
+    background:linear-gradient(180deg,rgba(27,20,48,.35),rgba(27,20,48,.75));color:#fff;
+  }
+  .songi h2{margin:0;font-family:var(--katta);font-weight:400;font-size:clamp(30px,9vw,44px);line-height:1.1;text-shadow:3px 3px 0 var(--pushti)}
+  .songi .natija{margin:0;font-weight:800;font-size:16px;color:var(--pushti-och)}
+  .songi .izoh{max-width:32ch;margin:0;font-weight:500;font-size:14px;line-height:1.5;color:rgba(255,255,255,.85)}
+  .songi textarea{
+    width:min(100%,420px);min-height:96px;padding:12px 14px;border-radius:14px;border:2px solid #fff;resize:vertical;
+    font-family:var(--matn);font-size:16px;line-height:1.5;color:var(--siyoh);background:rgba(255,253,251,.95);user-select:text;-webkit-user-select:text;
+  }
+  .songi .holat{min-height:1.4em;margin:0;font-weight:700;font-size:14px;color:#FFE14D}
+  .songi .qator{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+
+  @media (prefers-reduced-motion:reduce){
+    .barglar,.yomgir-qatlam{display:none}
+    .ekran.silkin{animation:none}
+    .titr-lenta{animation-duration:60s}
+  }
+</style>
+</head>
+<body>
+<div class="ekran" id="ekran">
+  <!-- Fonlar -->
+  <div class="fon fon-muqova" data-fon="muqova"><div class="yulduzlar"></div><div class="oy"></div><svg class="shahar" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><use href="#shahar"/></svg><div class="yer" style="height:12%"></div><div class="qor" data-soni="70"></div></div>
+  <div class="fon fon-eshik" data-fon="eshik"><svg class="shahar" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><use href="#shahar"/></svg><svg class="daraxtlar" viewBox="0 0 400 160" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><g fill="none" stroke="#6F7F98" stroke-width="2.6" stroke-linecap="round"><path d="M60 160 V70 M60 110 L36 82 M60 96 L84 66 M60 80 L48 52 M84 66 L96 50 M36 82 L24 70"/><path d="M330 160 V60 M330 104 L354 78 M330 88 L306 60 M330 72 L342 42 M306 60 L296 46 M354 78 L368 64"/></g></svg><div class="ayoz"></div></div>
+  <div class="fon fon-chorsu" data-fon="chorsu"><svg class="gumbaz" viewBox="0 0 400 220" aria-hidden="true"><path d="M40 220 V160 H360 V220 Z" fill="#B8A68C"/><path d="M40 160 H360" stroke="#8F7E66" stroke-width="4"/><g fill="#8F7E66"><rect x="70" y="176" width="22" height="34" rx="11"/><rect x="120" y="176" width="22" height="34" rx="11"/><rect x="258" y="176" width="22" height="34" rx="11"/><rect x="308" y="176" width="22" height="34" rx="11"/></g><path d="M110 160 Q108 52 200 36 Q292 52 290 160 Z" fill="#3F6FA8"/><path d="M200 36 V160 M155 50 Q140 100 142 160 M245 50 Q260 100 258 160" stroke="#2F5786" stroke-width="3" fill="none"/><path d="M128 92 Q200 20 272 92 Q236 70 200 72 Q164 70 128 92 Z" fill="#F4F8FC" opacity=".92"/><path d="M200 36 V18" stroke="#C9B37A" stroke-width="4"/><circle cx="200" cy="14" r="5" fill="#C9B37A"/><path d="M40 158 Q200 146 360 158" stroke="#F4F8FC" stroke-width="5" fill="none" opacity=".9"/></svg><div class="ayoz"></div></div>
+  <div class="fon fon-minora" data-fon="minora"><div class="yulduzlar"></div><div class="shahar-chiroq"></div><svg class="minora" viewBox="0 0 120 400" aria-hidden="true"><path d="M52 400 L56 120 L60 6 L64 120 L68 400 Z" fill="#0B1226"/><ellipse cx="60" cy="150" rx="26" ry="14" fill="#0B1226"/><ellipse cx="60" cy="150" rx="22" ry="4" fill="#FFD98A" opacity=".85"/><ellipse cx="60" cy="214" rx="14" ry="8" fill="#0B1226"/><circle cx="60" cy="8" r="3" fill="#FF5C5C"/><path d="M30 400 L60 300 L90 400" fill="none" stroke="#0B1226" stroke-width="5"/></svg></div>
+  <div class="fon fon-chimyon" data-fon="chimyon"><svg class="toglar" viewBox="0 0 400 260" preserveAspectRatio="none" aria-hidden="true"><path d="M0 260 V150 L70 70 L120 120 L200 30 L270 110 L330 60 L400 120 V260 Z" fill="#F4F8FC"/><path d="M200 30 L270 110 L238 112 L214 70 Z M70 70 L120 120 L96 118 Z M330 60 L400 120 L366 112 Z" fill="#C6D5E8"/><path d="M0 260 V190 Q100 160 200 180 Q300 196 400 170 V260 Z" fill="#FFFFFF"/><g fill="#2E4A3C"><path d="M30 214 L46 170 L62 214 Z M36 196 L46 160 L56 196 Z"/><path d="M70 222 L84 184 L98 222 Z"/><path d="M330 210 L348 164 L366 210 Z M338 190 L348 152 L358 190 Z"/><path d="M370 220 L382 188 L394 220 Z"/></g><g fill="#FFFFFF" opacity=".9"><path d="M40 182 L46 170 L52 182 Z M342 176 L348 164 L354 176 Z"/></g></svg><div class="qor" data-soni="26"></div></div>
+  <div class="fon fon-balkon" data-fon="balkon"><div class="yulduzlar"></div><div class="fonar"></div><div class="bino"><i style="top:18%"></i><i style="top:48%"></i></div><div class="panjara"></div><div class="qor kutmoqda" data-soni="70"></div></div>
+  <div class="fon fon-kelajak" data-fon="kelajak"><svg class="shahar" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><use href="#shahar"/></svg><div class="yer" style="height:14%"></div><div class="qor" data-soni="60"></div><div class="rom"></div></div>
+
+  <div class="tezlik" id="tezlik"></div>
+  <div class="doki" id="doki"></div>
+  <div class="chaqnash" id="chaqnash"></div>
+  <div id="effektlar"></div>
+
+  <div class="panel" id="panel" hidden>
+    <span class="qism-nomi" id="qismNomi"></span>
+    <span class="yurak-olchov" id="yurakOlchov" aria-label="Yurak o'lchagich"></span>
+  </div>
+
+  <div class="personajlar" aria-hidden="true"><div class="personaj ramz" id="pRamz"></div><div class="personaj omina" id="pOmina"></div></div>
+
+  <div class="dialog yashirin" id="dialog">
+    <span class="ism" id="ism" hidden></span>
+    <p class="gap" id="gap"></p>
+    <span class="davom" id="davom" aria-hidden="true">▼</span>
+  </div>
+  <p class="sr" id="ekranOquvchi" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></p>
+
+  <div class="tanlovlar" id="tanlovlar" hidden></div>
+
+  <div class="bosh" id="bosh">
+    <p class="kichik">2-mavsum · Birinchi qor</p>
+    <h1>OMINA</h1>
+    <p class="ost">Olti qism · Bosh rolda — sen</p>
+    <p class="ogoh">Ekranga bossang, hikoya davom etadi. Ba'zan tanlov chiqadi — yuragingga qarab tanla.</p>
+    <p class="ogoh" style="margin-top:-6px"><a href="../" style="color:#fff">← 1-mavsumni ko'rmaganmisan?</a></p>
+    <button type="button" class="katta-tugma" id="boshla">▶ Boshlash</button>
+    <button type="button" class="oddiy-tugma" id="davomEt" hidden>Davom ettirish</button>
+  </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="shahar" fill="currentColor">
+      <path d="M0 120 V86 H18 V70 H34 V92 H52 V62 H70 V80 H86 V54 H104 V76 H120 V90 H138 V66 H156 V58 H170 V84 H188 V72 H206 V94 H222 V60 H240 V78 H258 V88 H276 V70 H292 V120 Z"/>
+      <path d="M299 120 V46 L302 6 L305 46 V120 Z"/>
+      <ellipse cx="302" cy="46" rx="8" ry="5"/>
+      <ellipse cx="302" cy="62" rx="5" ry="3"/>
+      <path d="M312 120 V82 H330 V64 H348 V86 H366 V74 H384 V90 H400 V120 Z"/>
+    </g>
+  </defs>
+</svg>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ═══════════════════════════════════════════════
+     SSENARIY. Har bir qator:
+       {s:"fon"}                       — sahnani almashtiradi (eshik, chorsu, minora, chimyon, balkon, kelajak)
+       {buyum:"nom", m:"izoh"}         — buyumni katta ko'rsatadi (muz, shar, chana, qordanOdam)
+       {xat:"matn", imzo, tur:"bola"}  — xat varag'i; bosilsa davom etadi
+       ko / e / keksa / sharf          — kim sahnada, qanday ifodada, keksami, Ramzda sharf bormi
+       {karta:"1-QISM", nom:"..."}     — qism boshidagi karta
+       {k:"h|r|o|i|x|n", m, nom, fx}   — gap: h — hikoyachi, r — Ramz, o — Omina, i — ichki ovoz, x — boshqa odam, n — nevara; nom — ism yorlig'ini almashtiradi
+       {tanlov:[{t:"...", keyin:[...]}]} — tanlov; har biri yurakni bitta to'ldiradi
+       {titr:true}                     — oxirgi titrlar
+     Effektlar (fx): doki, silkin, chaqnash, porla, taq, hujum, zarba — bo'sh joy bilan bir nechtasi.
+  ═══════════════════════════════════════════════ */
+  var ISM = "Omina", MUALLIF = "Ramz";
+  var POCHTA = "/pochta/javob";
+
+  var SSENARIY = [
+    {s:"eshik"},
+    {karta:"1-QISM", nom:"Imzosiz xat"},
+    {k:"h", m:"Bu voqea o'sha qishda boshlangan. Toshkentga hali qor tushmagan edi, lekin havo allaqachon uni kutardi."},
+    {k:"h", m:"Bir kuni ertalab Omina eshikni ochdi. Ostonada esa... muz bo'lagi turardi.", ko:"o", e:"o:hayron"},
+    {buyum:"muz", m:"Muz ichida — buklangan xat."},
+    {xat:"Qish boshlandi.\nSeni oltita sovg'a kutyapti. Birinchisi allaqachon qo'lingda.\nIkkinchisi — Chorsuda.\nShoshilma: hammasi o'z vaqtida.", imzo:"— Qorbobo emas"},
+    {k:"o", m:"«Qorbobo emas»?.. Bu qanaqa hazil?", e:"o:hayron"},
+    {k:"h", m:"U darrov Ramzga video qo'ng'iroq qildi. Ramz Andijonda, bozorning qoq o'rtasida ekan.", ko:"ro", e:"r:oddiy o:hayron", fx:"dzz"},
+    {k:"r", nom:"Ramz · video", m:"Qanaqa xat? Qorbobo emas?! Hm. Men uni topaman. Topib, Andijoncha gaplashaman.", e:"r:hayron"},
+    {k:"o", m:"Rashk qilyapsanmi?", e:"o:kulgan"},
+    {k:"r", nom:"Ramz · video", m:"Yo'q. Shunchaki... Toshkentda senga xat yozadigan mendan boshqa odam bo'lmasligi kerak.", e:"r:qizargan"},
+    {tanlov:[
+      {t:"«Balki u sendan chiroyliroq yozar?»", keyin:[
+        {k:"r", nom:"Ramz · video", m:"Imkonsiz. Sen haqingda chiroyli yozish oson — sen o'zing chiroylisan. Lekin eng chiroylisini baribir men yozaman.", e:"r:kulgan o:kulgan"}
+      ]},
+      {t:"«Xavotir olma, sen — yagonasan»", keyin:[
+        {k:"r", nom:"Ramz · video", m:"Shuni yozib, imzolab ber. Muzlatib, umrbod saqlayman.", e:"r:qizargan o:kulgan", fx:"doki"}
+      ]},
+      {t:"(Kulib, telefonni qo'yish)", keyin:[
+        {k:"h", m:"Omina kulib telefonni qo'ydi. Ekranda Ramzning hayron yuzi qotib qoldi.", e:"r:hayron o:kulgan"}
+      ]}
+    ]},
+    {k:"h", m:"Faqat bir narsa g'alati edi: xatdagi yozuv hech kimnikiga o'xshamasdi. Go'yo kimdir ataylab chap qo'li bilan yozgandek.", e:"o:oddiy"},
+
+    {s:"chorsu"},
+    {karta:"2-QISM", nom:"Shar ichidagi uy"},
+    {k:"h", m:"Chorsu. Gumbaz ustida birinchi qirov. Bozor shovqini, issiq non hidi."},
+    {k:"h", m:"Burchakdagi kichkina do'konda keksa usta Ominani kutib turardi — go'yo uni ko'p yillardan beri tanigandek.", ko:"o", e:"o:hayron"},
+    {k:"x", nom:"Keksa usta", m:"Siz Omina qizimmisiz? Sizga omonat qoldirishgan."},
+    {buyum:"shar", m:"Qor shari. Ichida — kichkina uy, tut daraxti va ko'k darvoza."},
+    {k:"o", m:"Bu... bu bizning uyimiz-ku. Bolaligimdagi. Tut daraxti ham, ko'k darvoza ham...", e:"o:hayron", fx:"porla"},
+    {k:"h", m:"Omina sharni silkitdi. Ichida qor aylandi. Tut daraxti ortida esa juda kichkina kimdir turardi — yumaloq ko'zoynakli."},
+    {k:"h", m:"Lekin Omina buni sezmadi. Uning ko'zlari namlangan edi.", e:"o:qizargan"},
+    {k:"x", nom:"Keksa usta", m:"Uni buyurtma qilgan yigit tayinladi: «Agar yig'lasa, aytib qo'ying — bu faqat xursandchilikdan bo'lsin»."},
+    {k:"o", m:"Qanaqa yigit? U qanaqa edi?", e:"o:hayron"},
+    {k:"x", nom:"Keksa usta", m:"Eh, qizim, keksa ko'zim nimani ham ko'rardi. Faqat... sizni gapirganda ko'zlari kulib turardi.", e:"o:qizargan"},
+    {tanlov:[
+      {t:"Ramzga yozish: «Bu senmisan?»", keyin:[
+        {k:"h", m:"Javob darrov keldi — Andijondagi choyxonadan rasm: «Men bu yerda palov yeyapman. Qorbobo emasga salom ayt».", e:"o:hayron"}
+      ]},
+      {t:"Sharni yuragiga bosish", keyin:[
+        {k:"h", m:"Omina sharni yuragiga bosdi. Shisha sovuq edi, lekin negadir ichi iliq bo'lib ketdi.", e:"o:qizargan", fx:"doki"}
+      ]},
+      {t:"Ustadan yana so'rash", keyin:[
+        {k:"x", nom:"Keksa usta", m:"Bir narsani ayta olaman: u bu sharni bir oy yasatdi. Uyni uch marta qayta qildirdi. «Darvoza aynan shu ko'k rangda bo'lsin», dedi.", e:"o:hayron"}
+      ]}
+    ]},
+    {k:"h", m:"Shar tagida ikkinchi xat yashiringan edi."},
+    {xat:"Bolaligingdagi uy hech qachon yo'qolmaydi.\nEndi u sening kaftingda.\nUchinchi sovg'a — shaharning eng tepasida.\nKechqurun, soat yettida.", imzo:"— Qorbobo emas"},
+
+    {s:"minora"},
+    {karta:"3-QISM", nom:"Shahar tepasida"},
+    {k:"h", m:"Teleminora. Kechki yetti. Pastda butun Toshkent — chiroqlar, yo'llar, minglab derazalar."},
+    {k:"h", m:"Ko'rish maydonchasi bo'm-bo'sh edi. Faqat oynaga yopishtirilgan konvert.", ko:"o", e:"o:hayron"},
+    {xat:"Sen bolaligingda shaharni eng tepadan ko'rishni orzu qilgansan.\nMana u — oyog'ing ostida.\nYana bilib qo'y: bu yerdan ko'rinadigan eng chiroyli manzara — oynada aks etib turgan qiz.", imzo:"— Qorbobo emas"},
+    {k:"h", m:"Omina oynaga qaradi. Shahar chiroqlari ustida — o'zining aksi.", e:"o:qizargan", fx:"porla"},
+    {k:"o", m:"Bu albatta Ramz. Boshqa hech kim menga bunaqa gap yozmaydi.", e:"o:oddiy"},
+    {k:"h", m:"U yana qo'ng'iroq qildi.", ko:"ro", e:"r:oddiy o:oddiy", fx:"dzz"},
+    {k:"r", nom:"Ramz · video", m:"Andijondaman, ishon! Mana bugungi gazeta, mana sana, mana qo'shni do'kondagi Mahmud aka.", e:"r:hayron"},
+    {k:"o", m:"Unda kim? Kim mening bolaligimni bunchalik yaxshi biladi?", e:"o:hayron"},
+    {k:"r", nom:"Ramz · video", m:"Bilmadim. Lekin uni tushunaman. Seni bir marta ko'rgan odam ham butun umr sen haqingda o'ylab yurishi mumkin.", e:"r:qizargan", fx:"doki"},
+    {tanlov:[
+      {t:"«Sen ham shunaqa o'ylaysanmi?»", keyin:[
+        {k:"r", nom:"Ramz · video", m:"Men o'ylamayman. Men shunchaki eslab yuraman. Har daqiqa.", e:"r:qizargan o:qizargan", fx:"doki"}
+      ]},
+      {t:"«Ehtiyot bo'l, Qorbobo emas sendan o'zib ketyapti»", keyin:[
+        {k:"r", nom:"Ramz · video", m:"O'yin hali tugamadi. Andijonliklar oxirgi raundda yutadi.", e:"r:kulgan o:kulgan"}
+      ]},
+      {t:"(Jim turib, shaharga qarash)", keyin:[
+        {k:"h", m:"Ikkalasi bir daqiqa jim qolishdi. Bir tomonda Toshkent chiroqlari, bir tomonda telefondagi Andijon. Masofa birdan qisqarib qoldi.", e:"r:kulgan o:kulgan"}
+      ]}
+    ]},
+    {k:"h", m:"Konvertda yana bir varaq bor edi: «To'rtinchi sovg'a — Chimyonda. Shanba ertalab. Issiq kiyin»."},
+
+    {s:"chimyon"},
+    {karta:"4-QISM", nom:"Kulayotgan qordan odam"},
+    {k:"h", m:"Chimyon. Tog'lar oppoq. Havo shunchalik toza ediki, nafas olish ham shirin edi."},
+    {k:"h", m:"Qiyalik tepasida chana turardi.", ko:"o", e:"o:hayron"},
+    {buyum:"chana", m:"Chana yonida yozuv: «Hech kim shoshiltirmaydi. Xohlagancha uch»."},
+    {k:"o", m:"Bolaligimda dadam doim «bo'ldi, ketdik» derdi... Bugun hech kim demaydi.", e:"o:kulgan", fx:"porla"},
+    {k:"h", m:"Omina uchdi. Bir marta, ikki marta, o'n marta. Kulgisi butun tog'ga yoyildi.", e:"o:kulgan", fx:"porla"},
+    {k:"h", m:"Pastda uni qordan odam kutib turardi — kulib turgan, sabzi burunli."},
+    {buyum:"qordanOdam", m:"Qordan odamning bo'ynida — ko'k-kulrang yo'l-yo'l sharf."},
+    {k:"o", m:"To'xta... Bu sharf... Bu Ramzning sharfi-ku!", e:"o:hayron", fx:"hayrat silkin"},
+    {k:"h", m:"U qaltirab turib qo'ng'iroq qildi.", ko:"ro", e:"r:oddiy o:hayron", fx:"dzz"},
+    {k:"r", nom:"Ramz · video", m:"Sharfim? Uni Andijonda, bozorda yo'qotib qo'ygandim-ku! Qanaqasiga...", e:"r:hayron"},
+    {k:"r", nom:"Ramz · video", m:"...Omina. Bir yomon yangilik bor. Qor sababli dovon yopildi. Juma kuni kelolmayman.", e:"r:oddiy o:hayron"},
+    {k:"h", m:"Ob-havo esa juma kechasiga Toshkentda yilning birinchi qorini va'da qilayotgan edi.", e:"o:qizargan"},
+    {tanlov:[
+      {t:"«Mayli. Muhimi — sen yo'lda xavfsiz bo'l»", keyin:[
+        {k:"r", nom:"Ramz · video", m:"Sen shunaqa deysan-u, men seni yana bir marta sevib qolaman. Bu adolatdan emas.", e:"r:qizargan o:kulgan", fx:"doki"}
+      ]},
+      {t:"«Birinchi qorda birga bo'lishimiz kerak edi...»", keyin:[
+        {k:"r", nom:"Ramz · video", m:"Afsonalarni men yozmaganman. Lekin ularni buzishga ham hech kimga ruxsat bermayman.", e:"r:oddiy o:qizargan"}
+      ]},
+      {t:"(Qordan odamni quchoqlash)", keyin:[
+        {k:"h", m:"Omina qordan odamni quchoqladi. Sharfdan Ramzning atiri anqirdi. Juda yangi hid... go'yo bugun ertalab taqilgandek.", e:"o:qizargan", fx:"doki"}
+      ]}
+    ]},
+    {k:"h", m:"Qordan odamning cho'ntagida oxirgi konvert turardi. Ustiga yozilgan: «Faqat juma kechasi och»."},
+
+    {s:"balkon"},
+    {karta:"5-QISM", nom:"Yetti yoshli Omina"},
+    {k:"h", m:"Juma kechasi. Soat 23:40. Shahar qorni kutib, jim qotgan edi."},
+    {k:"h", m:"Omina konvertni ochdi. Ichida xat emas — eski daftardan yirtilgan varaq bor edi.", ko:"o", e:"o:hayron"},
+    {xat:"Qishki tilaklarim\n(Omina, 7 yosh)\n\n1. Qor ichidan xat olsam\n2. Ichida bizning uy bo'lgan qor shari\n3. Shaharni eng tepadan ko'rsam\n4. Hech kim shoshiltirmasa, chana uchsam\n5. Kulib turgan qordan odam\n6. Birinchi qorda kimdir derazam tagidan chaqirsa. Kinodagidek.", tur:"bola"},
+    {k:"o", m:"Bu... mening yozuvim. Men buni yetti yoshimda yozganman...", e:"o:hayron"},
+    {k:"h", m:"Oltita sovg'aning hammasi uning bolalikdagi tilaklari ekan. Kimdir yetti yoshli Ominani topib, uni birma-bir xursand qilgan edi.", e:"o:qizargan", fx:"porla"},
+    {k:"o", m:"Lekin oltinchisi... oltinchisi bajarilmaydi. U Andijonda. Dovon yopiq.", e:"o:qizargan"},
+    {k:"h", m:"23:59. Oynaga birinchi qor parchasi qo'ndi.", fx:"qor chaqnash"},
+    {k:"h", m:"Telefon jiringladi. Notanish raqam.", fx:"dzz"},
+    {k:"r", nom:"Notanish raqam", m:"Pastga qara."},
+    {k:"h", m:"Pastda, ko'cha chirog'i ostida, qorga belangan yigit turardi. Ko'zoynagi bug'lanib qolgan, qo'lida ikki stakan issiq choy. Bo'ynida esa — sharf yo'q.", ko:"ro", sharf:false, e:"r:kulgan o:hayron"},
+    {k:"o", m:"Ramz?! Sen... sen Andijondasan-ku! Dovon yopiq-ku!", e:"o:hayron", fx:"silkin"},
+    {k:"r", m:"Men hech qayoqqa ketmaganman. Andijondagi rasmlar bir oy oldin olingan. Gazetani ham oldindan sotib qo'yganman.", e:"r:kulgan"},
+    {k:"r", m:"Sharfni qordan odamga o'zim bog'ladim. Usta — do'stimning bobosi. Daftarni esa onang bilan birga, eski sandiqdan topdik.", e:"r:qizargan"},
+    {k:"o", m:"Onam ham bilarmidi?!", e:"o:hayron"},
+    {k:"r", m:"Bir oydan beri sir saqlab yuribdi. Rosa qiynaldi, bechora.", e:"r:kulgan o:kulgan"},
+    {k:"r", m:"Omina. Men seni faqat bugun uchun sevmayman. Seni yetti yoshingdan beri sevgim kelardi. Kech tanishganimni shu bilan to'ldirmoqchi edim.", e:"r:qizargan o:qizargan", fx:"doki porla"},
+    {tanlov:[
+      {t:"Pastga yugurib tushish", keyin:[
+        {k:"h", m:"Omina tapochkasida pastga yugurdi. Qor, chiroq, issiq choy hidi — va Ramzning quchog'i. Afsona bajarildi.", e:"r:kulgan o:kulgan", fx:"doki"}
+      ]},
+      {t:"«Sen jinni ekansan!» deb kulish", keyin:[
+        {k:"r", m:"Ha. Faqat bitta odam uchun. Davolash shart emas.", e:"r:kulgan o:kulgan"}
+      ]},
+      {t:"(Yig'lab yuborish)", keyin:[
+        {k:"r", m:"Yig'lama... Usta senga aytdi-ku: bu faqat xursandchilikdan bo'lsin.", e:"r:qizargan o:qizargan", fx:"doki"}
+      ]}
+    ]},
+    {k:"h", m:"O'sha kecha Toshkentga yilning birinchi qori yog'di. Va ular birga edi.", e:"r:kulgan o:kulgan"},
+
+    {s:"kelajak"},
+    {karta:"6-QISM", nom:"Ellik qish"},
+    {k:"h", m:"...Buvim afsonalarga hech qachon ishonmasdi."},
+    {k:"n", m:"Ha, bu hikoyani sizga men aytib berdim. Men — ularning nevarasiman.", fx:"porla"},
+    {buyum:"shar", m:"Javonimizda o'sha qor shari hali ham turibdi. Ellik yil o'tdi — ichidagi kichkina ko'zoynakli odamcha ham joyida."},
+    {k:"h", m:"Derazadan qarayman: qorli ko'chada ikki keksa odam sekin ketyapti.", ko:"ro", keksa:true, sharf:true, e:"r:kulgan o:kulgan"},
+    {k:"h", m:"Bobom hamon yumaloq ko'zoynakda. Buvimning qo'li esa hamon uning cho'ntagida."},
+    {k:"n", m:"Har yili birinchi qor yoqqanda bobom uni pastga chaqirardi. Ellik yil. Bittasini ham qoldirmagan."},
+    {k:"r", nom:"Bobo", m:"Omina... pastga qara. Qor yog'yapti.", e:"r:kulgan"},
+    {k:"o", nom:"Buvi", m:"Ko'rdim, ko'rdim. Ellik yildan beri ko'ryapman-ku, chol.", e:"o:kulgan"},
+    {k:"r", nom:"Bobo", m:"Ellik yildan beri sen hamon eng chiroylisan. Qor ham shunga yog'adi — senga qarash uchun.", e:"r:qizargan o:qizargan", fx:"doki"},
+    {k:"h", m:"Qorga kimdir katta harflar bilan yozib ketgan edi: «PASTGA QARA ♥»", fx:"porla"},
+    {titr:true}
+  ];
+
+  var QISM_NOMLARI = {eshik:"1-qism · Imzosiz xat", chorsu:"2-qism · Shar ichidagi uy", minora:"3-qism · Shahar tepasida", chimyon:"4-qism · Qordan odam", balkon:"5-qism · 7 yoshli Omina", kelajak:"6-qism · Ellik qish"};
+  var YURAK_JAMI = 6;
+
+  /* ═══════════════════════════════════════════════ */
+
+  var KALIT = "omina-anime-2";
+  var $ = function(id){ return document.getElementById(id); };
+  var ekran = $("ekran"), dialog = $("dialog"), gapEl = $("gap"), ismEl = $("ism"), davomEl = $("davom"), tanlovEl = $("tanlovlar");
+  var qadam = 0, ichki = [], holat = "bosh", yurak = 1, fon = null;
+  var yozish = {vaqt: 0, matn: "", k: 0};
+  var sekin = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function el(teg, sinf, matn){
+    var e = document.createElement(teg);
+    if (sinf) e.className = sinf;
+    if (matn != null) e.textContent = matn;
+    return e;
+  }
+  function ismQoy(m){ return m.replace(/Omina/g, ISM).replace(/Ramz/g, MUALLIF); }
+  function saqlash(){ try{ localStorage.setItem(KALIT, JSON.stringify({qadam: qismBoshi(qadam), yurak: yurak})); }catch(e){} }
+  function oqish(){ try{ return JSON.parse(localStorage.getItem(KALIT) || "null"); }catch(e){ return null; } }
+  // Saqlangan joy — joriy qismning boshi (sahna almashgan qator)
+  function qismBoshi(i){ for (var k = Math.min(i, SSENARIY.length - 1); k > 0; k--) if (SSENARIY[k].s) return k; return 0; }
+
+  /* ── fonlar ───────────────────────────────── */
+  (function(){
+    document.querySelectorAll(".barglar").forEach(function(b){
+      for (var k = 0; k < 22; k++){
+        var i = el("i");
+        i.style.left = (Math.random() * 110 - 5) + "%";
+        i.style.animationDuration = (7 + Math.random() * 7) + "s";
+        i.style.animationDelay = (-Math.random() * 14) + "s";
+        i.style.transform = "scale(" + (.6 + Math.random() * .8) + ")";
+        b.appendChild(i);
+      }
+    });
+    document.querySelectorAll(".qor").forEach(function(q){
+      var soni = +q.getAttribute("data-soni") || 40;
+      for (var k = 0; k < soni; k++){
+        var i = el("i", k % 3 === 2 ? "kuchli" : "");
+        var o = 2 + Math.random() * 5;
+        i.style.width = i.style.height = o + "px";
+        i.style.left = Math.random() * 100 + "%";
+        i.style.opacity = (.55 + Math.random() * .45).toFixed(2);
+        if (o > 5.5) i.style.filter = "blur(1px)";
+        i.style.setProperty("--d", (Math.random() * 60 - 30).toFixed(0) + "px");
+        i.style.animationDuration = (6 + Math.random() * 7) + "s";
+        i.style.animationDelay = (-Math.random() * 13) + "s";
+        q.appendChild(i);
+      }
+    });
+    document.querySelectorAll(".yulduzlar").forEach(function(y){
+      for (var k = 0; k < 70; k++){
+        var i = el("i");
+        i.style.left = Math.random() * 100 + "%"; i.style.top = Math.random() * 62 + "%";
+        i.style.animationDelay = (-Math.random() * 3) + "s";
+        if (Math.random() < .2){ i.style.width = i.style.height = "3px"; }
+        y.appendChild(i);
+      }
+    });
+  })();
+
+  var salyutVaqti = 0;
+  function salyut(){
+    var joy = document.querySelector(".fon-bayram .salyutlar");
+    var s = el("div", "salyut");
+    s.style.left = (15 + Math.random() * 70) + "%"; s.style.top = (12 + Math.random() * 35) + "%";
+    var rang = ["#FF5C8A", "#FFE14D", "#7FDBFF", "#B39DFF", "#FF9A5C", "#9CFFB0"][Math.floor(Math.random() * 6)];
+    for (var k = 0; k < 32; k++){
+      var i = el("i"), b = k / 32 * Math.PI * 2, r = 80 + Math.random() * 60;
+      i.style.setProperty("--r", rang);
+      i.style.setProperty("--x", Math.cos(b) * r + "px");
+      i.style.setProperty("--y", Math.sin(b) * r + 30 + "px");
+      s.appendChild(i);
+    }
+    joy.appendChild(s);
+    setTimeout(function(){ s.remove(); }, 1700);
+  }
+  function fonQoy(nom){
+    if (fon === nom) return;
+    fon = nom;
+    document.querySelectorAll(".fon").forEach(function(f){ f.classList.toggle("faol", f.getAttribute("data-fon") === nom); });
+    clearInterval(salyutVaqti);
+    var bq = document.querySelector(".fon-balkon .qor");
+    if (bq){ bq.classList.add("kutmoqda"); bq.classList.remove("boron"); }
+    $("qismNomi").textContent = QISM_NOMLARI[nom] || "";
+  }
+
+  /* ── effektlar ────────────────────────────── */
+  function qaytaYoq(e, sinf){ e.classList.remove(sinf); void e.offsetWidth; e.classList.add(sinf); }
+  function vaqtincha(e, ms){ $("effektlar").appendChild(e); setTimeout(function(){ e.remove(); }, ms); }
+  function titra(n){ if (navigator.vibrate) try{ navigator.vibrate(n); }catch(e){} }
+  var EFFEKT = {
+    doki: function(){
+      qaytaYoq($("doki"), "yon");
+      var d = el("div", "doki-yozuv", "doki-doki ♥");
+      d.style.left = (8 + Math.random() * 40) + "%"; d.style.top = (14 + Math.random() * 18) + "%";
+      vaqtincha(d, 1600);
+      titra([30, 80, 30]);
+    },
+    silkin: function(){ if (!sekin){ qaytaYoq(ekran, "silkin"); } titra(60); },
+    chaqnash: function(){ qaytaYoq($("chaqnash"), "yon"); },
+    porla: function(){
+      var p = el("div", "porlash");
+      for (var k = 0; k < 9; k++){
+        var i = el("i", "", "✦");
+        i.style.left = (10 + Math.random() * 80) + "%"; i.style.top = (12 + Math.random() * 40) + "%";
+        i.style.fontSize = (14 + Math.random() * 20) + "px"; i.style.animationDelay = (Math.random() * .5) + "s";
+        p.appendChild(i);
+      }
+      vaqtincha(p, 2300);
+    },
+    taq: function(){ qaytaYoq($("tezlik"), "yon"); },
+    hujum: function(){
+      var h = el("div", "hujum");
+      h.appendChild(el("small", "", "MAXSUS USUL"));
+      h.appendChild(el("b", "", "KOMPLIMENTLAR YOMG'IRI!"));
+      vaqtincha(h, 2300);
+      qaytaYoq($("tezlik"), "yon");
+      titra([40, 40, 40]);
+    },
+    salyut: function(){
+      clearInterval(salyutVaqti);
+      if (sekin || fon !== "bayram") return;
+      salyut(); salyutVaqti = setInterval(salyut, 900);
+    },
+    dzz: function(){
+      var z = el("div", "katta-yozuv", "📱 dzz-dzz"); z.style.fontSize = "clamp(30px,10vw,52px)";
+      vaqtincha(z, 1100);
+      titra([90, 60, 90]);
+      if (!sekin) qaytaYoq(ekran, "silkin");
+    },
+    hayrat: function(){ katta("!?"); },
+    qor: function(){
+      var q = document.querySelector(".fon.faol .qor");
+      if (q){ q.classList.remove("kutmoqda"); setTimeout(function(){ q.classList.add("boron"); }, 2500); }
+    },
+    zarba: function(){
+      var z = el("div", "katta-yozuv", "9999 ♥");
+      vaqtincha(z, 1100);
+      qaytaYoq($("tezlik"), "yon");
+    }
+  };
+  // «taq» effekti bosh harfli tovush so'zini ham chiqaradi
+  function katta(soz){ var z = el("div", "katta-yozuv", soz); vaqtincha(z, 1100); }
+
+
+  /* ── personajlar: manga uslubidagi SVG ────────
+     Holatlar: oddiy, kulgan, qizargan, hayron. */
+  var INK = "#1E1A1C";
+  var PERSONAJ = {
+    o: {ayol: true, teri: "#FCE5D6", soya: "#F1C9B5", soch: "#16151B", sochYorug: "#55525E", iris: ["#4A2418", "#DB9A60"], kozY: 210, kozMasshtab: 1.15},
+    r: {ayol: false, teri: "#F8DCC8", soya: "#EBC3AC", soch: "#1C1C26", sochYorug: "#454560", iris: ["#120F0F", "#4E3E38"], kozY: 208, kozMasshtab: 1.06}
+  };
+  // Ellik yildan keyin: oq soch va ajinlar
+  PERSONAJ.O = Object.assign({}, PERSONAJ.o, {soch: "#C9CBD3", sochYorug: "#FFFFFF", keksa: true});
+  PERSONAJ.R = Object.assign({}, PERSONAJ.r, {soch: "#C3C5CE", sochYorug: "#F4F5F8", keksa: true});
+  var KIYIM = {o: {palto: "#E9DCC6", sharf: "#C8384A", chiziq: "#F2B8C0"}, r: {palto: "#3B404D", sharf: "#7C8DA6", chiziq: "#D7DEE9"}};
+  function sharfChiz(k){
+    var c = KIYIM[k];
+    return '<path fill="' + c.sharf + '" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round" d="M116 300 Q150 324 184 300 L190 326 Q150 350 110 326 Z"/>' +
+      '<path fill="' + c.sharf + '" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round" d="M156 330 L164 396 L184 390 L176 326 Z"/>' +
+      '<path d="M114 312 Q150 334 186 312 M160 352 L179 348 M162 370 L181 366" fill="none" stroke="' + c.chiziq + '" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="M164 396 l2 8 M170 394 l2 8 M176 392 l2 8 M182 390 l2 8" stroke="' + INK + '" stroke-width="2" stroke-linecap="round"/>';
+  }
+  function koz(id, x, y, m, chap, p, holat){
+    var t = "translate(" + x + " " + y + ") scale(" + (chap ? m : -m) + " " + m + ")";
+    var lash = p.ayol ? 4.8 : 4;
+    if (holat === "kulgan"){
+      return '<g transform="' + t + '"><path d="M-19 6 Q0 -14 19 6" fill="none" stroke="' + INK + '" stroke-width="' + lash + '" stroke-linecap="round"/>' +
+        (p.ayol ? '<path d="M-19 6 L-26 1" stroke="' + INK + '" stroke-width="2.5" stroke-linecap="round"/>' : '') + '</g>';
+    }
+    var oq = "M-21 -8 Q-2 -24 20 -12 Q19 14 0 19 Q-19 14 -21 -8 Z";
+    var hayron = holat === "hayron", uyal = holat === "qizargan";
+    var dx = uyal ? (chap ? -5 : 5) : 0;           // uyalganda ikkala ko'z bir tomonga qaraydi
+    var rx = hayron ? 11 : 12, ry = hayron ? 14 : 16;
+    var g = '<g transform="' + t + '">' +
+      '<clipPath id="' + id + 'k"><path d="' + oq + '"/></clipPath>' +
+      '<path d="' + oq + '" fill="#FFFFFF"/>' +
+      '<g clip-path="url(#' + id + 'k)">' +
+        '<ellipse cx="' + (1 + dx) + '" cy="2" rx="' + rx + '" ry="' + ry + '" fill="url(#' + id.slice(0, -1) + 'i)" stroke="' + INK + '" stroke-width="1.2"/>' +
+        '<ellipse cx="' + (1 + dx) + '" cy="4" rx="' + (hayron ? 3 : 5.5) + '" ry="' + (hayron ? 4 : 8) + '" fill="' + INK + '"/>' +
+        '<circle cx="' + (-4 + dx) + '" cy="-5" r="' + (hayron ? 3.5 : 5.2) + '" fill="#FFF"/>' +
+        '<circle cx="' + (6 + dx) + '" cy="10" r="2" fill="#FFF" opacity=".9"/>' +
+        '<path d="M-21 -14 Q0 -30 22 -16 L22 -6 Q0 -16 -21 -4 Z" fill="' + INK + '" opacity=".14"/>' +
+      '</g>' +
+      (uyal ? '<path d="M-23 -10 Q-2 -28 22 -14 L22 -3 Q0 -10 -23 -1 Z" fill="' + p.teri + '"/><path d="M-23 -1 Q0 -10 22 -3" fill="none" stroke="' + INK + '" stroke-width="' + lash + '" stroke-linecap="round"/>'
+            : '<path d="M-23 -7 Q-2 -26 22 -12" fill="none" stroke="' + INK + '" stroke-width="' + lash + '" stroke-linecap="round"/>') +
+      (p.ayol ? '<path d="M-22 ' + (uyal ? -1 : -7) + ' L-30 ' + (uyal ? -4 : -13) + ' M-21 ' + (uyal ? 2 : -4) + ' L-29 ' + (uyal ? 1 : -5) + '" stroke="' + INK + '" stroke-width="2.4" stroke-linecap="round"/>' : '') +
+      '<path d="M-12 16 Q0 21 12 16" fill="none" stroke="' + INK + '" stroke-width="1.5" opacity=".6"/>';
+    return g + '</g>';
+  }
+  // Qoshlar sochdan keyin chiziladi — manga'dagidek, soch ustidan ko'rinib turadi
+  function qosh(x, y, m, chap, p, holat){
+    var t = "translate(" + x + " " + y + ") scale(" + (chap ? m : -m) + " " + m + ")";
+    var d = holat === "hayron" ? "M-22 -50 Q-6 -58 12 -51" : holat === "qizargan" ? "M-22 -39 Q-6 -43 11 -50" : holat === "kulgan" ? "M-22 -43 Q-6 -50 12 -44" : "M-22 -41 Q-6 -47 12 -42";
+    return '<path transform="' + t + '" d="' + d + '" fill="none" stroke="' + INK + '" stroke-width="' + (p.ayol ? 2.6 : 4.2) + '" stroke-linecap="round"/>';
+  }
+  function ogiz(p, holat){
+    if (holat === "kulgan") return '<path d="M135 254 Q150 278 165 254 Z" fill="#B8424A" stroke="' + INK + '" stroke-width="2" stroke-linejoin="round"/><path d="M141 265 Q150 260 159 265 Q150 273 141 265 Z" fill="#E77A80"/>';
+    if (holat === "hayron") return '<ellipse cx="150" cy="265" rx="5.5" ry="7.5" fill="#B8424A" stroke="' + INK + '" stroke-width="2"/>';
+    if (holat === "qizargan") return '<path d="M140 263 Q145 259 150 263 Q155 267 160 263" fill="none" stroke="' + INK + '" stroke-width="2.2" stroke-linecap="round"/>';
+    return '<path d="M140 260 Q150 ' + (p.ayol ? 267 : 265) + ' 160 260" fill="none" stroke="' + INK + '" stroke-width="2.2" stroke-linecap="round"/>';
+  }
+  function qizarish(holat){
+    if (holat !== "qizargan" && holat !== "kulgan") return "";
+    var kuch = holat === "qizargan" ? .7 : .4;
+    var s = '<ellipse cx="112" cy="246" rx="18" ry="8" fill="#FF8FA3" opacity="' + kuch + '"/><ellipse cx="188" cy="246" rx="18" ry="8" fill="#FF8FA3" opacity="' + kuch + '"/>';
+    if (holat === "qizargan") s += '<path d="M104 242 l-5 9 M112 242 l-5 9 M120 242 l-5 9 M182 242 l-5 9 M190 242 l-5 9 M198 242 l-5 9" stroke="#E0607A" stroke-width="1.8" stroke-linecap="round"/>';
+    return s;
+  }
+
+  // Ramz: biroz jingalak (to'lqinli) soch va yumaloq ko'zoynak.
+  function jingalak(rang, yorug){
+    return '<path fill="' + rang + '" stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round" d="' +
+        'M86 172 C74 120 92 74 128 64 C136 52 156 50 166 60 C200 64 228 106 216 172 ' +
+        'Q212 152 202 158 Q198 138 184 152 Q178 132 164 148 Q156 128 144 146 Q132 130 124 150 Q112 136 106 158 Q96 146 92 166 Z"/>' +
+      '<path d="M202 158 q4 8 -1 14 M164 148 q5 9 -1 15 M124 150 q-4 9 2 15 M92 166 q-5 6 -2 12" fill="none" stroke="' + INK + '" stroke-width="2.4" stroke-linecap="round"/>' +
+      '<path d="M112 100 q10 -14 24 -12 M150 82 q12 -8 26 0 M182 104 q8 4 12 14 M118 124 q8 -8 18 -6 M160 112 q10 -6 18 2" fill="none" stroke="' + yorug + '" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>';
+  }
+  function kozoynak(rang){
+    return '<g fill="rgba(255,255,255,.1)" stroke="' + rang + '" stroke-width="3.2" stroke-linejoin="round">' +
+        '<circle cx="120" cy="208" r="28"/><circle cx="180" cy="208" r="28"/></g>' +
+      '<path d="M148 204 Q150 198 152 204 M92 202 L86 197 M208 202 L214 197" fill="none" stroke="' + rang + '" stroke-width="3.2" stroke-linecap="round"/>' +
+      '<path d="M104 222 L120 186 M114 226 L123 206 M164 222 L180 186" stroke="#FFF" stroke-width="2" opacity=".55" stroke-linecap="round"/>';
+  }
+
+  function personajSvg(kim, holat, sharfBor){
+    var p = PERSONAJ[kim], id = "p" + kim + holat, kiyim = KIYIM[kim.toLowerCase()];
+    var chiz = ' stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"';
+    var s = '<svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><defs>' +
+      '<radialGradient id="' + id + 'i" cx="50%" cy="70%" r="70%"><stop offset="0" stop-color="' + p.iris[1] + '"/><stop offset="1" stop-color="' + p.iris[0] + '"/></radialGradient></defs>';
+    if (p.ayol){
+      s += '<path fill="' + p.soch + '"' + chiz + ' d="M78 126 C56 210 54 330 44 420 L256 420 C246 330 244 210 222 126 C210 60 90 60 78 126 Z"/>' +
+        '<path fill="' + kiyim.palto + '"' + chiz + ' d="M46 420 C52 362 92 334 128 322 L172 322 C208 334 248 362 254 420 Z"/>' +
+        '<path fill="none"' + chiz + ' d="M128 324 L140 420 M172 324 L160 420"/>' +
+        '<path fill="#FFFFFF"' + chiz + ' d="M128 322 L150 376 L172 322 Z"/>' +
+        '<path fill="#FFFFFF"' + chiz + ' d="M128 320 L116 346 L146 354 Z M172 320 L184 346 L154 354 Z"/>' +
+        '<path fill="#D9435B" d="M150 358 L137 349 L137 367 Z M150 358 L163 349 L163 367 Z"/><circle cx="150" cy="358" r="4.5" fill="#B8304A"/>';
+    } else {
+      s += '<path fill="' + kiyim.palto + '"' + chiz + ' d="M42 420 C48 360 92 330 128 320 L172 320 C208 330 252 360 258 420 Z"/>' +
+        '<path fill="none" stroke="#24304E" stroke-width="2" d="M96 360 C110 380 112 400 110 420 M204 360 C190 380 188 400 190 420"/>';
+    }
+    // bo'yin va yuz
+    s += '<path fill="' + p.teri + '"' + chiz + ' d="M133 258 L133 326 Q150 338 167 326 L167 258 Z"/>' +
+      '<path fill="' + p.soya + '" d="M134 266 Q150 300 166 266 L166 292 Q150 308 134 292 Z"/>';
+    if (!p.ayol){
+      s += '<path fill="#3B4A73"' + chiz + ' d="M108 316 C116 348 184 348 192 316 C180 336 120 336 108 316 Z"/>' +
+        '<path stroke="#E8E8F0" stroke-width="3" stroke-linecap="round" d="M138 338 L136 380 M162 338 L164 380"/>' +
+        '<path fill="' + p.teri + '"' + chiz + ' d="M92 184 C77 180 76 212 95 219 Z M208 184 C223 180 224 212 205 219 Z"/>';
+    }
+    if (sharfBor !== false) s += sharfChiz(kim.toLowerCase());
+    s += '<path fill="' + p.teri + '"' + chiz + ' d="' + (p.ayol ? "M88 136 C86 214 114 262 150 284 C186 262 214 214 212 136 Z" : "M90 134 C90 212 118 260 150 282 C182 260 210 212 210 134 Z") + '"/>' +
+      '<path fill="' + p.soya + '" d="M92 150 C94 206 112 244 134 266 C112 240 100 200 100 150 Z"/>';
+    // yuz ifodasi
+    s += qizarish(holat) +
+      koz(id + "a", 120, p.kozY, p.kozMasshtab, true, p, holat) +
+      koz(id + "b", 180, p.kozY, p.kozMasshtab, false, p, holat) +
+      '<path d="M151 236 L148 245" fill="none" stroke="' + INK + '" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>' +
+      ogiz(p, holat);
+    if (p.keksa) s += '<path d="M90 206 l-9 -4 M90 214 l-9 1 M210 206 l9 -4 M210 214 l9 1 M132 252 q-6 8 -1 16 M168 252 q6 8 1 16 M128 160 q22 -6 44 0" fill="none" stroke="' + INK + '" stroke-width="1.6" stroke-linecap="round" opacity=".45"/>';
+    // soch (old tomoni)
+    if (p.ayol){
+      s += '<path fill="' + p.soch + '"' + chiz + ' d="M80 140 C68 214 76 274 58 340 L82 306 C86 254 84 200 88 150 Z"/>' +
+        '<path fill="' + p.soch + '"' + chiz + ' d="M220 140 C232 214 224 274 242 340 L218 306 C214 254 216 200 212 150 Z"/>' +
+        '<path fill="' + p.soch + '"' + chiz + ' d="M80 170 C66 92 108 48 152 48 C198 48 236 92 220 172 L206 140 L198 176 L188 132 L176 166 L166 126 L156 162 L144 124 L134 164 L122 128 L112 170 L104 138 L96 178 Z"/>' +
+        '<path d="M104 96 Q150 70 196 96 Q150 82 104 96 Z" fill="' + p.sochYorug + '" opacity=".85"/>' +
+        '<g transform="translate(206 116)"><circle cx="0" cy="-7" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle cx="7" cy="-2" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle cx="4" cy="6" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle cx="-4" cy="6" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle cx="-7" cy="-2" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle r="3" fill="#FFE14D"/></g>';
+    } else {
+      s += jingalak(p.soch, p.sochYorug) + kozoynak("#2A2A35");
+    }
+    s += qosh(120, p.kozY, p.kozMasshtab, true, p, holat) + qosh(180, p.kozY, p.kozMasshtab, false, p, holat);
+    if (holat === "hayron") s += '<path d="M218 150 Q227 166 218 173 Q209 166 218 150 Z" fill="#BFE6FF" stroke="' + INK + '" stroke-width="1.8"/>';
+    return s + '</svg>';
+  }
+
+  var sahnada = "", ifoda = {r: "oddiy", o: "oddiy"}, chizilgan = {r: "", o: ""}, keksa = false, ramzSharf = true;
+  var SPRITE = {r: $("pRamz"), o: $("pOmina")};
+  function personajlarniYangila(q){
+    if (q.ko != null) sahnada = q.ko;
+    if (q.e) q.e.split(" ").forEach(function(b){ var t = b.split(":"); if (PERSONAJ[t[0]]) ifoda[t[0]] = t[1]; });
+    if (q.keksa != null) keksa = q.keksa;
+    if (q.sharf != null) ramzSharf = q.sharf;
+    var gapiruvchi = q.k === "r" || q.k === "i" ? "r" : q.k === "o" ? "o" : "";
+    ["r", "o"].forEach(function(k){
+      var e = SPRITE[k];
+      var kalit = ifoda[k] + (keksa ? "K" : "") + (k === "r" && !ramzSharf ? "S" : "");
+      if (chizilgan[k] !== kalit){ e.innerHTML = personajSvg(keksa ? k.toUpperCase() : k, ifoda[k], k === "o" || ramzSharf); chizilgan[k] = kalit; }
+      var bor = sahnada.indexOf(k) > -1;
+      e.classList.toggle("bor", bor);
+      e.classList.toggle("xira", bor && !!gapiruvchi && gapiruvchi !== k);
+      if (bor && gapiruvchi === k && q.k !== "i"){ e.classList.remove("sakra"); void e.offsetWidth; e.classList.add("sakra"); }
+    });
+  }
+  function personajlarniTozala(){
+    sahnada = ""; ifoda = {r: "oddiy", o: "oddiy"}; keksa = false; ramzSharf = true;
+    personajlarniYangila({});
+  }
+
+  /* ── yurak o'lchagich ─────────────────────── */
+  function yurakChiz(yangi){
+    var o = $("yurakOlchov"); o.innerHTML = "";
+    for (var k = 0; k < YURAK_JAMI; k++){
+      var s = el("span", k < yurak ? "tol" : "", "♥");
+      if (yangi && k === yurak - 1) s.classList.add("yangi");
+      o.appendChild(s);
+    }
+    o.setAttribute("aria-label", "Yurak o'lchagich: " + yurak + " / " + YURAK_JAMI);
+  }
+
+  /* ── gap yozish ───────────────────────────── */
+  var ISMLAR = {r: [MUALLIF, "ramz"], o: [ISM + " (sen)", "omina"], i: [MUALLIF + " · ichida", "ichki"], x: ["", "boshqa"], n: ["Nevara", "nevara"]};
+  function gapKorsat(q){
+    holat = "yozyapti";
+    dialog.classList.remove("yashirin");
+    var nom = ISMLAR[q.k];
+    ismEl.hidden = !nom;
+    if (nom){ ismEl.textContent = q.nom ? ismQoy(q.nom) : nom[0]; ismEl.className = "ism " + nom[1]; }
+    gapEl.className = "gap" + (q.k === "h" ? " hikoya" : q.k === "i" ? " ichki-ovoz" : "");
+    var matn = ismQoy(q.m);
+    if (q.k === "o") matn = "«" + matn + "»";
+    $("ekranOquvchi").textContent = (nom ? (q.nom || nom[0]) + ": " : "") + matn;
+    davomEl.classList.remove("bor");
+
+    (q.fx || "").split(" ").forEach(function(f){
+      if (!f) return;
+      if (f === "taq") katta(/BUM/.test(q.m) ? (q.m.indexOf("!!!") > -1 ? "BUM!!!" : "BUM!") : "TAQ!");
+      if (EFFEKT[f]) EFFEKT[f]();
+    });
+
+    clearInterval(yozish.vaqt);
+    yozish.matn = matn; yozish.k = 0;
+    gapEl.textContent = "";
+    if (sekin){ yozishTugat(); return; }
+    yozish.vaqt = setInterval(function(){
+      yozish.k += 1;
+      gapEl.textContent = matn.slice(0, yozish.k);
+      if (yozish.k >= matn.length) yozishTugat();
+    }, 26);
+  }
+  function yozishTugat(){
+    clearInterval(yozish.vaqt);
+    gapEl.textContent = yozish.matn;
+    davomEl.classList.add("bor");
+    holat = "kutyapti";
+  }
+
+  /* ── tanlov ───────────────────────────────── */
+  function tanlovKorsat(q){
+    holat = "tanlov";
+    davomEl.classList.remove("bor");
+    tanlovEl.innerHTML = "";
+    tanlovEl.appendChild(el("p", "", "Sen nima qilasan?"));
+    dialog.classList.add("yashirin");
+    q.tanlov.forEach(function(v){
+      var b = el("button", "", ismQoy(v.t)); b.type = "button";
+      b.addEventListener("click", function(e){
+        e.stopPropagation();
+        tanlovEl.hidden = true;
+        yurak = Math.min(YURAK_JAMI, yurak + 1); yurakChiz(true);
+        ichki = v.keyin.slice();
+        keyingi();
+      });
+      tanlovEl.appendChild(b);
+    });
+    tanlovEl.hidden = false;
+    var bir = tanlovEl.querySelector("button"); if (bir) bir.focus({preventScroll: true});
+  }
+
+
+  /* ── buyumlar va xatlar ───────────────────── */
+  var BUYUM = {
+    muz: '<svg viewBox="0 0 240 200"><defs><linearGradient id="bmz" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E8F6FF"/><stop offset="1" stop-color="#9CC8EA"/></linearGradient></defs><rect x="20" y="24" width="200" height="156" rx="22" fill="url(#bmz)" stroke="#5E8DB8" stroke-width="4" opacity=".92"/><g transform="rotate(-8 120 102)"><rect x="66" y="66" width="108" height="72" rx="4" fill="#FFFDF6" stroke="#8A7A62" stroke-width="2.5"/><path d="M66 70 L120 108 L174 70" fill="none" stroke="#8A7A62" stroke-width="2.5"/><circle cx="120" cy="108" r="10" fill="#C8384A"/></g><path d="M40 44 L70 40 M44 60 L58 58 M190 150 L206 132" stroke="#FFF" stroke-width="5" stroke-linecap="round" opacity=".9"/><rect x="20" y="24" width="200" height="156" rx="22" fill="#FFF" opacity=".12"/></svg>',
+    shar: '<svg viewBox="0 0 240 260"><defs><radialGradient id="bsh" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".9"/><stop offset=".5" stop-color="#CFE6FA" stop-opacity=".55"/><stop offset="1" stop-color="#8DB6DE" stop-opacity=".75"/></radialGradient></defs><path d="M50 196 H190 L176 248 H64 Z" fill="#7A4B2C" stroke="#4A2C18" stroke-width="3"/><path d="M58 214 H182" stroke="#C9A06A" stroke-width="4"/><circle cx="120" cy="110" r="96" fill="#DCEBF8"/><path d="M40 160 Q120 140 200 160 Q196 190 120 206 Q44 190 40 160 Z" fill="#FFFFFF"/><g><rect x="74" y="112" width="58" height="44" fill="#F1E2C6" stroke="#5A4630" stroke-width="2.5"/><path d="M68 114 L103 88 L138 114 Z" fill="#B5543E" stroke="#5A4630" stroke-width="2.5"/><path d="M70 112 L103 90 L136 112" stroke="#FFF" stroke-width="3" fill="none"/><rect x="84" y="124" width="14" height="12" fill="#FFD27A" stroke="#5A4630" stroke-width="2"/><rect x="104" y="128" width="20" height="28" fill="#3F7FC2" stroke="#25507E" stroke-width="2.5"/></g><g><path d="M162 160 V112" stroke="#6A4A2E" stroke-width="7" stroke-linecap="round"/><circle cx="162" cy="100" r="26" fill="#4E7A46"/><circle cx="148" cy="92" r="14" fill="#5E8C54"/><path d="M140 86 Q162 74 184 88" stroke="#FFF" stroke-width="5" fill="none" stroke-linecap="round"/></g><g transform="translate(176 140)"><circle cx="0" cy="0" r="4" fill="#F8DCC8" stroke="#1E1A1C" stroke-width="1"/><circle cx="-1.6" cy="0" r="1.4" fill="none" stroke="#1E1A1C" stroke-width=".9"/><circle cx="1.6" cy="0" r="1.4" fill="none" stroke="#1E1A1C" stroke-width=".9"/><path d="M-3 4 H3 V12 H-3 Z" fill="#3B404D"/></g><g fill="#FFF"><circle cx="70" cy="60" r="3"/><circle cx="110" cy="40" r="2.5"/><circle cx="160" cy="54" r="3"/><circle cx="190" cy="96" r="2.5"/><circle cx="50" cy="100" r="2.5"/><circle cx="130" cy="70" r="2"/><circle cx="90" cy="80" r="2"/></g><circle cx="120" cy="110" r="96" fill="url(#bsh)" stroke="#5E8DB8" stroke-width="3"/><path d="M60 60 Q80 36 112 28" stroke="#FFF" stroke-width="7" fill="none" stroke-linecap="round" opacity=".8"/></svg>',
+    chana: '<svg viewBox="0 0 260 170"><path d="M20 128 Q14 150 40 152 H226 Q250 150 244 128" fill="none" stroke="#5A4630" stroke-width="7" stroke-linecap="round"/><path d="M60 124 V140 M200 124 V140" stroke="#5A4630" stroke-width="6"/><rect x="30" y="82" width="200" height="44" rx="8" fill="#C8384A" stroke="#7A1E2A" stroke-width="4"/><text x="130" y="113" text-anchor="middle" font-family="Dela Gothic One, Impact, sans-serif" font-size="26" fill="#FFF6E8">OMINA</text><path d="M34 82 Q130 70 226 82" stroke="#FFF" stroke-width="5" fill="none" opacity=".8"/><path d="M228 100 Q256 92 252 66" stroke="#5A4630" stroke-width="4" fill="none"/></svg>',
+    qordanOdam: '<svg viewBox="0 0 240 280"><ellipse cx="120" cy="268" rx="96" ry="10" fill="#C8D7EA"/><circle cx="120" cy="200" r="70" fill="#FFF" stroke="#9DB2CC" stroke-width="3"/><circle cx="120" cy="96" r="50" fill="#FFF" stroke="#9DB2CC" stroke-width="3"/><circle cx="102" cy="88" r="5" fill="#1E1A1C"/><circle cx="138" cy="88" r="5" fill="#1E1A1C"/><path d="M120 98 L156 108 L120 108 Z" fill="#F08A2E" stroke="#B85E14" stroke-width="2"/><path d="M98 116 Q120 134 142 116" fill="none" stroke="#1E1A1C" stroke-width="4" stroke-linecap="round"/><g fill="#1E1A1C"><circle cx="120" cy="180" r="5"/><circle cx="120" cy="204" r="5"/><circle cx="120" cy="228" r="5"/></g><path d="M74 140 Q120 160 166 140 L170 160 Q120 182 70 160 Z" fill="#7C8DA6" stroke="#1E1A1C" stroke-width="2.5"/><path d="M140 164 L150 226 L170 220 L160 160 Z" fill="#7C8DA6" stroke="#1E1A1C" stroke-width="2.5"/><path d="M74 150 Q120 170 166 150 M144 184 L163 180 M147 202 L166 198" stroke="#D7DEE9" stroke-width="3" fill="none"/><path d="M52 190 L14 160 M188 190 L226 158" stroke="#6A4A2E" stroke-width="5" stroke-linecap="round"/></svg>'
+  };
+  var buyumOyna = null;
+  function buyumKorsat(q){
+    holat = "buyum";
+    dialog.classList.add("yashirin");
+    var o = el("div", "buyum-oyna");
+    if (q.xat != null){
+      var x = el("div", "xat-qogoz" + (q.tur ? " " + q.tur : ""), ismQoy(q.xat));
+      if (q.imzo) x.appendChild(el("span", "imzo", ismQoy(q.imzo)));
+      o.appendChild(x);
+      $("ekranOquvchi").textContent = ismQoy(q.xat) + (q.imzo ? " " + q.imzo : "");
+    } else {
+      var w = el("div"); w.innerHTML = BUYUM[q.buyum] || "";
+      o.appendChild(w.firstChild);
+      if (q.m){ o.appendChild(el("p", "buyum-izoh", ismQoy(q.m))); $("ekranOquvchi").textContent = ismQoy(q.m); }
+    }
+    o.appendChild(el("p", "bos", "davom etish uchun bos"));
+    ekran.appendChild(o);
+    buyumOyna = o;
+    o.addEventListener("click", function(e){ e.stopPropagation(); buyumYop(); });
+  }
+  function buyumYop(){
+    var o = buyumOyna;
+    if (!o || o.classList.contains("ket")) return;
+    o.classList.add("ket");
+    setTimeout(function(){ o.remove(); buyumOyna = null; holat = "kutyapti"; keyingi(); }, 330);
+  }
+
+  /* ── qism kartasi ─────────────────────────── */
+  function kartaKorsat(q){
+    holat = "karta";
+    dialog.classList.add("yashirin");
+    var k = el("div", "karta");
+    k.appendChild(el("small", "", q.karta));
+    k.appendChild(el("h2", "", q.nom));
+    k.appendChild(el("span", "", "OMINA · 2-mavsum · Birinchi qor"));
+    ekran.appendChild(k);
+    var ketdi = false;
+    function ket(){
+      if (ketdi) return; ketdi = true;
+      k.classList.add("ket");
+      setTimeout(function(){ k.remove(); holat = "kutyapti"; keyingi(); }, 450);
+    }
+    k.addEventListener("click", function(e){ e.stopPropagation(); ket(); });
+    setTimeout(ket, 2400);
+  }
+
+  /* ── asosiy oqim ──────────────────────────── */
+  function keyingi(){
+    var q = ichki.length ? ichki.shift() : SSENARIY[qadam++];
+    if (!q) return;
+    saqlash();
+    if (q.s){ fonQoy(q.s); personajlarniTozala(); keyingi(); return; }
+    if (q.karta){ kartaKorsat(q); return; }
+    if (q.buyum || q.xat != null){ buyumKorsat(q); return; }
+    if (q.tanlov){ tanlovKorsat(q); return; }
+    if (q.titr){ titrlar(); return; }
+    personajlarniYangila(q);
+    gapKorsat(q);
+  }
+  function bos(){
+    if (holat === "yozyapti") yozishTugat();
+    else if (holat === "kutyapti") keyingi();
+    else if (holat === "buyum") buyumYop();
+  }
+  ekran.addEventListener("click", function(e){
+    if (e.target.closest("button, textarea, a, .bosh, .titr, .songi, .buyum-oyna")) return;
+    bos();
+  });
+  window.addEventListener("keydown", function(e){
+    if (e.target.closest && e.target.closest("textarea, button")) return;
+    if (e.key === " " || e.key === "Enter" || e.key === "ArrowRight"){ e.preventDefault(); bos(); }
+  });
+
+  function boshla(boshidan){
+    var s = boshidan ? null : oqish();
+    qadam = s && s.qadam ? s.qadam : 0;
+    yurak = s && s.yurak ? s.yurak : 1;
+    ichki = [];
+    $("bosh").hidden = true;
+    $("panel").hidden = false;
+    yurakChiz(false);
+    holat = "kutyapti";
+    keyingi();
+  }
+  $("boshla").addEventListener("click", function(e){ e.stopPropagation(); boshla(true); });
+  $("davomEt").addEventListener("click", function(e){ e.stopPropagation(); boshla(false); });
+
+  /* ── titrlar va oxirgi so'z ───────────────── */
+  function titrlar(){
+    holat = "titr";
+    dialog.classList.add("yashirin");
+    try{ localStorage.removeItem(KALIT); }catch(e){}
+    var t = el("div", "titr"), l = el("div", "titr-lenta");
+    l.appendChild(el("h2", "", ISM.toUpperCase()));
+    l.appendChild(el("p", "ost", "2-mavsum · Birinchi qor"));
+    var dl = el("dl");
+    [["Bosh rolda", ISM], ["Andijonlik yigit", MUALLIF], ["Ssenariy", MUALLIF + "ning yuragi"], ["Rejissyor", MUALLIF],
+     ["Qorbobo emas", MUALLIF], ["Keksa usta", "Chorsudagi do'kon"], ["Sir saqlovchi", ISM + "ning onasi"],
+     ["Kamera", "Birinchi qor"], ["Yorug'lik", ISM + "ning kulgisi"], ["Maxsus effektlar", "Doki-doki"],
+     ["Alohida minnatdorchilik", "Yetti yoshli " + ISM + "ga"]].forEach(function(q){
+      dl.appendChild(el("dt", "", q[0])); dl.appendChild(el("dd", "", q[1]));
+    });
+    l.appendChild(dl);
+    l.appendChild(el("p", "keyingi", "3-mavsum: Bahor — tomoshabin «yana» desa ♥"));
+    t.appendChild(l);
+    var otkaz = el("button", "oddiy-tugma otkaz", "O'tkazish ›"); otkaz.type = "button";
+    t.appendChild(otkaz);
+    ekran.appendChild(t);
+    var tugadi = false;
+    function songiga(){ if (tugadi) return; tugadi = true; t.remove(); songi(); }
+    otkaz.addEventListener("click", function(e){ e.stopPropagation(); songiga(); });
+    l.addEventListener("animationend", songiga);
+  }
+
+  function songi(){
+    holat = "songi";
+    $("panel").hidden = true;
+    var s = el("div", "songi");
+    s.appendChild(el("h2", "", "Oxiri ♥"));
+    s.appendChild(el("p", "natija", "Yurak o'lchagich: " + yurak + " / " + YURAK_JAMI + " — " + MUALLIF + " butunlay mag'lub bo'ldi."));
+    s.appendChild(el("p", "izoh", "Agar sen ham bolaligingda biror qishki tilak qilgan bo'lsang — uni rejissyorga yozib qoldir. Kim biladi, balki u ham bajarilar ❄️"));
+    s.appendChild(el("p", "izoh", "Rejissyorga bir og'iz yozib qoldirmoqchimisan? Yozganing " + MUALLIF + "ga boradi. Yozmasang ham bo'ladi."));
+    var ta = el("textarea"); ta.maxLength = 500; ta.placeholder = "Mening qishki tilagim...";
+    ta.setAttribute("aria-label", MUALLIF + "ga xabar");
+    s.appendChild(ta);
+    var hol = el("p", "holat"); hol.setAttribute("aria-live", "polite");
+    s.appendChild(hol);
+    var qator = el("div", "qator");
+    var yubor = el("button", "katta-tugma", MUALLIF + "ga yuborish"); yubor.type = "button";
+    var qayta = el("button", "oddiy-tugma", "↺ Boshidan ko'rish"); qayta.type = "button";
+    qator.appendChild(yubor); qator.appendChild(qayta);
+    s.appendChild(qator);
+    ekran.appendChild(s);
+
+    var yuborildi = false;
+    yubor.addEventListener("click", function(e){
+      e.stopPropagation();
+      var matn = ta.value.trim();
+      if (!matn){ hol.textContent = "Avval biror narsa yoz 🙂"; ta.focus(); return; }
+      if (yuborildi) return;
+      yubor.disabled = true; hol.textContent = "Yuborilyapti…";
+      fetch(POCHTA, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({savol: "Anime 2-mavsum «Birinchi qor» oxirida (yurak " + yurak + "/" + YURAK_JAMI + ")", javob: matn})
+      }).then(function(j){
+        if (!j.ok) throw new Error(String(j.status));
+        yuborildi = true;
+        hol.textContent = MUALLIF + " oldi ✓";
+        ta.disabled = true; yubor.textContent = "Yuborildi ♥";
+      }).catch(function(){
+        yubor.disabled = false;
+        hol.textContent = "Yuborilmadi. Internetni tekshirib, qayta bos.";
+      });
+    });
+    qayta.addEventListener("click", function(e){
+      e.stopPropagation();
+      s.remove();
+      fon = null; fonQoy("muqova");
+      boshla(true);
+    });
+  }
+
+  /* ── boshlanish ───────────────────────────── */
+  fonQoy("muqova");
+  $("panel").hidden = true;
+  var saqlangan = oqish();
+  if (saqlangan && saqlangan.qadam > 0){ $("davomEt").hidden = false; $("boshla").textContent = "▶ Boshidan"; }
+})();
+</script>
+</body>
+</html>
