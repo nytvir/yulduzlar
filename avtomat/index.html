@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kompliment avtomati</title>
+<meta name="description" content="Dastakni tort — avtomat Omina uchun kompliment chiqaradi.">
+<meta name="theme-color" content="#2A0F0C">
+<meta property="og:title" content="Kompliment avtomati 🎰 — faqat Omina uchun">
+<meta property="og:description" content="Narxi: bitta tabassum. Avtomat yolg'on gapirmaydi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Archivo+Narrow:wght@500;600;700&family=Special+Elite&family=UnifrakturMaguntia&display=swap">
+<style>
+  :root{
+    --qizil:#B3301F;
+    --qizil-2:#7E1A10;
+    --oltin:#E2B866;
+    --oltin-2:#A97A2C;
+    --krem:#F6EEDC;
+    --siyoh:#1C1915;
+    --xira:#7A7062;
+    --fon:#2A0F0C;
+    --sarlavha:"Old Standard TT",Georgia,"Times New Roman",serif;
+    --yorliq:"Archivo Narrow","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+    --mashinka:"Special Elite","Courier New",ui-monospace,monospace;
+    --nom:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;
+    color-scheme:light;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{background:var(--fon)}
+  body{
+    margin:0;min-height:100vh;min-height:100dvh;color:var(--siyoh);
+    background:radial-gradient(90% 60% at 50% 0%,#6A2219 0%,#3A1410 45%,var(--fon) 100%) fixed;
+    font-family:var(--sarlavha);-webkit-font-smoothing:antialiased;
+  }
+  .sahna{
+    min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;
+    padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(28px + env(safe-area-inset-bottom,0px));
+  }
+  .tepa{width:min(100%,380px);display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:rgba(246,238,220,.7)}
+  .tepa .nashr{font-family:var(--nom);font-size:20px;color:var(--oltin)}
+  .ovoz{
+    width:40px;height:40px;border-radius:50%;border:1px solid rgba(246,238,220,.3);background:transparent;color:var(--krem);
+    font-size:17px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  }
+  .ovoz:focus-visible,.tort:focus-visible,.dastak:focus-visible,.chek button:focus-visible,.kolleksiya-tugma:focus-visible{outline:2px solid var(--oltin);outline-offset:3px}
+
+  /* ── avtomat ───────────────────────────────── */
+  .avtomat-qobiq{position:relative;width:min(100% - 30px,350px);margin-right:30px}
+  .avtomat{
+    position:relative;z-index:1;border-radius:30px 30px 14px 14px;padding:14px 14px 0;
+    background:linear-gradient(180deg,#CF4330 0%,var(--qizil) 40%,var(--qizil-2) 100%);
+    border:3px solid var(--oltin);
+    box-shadow:0 0 0 4px rgba(0,0,0,.25),0 30px 60px -20px rgba(0,0,0,.85),inset 0 2px 0 rgba(255,255,255,.25);
+  }
+  .lavha{
+    position:relative;margin:0 0 12px;padding:14px 12px 12px;border-radius:18px 18px 8px 8px;text-align:center;
+    background:linear-gradient(180deg,#3B120C,#24090A);border:2px solid var(--oltin-2);
+  }
+  .lavha h1{margin:0;font-family:var(--sarlavha);font-weight:700;font-size:clamp(19px,6vw,25px);line-height:1;letter-spacing:.06em;color:#FFE7B0;text-shadow:0 0 12px rgba(255,190,90,.55)}
+  .lavha p{margin:6px 0 0;font-family:var(--yorliq);font-weight:600;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--oltin)}
+  .chiroqlar{position:absolute;inset:4px;pointer-events:none}
+  .chiroqlar i{position:absolute;width:6px;height:6px;margin:-3px;border-radius:50%;background:#FFD27A;box-shadow:0 0 6px #FFB43C;opacity:.35;animation:yon 1.6s infinite}
+  .chiroqlar i:nth-child(2n){animation-delay:.8s}
+  .aylanmoqda .chiroqlar i{animation-duration:.3s}
+  .jekpot .chiroqlar i{animation-duration:.18s;background:#FFF2C0}
+  @keyframes yon{0%,49%{opacity:1}50%,100%{opacity:.25}}
+
+  .oyna{
+    position:relative;border-radius:10px;overflow:hidden;background:var(--krem);
+    border:3px solid #3B120C;box-shadow:inset 0 0 0 2px var(--oltin-2);
+  }
+  .baraban{position:relative;height:58px;overflow:hidden;border-bottom:1.5px solid rgba(28,25,21,.18)}
+  .baraban:last-child{border-bottom:none}
+  .baraban::before,.baraban::after{content:"";position:absolute;left:0;right:0;height:16px;z-index:1;pointer-events:none}
+  .baraban::before{top:0;background:linear-gradient(rgba(60,30,10,.28),rgba(60,30,10,0))}
+  .baraban::after{bottom:0;background:linear-gradient(rgba(60,30,10,0),rgba(60,30,10,.28))}
+  .tasma{will-change:transform}
+  .tasma div{
+    height:58px;display:flex;align-items:center;justify-content:center;padding:0 26px;text-align:center;
+    font-family:var(--sarlavha);font-size:clamp(17px,5.2vw,21px);line-height:1.1;color:var(--siyoh);
+  }
+  .tasma div.yurak{font-weight:700;letter-spacing:.12em;color:var(--qizil)}
+  .baraban .belgi{position:absolute;top:50%;z-index:2;width:0;height:0;margin-top:-6px;border-block:6px solid transparent}
+  .baraban .belgi.chap{left:4px;border-left:9px solid var(--qizil)}
+  .baraban .belgi.ong{right:4px;border-right:9px solid var(--qizil)}
+  .baraban .yorliq{position:absolute;left:8px;top:4px;z-index:2;font-family:var(--yorliq);font-weight:700;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(28,25,21,.35)}
+
+  .pult{display:flex;align-items:center;gap:12px;padding:14px 4px 12px}
+  .tanga{
+    flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:8px;
+    background:linear-gradient(180deg,#24090A,#3B120C);border:2px solid var(--oltin-2);
+  }
+  .tanga i{display:block;width:4px;height:22px;border-radius:2px;background:#000;box-shadow:0 0 0 1px rgba(226,184,102,.4)}
+  .tanga-yozuv{flex:1;font-family:var(--yorliq);font-weight:600;font-size:10.5px;letter-spacing:.14em;line-height:1.5;text-transform:uppercase;color:rgba(255,231,176,.85)}
+  .tort{
+    flex:none;min-width:94px;height:52px;padding:0 16px;border-radius:999px;cursor:pointer;
+    border:2px solid #FFE7B0;background:radial-gradient(circle at 40% 30%,#FFE59A,#E2A93A 60%,#B07A22);
+    font-family:var(--yorliq);font-weight:700;font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:#3B120C;
+    box-shadow:0 5px 0 #7A4E12,0 10px 18px -6px rgba(0,0,0,.6);-webkit-tap-highlight-color:transparent;transition:transform .08s,box-shadow .08s;
+  }
+  .tort:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 #7A4E12,0 4px 10px -4px rgba(0,0,0,.6)}
+  .tort:disabled{filter:saturate(.5) brightness(.85);cursor:default}
+  .tirqish{height:16px;margin:0 22px;border-radius:8px 8px 0 0;background:#120404;box-shadow:inset 0 3px 4px rgba(0,0,0,.9)}
+
+  /* dastak */
+  .dastak{
+    position:absolute;z-index:0;right:-30px;top:96px;width:34px;height:150px;padding:0;border:none;background:none;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;touch-action:none;
+  }
+  .dastak .asos{position:absolute;left:0;top:58px;width:22px;height:40px;border-radius:0 8px 8px 0;background:linear-gradient(90deg,#7E1A10,#B3301F);border:2px solid var(--oltin);border-left:none}
+  .dastak .tayoq{position:absolute;left:14px;top:14px;width:8px;height:66px;border-radius:4px;background:linear-gradient(90deg,#9A9A9A,#F1F1F1,#9A9A9A);transform-origin:50% 100%;transition:transform .25s ease-in}
+  .dastak .shar{position:absolute;left:5px;top:0;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FF8A7A,#C0281A 55%,#7A0E06);box-shadow:0 3px 6px rgba(0,0,0,.5);transition:transform .25s ease-in}
+  .dastak.pastda .tayoq{transform:scaleY(-1)}
+  .dastak.pastda .shar{transform:translateY(108px)}
+
+  /* ── chek ──────────────────────────────────── */
+  .chek-joy{width:min(100% - 30px,350px);margin-right:30px;overflow:hidden;padding:0 30px 24px;margin-top:-1px}
+  .chek{
+    position:relative;padding:18px 18px 22px;background:#FFFDF6;color:#2B2622;
+    box-shadow:0 10px 24px -8px rgba(0,0,0,.6);transform:translateY(-105%);transition:transform .9s cubic-bezier(.2,.8,.25,1);
+    -webkit-mask:radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) 0 0/16px 100% repeat-x;
+            mask:radial-gradient(circle 6px at 50% 100%,transparent 98%,#000) 0 0/16px 100% repeat-x;
+  }
+  .chek.chiqdi{transform:none}
+  .chek .bosh{display:flex;justify-content:space-between;font-family:var(--yorliq);font-weight:700;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--xira)}
+  .chek hr{border:none;border-top:1.5px dashed rgba(43,38,34,.3);margin:12px 0}
+  .chek .soz{margin:0;min-height:4.2em;font-family:var(--mashinka);font-size:clamp(18px,5.4vw,21px);line-height:1.4;text-align:center}
+  .chek .soz.jekpot-soz{color:var(--qizil)}
+  .chek .kursor{display:inline-block;width:.5em;border-bottom:2px solid currentColor;animation:yon .8s infinite}
+  .chek .oxiri{display:flex;justify-content:space-between;font-family:var(--mashinka);font-size:12.5px;color:var(--xira)}
+  .chek .amallar{display:flex;gap:10px;margin-top:14px}
+  .chek button{
+    flex:1;min-height:42px;border-radius:999px;border:1.5px solid var(--qizil);background:transparent;cursor:pointer;
+    font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--qizil);-webkit-tap-highlight-color:transparent;
+  }
+  .chek button.saqlandi{background:var(--qizil);color:#FFF6EA}
+  .chek .kafolat{margin:12px 0 0;text-align:center;font-family:var(--mashinka);font-size:11.5px;color:var(--xira)}
+  .chek-joy.bosh-holat .chek{transform:none}
+  .bosh-matn{margin:0;padding:6px 0;text-align:center;font-family:var(--mashinka);font-size:16px;line-height:1.5;color:var(--xira)}
+
+  .kolleksiya-tugma{
+    margin-top:2px;min-height:42px;padding:0 18px;border-radius:999px;border:1px solid rgba(246,238,220,.35);background:transparent;cursor:pointer;
+    font-family:var(--yorliq);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--krem);
+  }
+  .hisob{margin:12px 0 0;font-family:var(--yorliq);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(246,238,220,.45)}
+
+  /* kolleksiya */
+  dialog{
+    width:min(100% - 32px,400px);max-height:min(80dvh,620px);padding:0;border:none;border-radius:14px;background:#FFFDF6;color:var(--siyoh);
+    box-shadow:0 30px 80px rgba(0,0,0,.6);
+  }
+  dialog::backdrop{background:rgba(20,6,4,.7)}
+  .dialog-ichi{display:flex;flex-direction:column;max-height:inherit}
+  .dialog-bosh{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1.5px dashed rgba(43,38,34,.25)}
+  .dialog-bosh h2{margin:0;font-family:var(--sarlavha);font-style:italic;font-weight:400;font-size:24px}
+  .dialog-bosh button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(28,25,21,.25);background:none;font-size:18px;cursor:pointer}
+  .royxat{list-style:none;margin:0;padding:8px 18px 18px;overflow-y:auto}
+  .royxat li{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed rgba(43,38,34,.2);font-family:var(--mashinka);font-size:16px;line-height:1.4}
+  .royxat li span{flex:1}
+  .royxat li small{display:block;margin-top:2px;font-size:11px;color:var(--xira)}
+  .royxat li button{flex:none;width:32px;height:32px;border-radius:50%;border:1px solid rgba(28,25,21,.2);background:none;color:var(--xira);cursor:pointer}
+  .royxat .bosh-matn{border:none;display:block}
+
+  /* yuraklar yomg'iri */
+  .yurak-yomgir{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+  .yurak-yomgir i{position:absolute;top:-40px;font-style:normal;animation:tush linear forwards}
+  @keyframes tush{to{transform:translateY(110vh) rotate(var(--b,30deg))}}
+
+  @media (prefers-reduced-motion:reduce){
+    .chek,.dastak .tayoq,.dastak .shar{transition:none}
+    .chiroqlar i{animation:none;opacity:.8}
+  }
+</style>
+</head>
+<body>
+<main class="sahna">
+  <div class="tepa">
+    <span class="nashr">Omina Times</span>
+    <button type="button" class="ovoz" id="ovoz" aria-label="Ovozni o'chirish" aria-pressed="true">🔊</button>
+  </div>
+
+  <div class="avtomat-qobiq">
+    <div class="avtomat" id="avtomat">
+      <div class="lavha">
+        <div class="chiroqlar" id="chiroqlar" aria-hidden="true"></div>
+        <h1>KOMPLIMENT AVTOMATI</h1>
+        <p>Faqat bitta o'yinchi uchun</p>
+      </div>
+      <div class="oyna" aria-hidden="true">
+        <div class="baraban"><span class="yorliq">Kim</span><i class="belgi chap"></i><i class="belgi ong"></i><div class="tasma"></div></div>
+        <div class="baraban"><span class="yorliq">Nimadan</span><i class="belgi chap"></i><i class="belgi ong"></i><div class="tasma"></div></div>
+        <div class="baraban"><span class="yorliq">Qanday</span><i class="belgi chap"></i><i class="belgi ong"></i><div class="tasma"></div></div>
+      </div>
+      <div class="pult">
+        <div class="tanga" aria-hidden="true"><i></i></div>
+        <div class="tanga-yozuv">Narxi:<br>1 tabassum</div>
+        <button type="button" class="tort" id="tort">Tort</button>
+      </div>
+      <div class="tirqish" aria-hidden="true"></div>
+    </div>
+    <button type="button" class="dastak" id="dastak" aria-label="Dastakni tortish"><span class="asos"></span><span class="tayoq"></span><span class="shar"></span></button>
+  </div>
+
+  <div class="chek-joy bosh-holat" id="chekJoy">
+    <div class="chek" id="chek" aria-live="polite">
+      <p class="bosh-matn">Dastakni tort yoki «Tort» tugmasini bos.<br>Avtomat bugun juda saxiy.</p>
+    </div>
+  </div>
+
+  <button type="button" class="kolleksiya-tugma" id="kolleksiyaTugma">♡ Kolleksiya (0)</button>
+  <p class="hisob" id="hisob"></p>
+</main>
+
+<dialog id="kolleksiya" aria-labelledby="kolleksiyaNom">
+  <div class="dialog-ichi">
+    <div class="dialog-bosh"><h2 id="kolleksiyaNom">Kolleksiya</h2><button type="button" id="yop" aria-label="Yopish">✕</button></div>
+    <ul class="royxat" id="royxat"></ul>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ═══════════════════════════════════════════════
+     BARABANLAR — istalgan qatorni qo'shish yoki o'zgartirish mumkin.
+     Har qanday uchtasi birikib, to'g'ri gap bo'ladi:
+     «Kulging» + «quyoshdan ham» + «iliqroq».
+  ═══════════════════════════════════════════════ */
+  var KIM = [
+    "Kulging", "Ko'zlaring", "Ovozing", "Jilmayishing", "Aqling", "Qo'llaring", "Sochlaring",
+    "Hazillaring", "«Zo'r» deyishing", "Andijoncha «qatta» deyishing", "Ertalabki uyquli yuzing",
+    "Hatto jahling", "Mehring", "Qarashing", "Yozgan bitta smayliging", "«Hmm» deyishing",
+    "Xayrli tuning", "Choy uzatishing"
+  ];
+  var NIMADAN = [
+    "quyoshdan ham", "shokoladdan ham", "juma kechasidan ham", "bahordan ham", "Toshkent chiroqlaridan ham",
+    "issiq nondan ham", "birinchi qordan ham", "dam olish kunidan ham", "oylikdan ham", "tez internetdan ham",
+    "ertalabki choydan ham", "yulduzlardan ham", "eng zo'r seriyaldan ham", "Andijon bozoridan ham",
+    "yangi yil archasidan ham", "to'liq zaryadlangan telefondan ham"
+  ];
+  var QANDAY = [
+    "iliqroq", "shirinroq", "yorug'roq", "chiroyliroq", "kerakliroq", "qimmatroq", "yoqimliroq",
+    "zo'rroq", "ajoyibroq", "mazaliroq", "sirliroq", "yaqinroq", "muhimroq", "go'zalroq", "sevimliroq"
+  ];
+  // Kamdan-kam tushadigan bosh sovrinlar
+  var JEKPOT = [
+    "Avtomat kompliment topa olmay qoldi: Omina hamma toifadan tashqarida.",
+    "Bosh sovrin — Ramzning butun yuragi. U allaqachon seniki edi, endi rasmiylashtirdik.",
+    "Avtomat qizib ketdi. Sababi — sen.",
+    "1 dan 10 gacha shkalada sen — 11.",
+    "Bu avtomatni bitta odam uchun qurishgan. U hozir dastakni tortyapti.",
+    "Barabanlar to'xtadi, chunki sendan chiroyliroq so'z topilmadi."
+  ];
+  var BIRINCHI_JEKPOT = 5;          // beshinchi tortishda albatta jekpot — birinchi sovrin kutdirib qo'ymasin
+  var JEKPOT_EHTIMOL = 1 / 9;
+
+  var KALIT = "omina-avtomat";
+  var QATOR = 58;                   // baraban qatori balandligi, px — CSS bilan bir xil
+
+  /* ── holat ────────────────────────────────── */
+  var holat = (function(){
+    try{ var h = JSON.parse(localStorage.getItem(KALIT) || "null"); if (h && typeof h === "object") return h; }catch(e){}
+    return {};
+  })();
+  holat.soni = holat.soni || 0;
+  holat.jekpotlar = holat.jekpotlar || 0;
+  holat.saqlangan = Array.isArray(holat.saqlangan) ? holat.saqlangan : [];
+  holat.ovoz = holat.ovoz !== false;
+  function saqla(){ try{ localStorage.setItem(KALIT, JSON.stringify(holat)); }catch(e){} }
+
+  var tasmalar = [].slice.call(document.querySelectorAll(".tasma"));
+  var ROYXATLAR = [KIM, NIMADAN, QANDAY];
+  var joriy = [0, 0, 0];
+  var aylanmoqda = false, oxirgi = [];
+  var avtomat = document.getElementById("avtomat");
+  var tort = document.getElementById("tort");
+  var dastak = document.getElementById("dastak");
+  var chek = document.getElementById("chek");
+  var chekJoy = document.getElementById("chekJoy");
+
+  function el(teg, sinf, matn){
+    var e = document.createElement(teg);
+    if (sinf) e.className = sinf;
+    if (matn != null) e.textContent = matn;
+    return e;
+  }
+  function tasodif(n){ return Math.floor(Math.random() * n); }
+
+  // Lavha chetidagi chiroqlar
+  (function(){
+    var c = document.getElementById("chiroqlar");
+    for (var k = 0; k < 11; k++){
+      var t = el("i"); t.style.left = (k * 10) + "%"; t.style.top = "0"; c.appendChild(t);
+      var p = el("i"); p.style.left = (k * 10) + "%"; p.style.top = "100%"; c.appendChild(p);
+    }
+  })();
+
+  /* ── ovoz: kichik «tiq» va «dzin» ──────────── */
+  var audio = null;
+  function ovozChiqar(chastota, davom, tur, balandlik){
+    if (!holat.ovoz) return;
+    try{
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      if (audio.state === "suspended") audio.resume();
+      var o = audio.createOscillator(), g = audio.createGain(), t = audio.currentTime;
+      o.type = tur || "square"; o.frequency.value = chastota;
+      g.gain.setValueAtTime(balandlik || .05, t);
+      g.gain.exponentialRampToValueAtTime(.0001, t + davom);
+      o.connect(g); g.connect(audio.destination);
+      o.start(t); o.stop(t + davom + .02);
+    }catch(e){}
+  }
+  function dzin(){ ovozChiqar(1318, .5, "triangle", .12); setTimeout(function(){ ovozChiqar(1760, .6, "triangle", .1); }, 90); }
+  function jekpotOvozi(){ [523, 659, 784, 1046, 1318].forEach(function(f, k){ setTimeout(function(){ ovozChiqar(f, .35, "triangle", .12); }, k * 110); }); }
+  var ovozTugma = document.getElementById("ovoz");
+  function ovozniKorsat(){
+    ovozTugma.textContent = holat.ovoz ? "🔊" : "🔈";
+    ovozTugma.setAttribute("aria-pressed", String(holat.ovoz));
+    ovozTugma.setAttribute("aria-label", holat.ovoz ? "Ovozni o'chirish" : "Ovozni yoqish");
+  }
+  ovozTugma.addEventListener("click", function(){ holat.ovoz = !holat.ovoz; saqla(); ovozniKorsat(); });
+
+  /* ── barabanlar ───────────────────────────── */
+  function qator(matn, yurak){ return el("div", yurak ? "yurak" : "", matn); }
+  function boshlangich(){
+    tasmalar.forEach(function(t, k){
+      joriy[k] = tasodif(ROYXATLAR[k].length);
+      t.innerHTML = ""; t.appendChild(qator(ROYXATLAR[k][joriy[k]]));
+    });
+  }
+  // Oxirgi bir necha kompliment takrorlanmasin
+  function yangiTanlov(){
+    for (var urinish = 0; urinish < 30; urinish++){
+      var t = [tasodif(KIM.length), tasodif(NIMADAN.length), tasodif(QANDAY.length)];
+      var kalit = t.join("-");
+      if (oxirgi.indexOf(kalit) === -1 && t[0] !== joriy[0]){
+        oxirgi.push(kalit); if (oxirgi.length > 12) oxirgi.shift();
+        return t;
+      }
+    }
+    return [tasodif(KIM.length), tasodif(NIMADAN.length), tasodif(QANDAY.length)];
+  }
+
+  function aylantir(){
+    if (aylanmoqda) return;
+    aylanmoqda = true;
+    tort.disabled = true;
+    holat.soni++;
+    var jekpot = holat.jekpotlar === 0 ? holat.soni >= BIRINCHI_JEKPOT : Math.random() < JEKPOT_EHTIMOL;
+    var tanlov = yangiTanlov();
+    var sekin = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    dastak.classList.add("pastda");
+    setTimeout(function(){ dastak.classList.remove("pastda"); }, 380);
+    avtomat.classList.add("aylanmoqda");
+    avtomat.classList.remove("jekpot");
+    if (navigator.vibrate) try{ navigator.vibrate(20); }catch(e){}
+    chekniYashir();
+
+    var toxtadi = 0;
+    tasmalar.forEach(function(t, k){
+      var royxat = ROYXATLAR[k], soni = sekin ? 2 : 16 + k * 6;
+      t.style.transition = "none"; t.style.transform = "translateY(0)";
+      t.innerHTML = "";
+      t.appendChild(qator(royxat[joriy[k]]));
+      for (var j = 1; j < soni; j++) t.appendChild(qator(royxat[tasodif(royxat.length)]));
+      t.appendChild(jekpot ? qator("♥ OMINA ♥", true) : qator(royxat[tanlov[k]]));
+      void t.offsetHeight;
+      var vaqt = sekin ? 300 : 1100 + k * 550;
+      t.style.transition = "transform " + vaqt + "ms cubic-bezier(.15,.7,.2,1)";
+      t.style.transform = "translateY(" + (-soni * QATOR) + "px)";
+
+      // aylanish davomida «tiq-tiq»
+      var tiqlar = Math.min(soni, 14), tiqOraligi = vaqt * .7 / tiqlar;
+      for (var s = 0; s < tiqlar; s++) setTimeout(function(){ ovozChiqar(900 + tasodif(200), .03, "square", .025); }, s * tiqOraligi);
+
+      setTimeout(function(){
+        joriy[k] = tanlov[k];
+        ovozChiqar(420, .09, "square", .06);
+        if (++toxtadi === tasmalar.length) tugadi(jekpot, tanlov);
+      }, vaqt + 30);
+    });
+  }
+
+  function tugadi(jekpot, tanlov){
+    avtomat.classList.remove("aylanmoqda");
+    var matn;
+    if (jekpot){
+      holat.jekpotlar++;
+      matn = JEKPOT[(holat.jekpotlar - 1) % JEKPOT.length];
+      avtomat.classList.add("jekpot");
+      jekpotOvozi();
+      yurakYomgiri();
+      if (navigator.vibrate) try{ navigator.vibrate([60, 40, 60, 40, 160]); }catch(e){}
+      setTimeout(function(){ avtomat.classList.remove("jekpot"); }, 3200);
+    } else {
+      matn = KIM[tanlov[0]] + " " + NIMADAN[tanlov[1]] + " " + QANDAY[tanlov[2]] + ".";
+      dzin();
+    }
+    saqla();
+    hisobniYangila();
+    setTimeout(function(){ chekChiqar(matn, jekpot); }, 250);
+  }
+
+  /* ── chek ─────────────────────────────────── */
+  var yozishVaqti = 0;
+  function chekniYashir(){
+    clearInterval(yozishVaqti);
+    chekJoy.classList.remove("bosh-holat");
+    chek.classList.remove("chiqdi");
+  }
+  function sana(){
+    var d = new Date();
+    return String(d.getDate()).padStart(2, "0") + "." + String(d.getMonth() + 1).padStart(2, "0") + "." + d.getFullYear();
+  }
+  function chekChiqar(matn, jekpot){
+    chek.innerHTML = "";
+    var bosh = el("div", "bosh");
+    bosh.appendChild(el("span", "", jekpot ? "★ Jekpot ★" : "Kompliment"));
+    bosh.appendChild(el("span", "", "№" + holat.soni));
+    chek.appendChild(bosh);
+    chek.appendChild(el("hr"));
+    var soz = el("p", "soz" + (jekpot ? " jekpot-soz" : ""));
+    chek.appendChild(soz);
+    chek.appendChild(el("hr"));
+    var oxiri = el("div", "oxiri");
+    oxiri.appendChild(el("span", "", sana()));
+    oxiri.appendChild(el("span", "", "Narxi: 1 tabassum"));
+    chek.appendChild(oxiri);
+
+    var amallar = el("div", "amallar");
+    var saqlaT = el("button", "", "♡ Saqlash"); saqlaT.type = "button";
+    var ulashT = el("button", "", "Ulashish"); ulashT.type = "button";
+    amallar.appendChild(saqlaT); amallar.appendChild(ulashT);
+    chek.appendChild(amallar);
+    chek.appendChild(el("p", "kafolat", jekpot ? "Bunday chek kamdan-kam chiqadi." : "Avtomat yolg'on gapirmaydi."));
+
+    var yozuv = {matn: matn, jekpot: !!jekpot, sana: sana(), n: holat.soni};
+    saqlaT.addEventListener("click", function(){
+      var bor = holat.saqlangan.some(function(s){ return s.matn === matn; });
+      if (!bor){ holat.saqlangan.unshift(yozuv); saqla(); kolleksiyaSoni(); }
+      saqlaT.classList.add("saqlandi"); saqlaT.textContent = "♥ Saqlandi";
+    });
+    ulashT.addEventListener("click", function(){
+      var t = matn + "\n— Kompliment avtomati";
+      if (navigator.share){ navigator.share({text: t}).catch(function(){}); return; }
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(function(){ ulashT.textContent = "Nusxa olindi ✓"; }, function(){});
+    });
+
+    void chek.offsetHeight;
+    chek.classList.add("chiqdi");
+    setTimeout(function(){
+      var r = chekJoy.getBoundingClientRect();
+      if (r.bottom > window.innerHeight) chekJoy.scrollIntoView({behavior: "smooth", block: "end"});
+    }, 500);
+
+    // Mashinkada yozilayotgandek
+    var k = 0, kursor = el("span", "kursor");
+    soz.appendChild(document.createTextNode("")); soz.appendChild(kursor);
+    clearInterval(yozishVaqti);
+    yozishVaqti = setInterval(function(){
+      k++;
+      soz.firstChild.nodeValue = matn.slice(0, k);
+      if (k % 2 === 0) ovozChiqar(1800 + tasodif(400), .015, "square", .015);
+      if (k >= matn.length){
+        clearInterval(yozishVaqti); soz.removeChild(kursor);
+        aylanmoqda = false; tort.disabled = false;
+      }
+    }, 32);
+  }
+
+  /* ── kolleksiya ───────────────────────────── */
+  var dialog = document.getElementById("kolleksiya");
+  var royxat = document.getElementById("royxat");
+  function kolleksiyaSoni(){ document.getElementById("kolleksiyaTugma").textContent = "♡ Kolleksiya (" + holat.saqlangan.length + ")"; }
+  function kolleksiyaniChiz(){
+    royxat.innerHTML = "";
+    if (!holat.saqlangan.length){
+      royxat.appendChild(el("li", "bosh-matn", "Hali hech narsa saqlanmagan. Chekdagi «♡ Saqlash»ni bos."));
+      return;
+    }
+    holat.saqlangan.forEach(function(s, k){
+      var li = el("li"), sp = el("span", "", (s.jekpot ? "★ " : "") + s.matn);
+      sp.appendChild(el("small", "", "№" + s.n + " · " + s.sana));
+      var o = el("button", "", "✕"); o.type = "button"; o.setAttribute("aria-label", "O'chirish");
+      o.addEventListener("click", function(){ holat.saqlangan.splice(k, 1); saqla(); kolleksiyaSoni(); kolleksiyaniChiz(); });
+      li.appendChild(sp); li.appendChild(o); royxat.appendChild(li);
+    });
+  }
+  document.getElementById("kolleksiyaTugma").addEventListener("click", function(){
+    kolleksiyaniChiz();
+    if (dialog.showModal) dialog.showModal(); else dialog.setAttribute("open", "");
+  });
+  document.getElementById("yop").addEventListener("click", function(){ if (dialog.close) dialog.close(); else dialog.removeAttribute("open"); });
+  dialog.addEventListener("click", function(e){ if (e.target === dialog && dialog.close) dialog.close(); });
+
+  /* ── yuraklar yomg'iri ────────────────────── */
+  function yurakYomgiri(){
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var q = el("div", "yurak-yomgir"); q.setAttribute("aria-hidden", "true");
+    var belgilar = ["♥", "❤", "✦", "♥"];
+    for (var k = 0; k < 34; k++){
+      var y = el("i", "", belgilar[k % belgilar.length]);
+      y.style.left = Math.random() * 100 + "%";
+      y.style.fontSize = (14 + Math.random() * 22) + "px";
+      y.style.color = ["#FF6B6B", "#E2B866", "#FFD1D1", "#C0281A"][k % 4];
+      y.style.animationDuration = (2.2 + Math.random() * 1.8) + "s";
+      y.style.animationDelay = (Math.random() * .8) + "s";
+      y.style.setProperty("--b", (Math.random() * 120 - 60) + "deg");
+      q.appendChild(y);
+    }
+    document.body.appendChild(q);
+    setTimeout(function(){ q.remove(); }, 5000);
+  }
+
+  function hisobniYangila(){
+    document.getElementById("hisob").textContent = holat.soni ? "Tortildi: " + holat.soni + " marta · Jekpot: " + holat.jekpotlar : "";
+  }
+
+  tort.addEventListener("click", aylantir);
+  dastak.addEventListener("click", aylantir);
+  boshlangich();
+  ovozniKorsat();
+  kolleksiyaSoni();
+  hisobniYangila();
+})();
+</script>
+</body>
+</html>
