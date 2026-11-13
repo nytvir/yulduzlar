@@ -170,6 +170,37 @@
   }
   // kesim: "bust" — yelkagacha, "yuz" — yaqin kadr, "koz" — faqat ko'zlar
   var KESIM = {bust: "20 40 260 380", yuz: "70 84 160 230", koz: "60 160 180 72"};
+
+  // Ramz: jingalak soch va ko'zoynak.
+  // Soch — doirachalar to'plami: avval qalin chegarali qatlam, ustidan chegarasiz qatlam, natijada faqat tashqi kontur qoladi.
+  var JINGALAK = (function(){
+    var d = [];
+    for (var a = 180; a <= 360; a += 16){
+      var b = a * Math.PI / 180;
+      d.push([150 + 72 * Math.cos(b), 122 + 70 * Math.sin(b), 21]);
+    }
+    d.push([84, 150, 18], [82, 174, 14], [216, 150, 18], [218, 174, 14]);
+    for (var x = 102; x <= 198; x += 16) d.push([x, 142 + (x % 32 ? 5 : 0), 14]);
+    return d;
+  })();
+  function jingalak(rang, yorug){
+    var doiralar = "", gajak = "";
+    JINGALAK.forEach(function(c){
+      doiralar += '<circle cx="' + c[0].toFixed(1) + '" cy="' + c[1].toFixed(1) + '" r="' + c[2] + '"/>';
+      gajak += '<path d="M' + (c[0] - c[2] * .35).toFixed(1) + ' ' + (c[1] - c[2] * .1).toFixed(1) + ' a' + (c[2] * .38).toFixed(1) + ' ' + (c[2] * .38).toFixed(1) + ' 0 1 1 ' + (c[2] * .5).toFixed(1) + ' ' + (c[2] * .35).toFixed(1) + '"/>';
+    });
+    return '<g fill="' + rang + '" stroke="' + INK + '" stroke-width="5">' + doiralar + '</g>' +
+      '<ellipse cx="150" cy="112" rx="64" ry="46" fill="' + rang + '"/>' +
+      '<g fill="' + rang + '">' + doiralar + '</g>' +
+      '<g fill="none" stroke="' + yorug + '" stroke-width="2" stroke-linecap="round" opacity=".8">' + gajak + '</g>';
+  }
+  function kozoynak(rang){
+    return '<g fill="rgba(255,255,255,.1)" stroke="' + rang + '" stroke-width="3.2" stroke-linejoin="round">' +
+        '<rect x="92" y="182" width="56" height="50" rx="14"/><rect x="152" y="182" width="56" height="50" rx="14"/></g>' +
+      '<path d="M148 200 Q150 195 152 200 M92 196 L86 192 M208 196 L214 192" fill="none" stroke="' + rang + '" stroke-width="3.2" stroke-linecap="round"/>' +
+      '<path d="M100 226 L116 190 M109 228 L120 205 M160 226 L176 190" stroke="#FFF" stroke-width="2" opacity=".55" stroke-linecap="round"/>';
+  }
+
   function personaj(kim, holat, kesim){
     var p = PERSONAJ[kim], id = "m" + (++sanoq);
     var chiz = ' stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"';
@@ -215,8 +246,7 @@
         '<path d="M118 70 L112 92 M150 60 L150 84 M182 70 L188 92" stroke="#FFF" stroke-width="1.8" stroke-linecap="round" opacity=".8"/>' +
         '<g transform="translate(206 116)" stroke="' + INK + '" stroke-width="1.6" fill="#FFF"><circle cx="0" cy="-7" r="5.5"/><circle cx="7" cy="-2" r="5.5"/><circle cx="4" cy="6" r="5.5"/><circle cx="-4" cy="6" r="5.5"/><circle cx="-7" cy="-2" r="5.5"/><circle r="2.6" fill="' + INK + '"/></g>';
     } else {
-      s += '<path fill="' + soch + '"' + chiz + ' d="M84 170 C72 112 92 74 122 62 L126 46 L142 58 L158 42 L168 60 L186 54 L184 70 C210 84 224 116 216 170 L204 142 L196 170 L188 128 L178 158 L168 120 L158 156 L146 118 L136 158 L124 124 L114 162 L104 136 Z"/>' +
-        '<path d="M104 100 Q150 72 198 100 Q150 86 104 100 Z" fill="#FFF"/>';
+      s += jingalak(soch, "#FFF") + kozoynak(INK);
     }
     s += qosh(120, p.kozY, p.m, true, p, holat) + qosh(180, p.kozY, p.m, false, p, holat);
     if (holat === "hayron") s += '<path d="M218 150 Q227 166 218 173 Q209 166 218 150 Z" fill="#FFF" stroke="' + INK + '" stroke-width="1.8"/>';
