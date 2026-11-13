@@ -147,6 +147,21 @@
   .davom.bor{opacity:1}
   @keyframes sakra{50%{transform:translateY(4px)}}
 
+
+  /* ── personajlar ───────────────────────────── */
+  .personajlar{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .personaj{
+    position:absolute;bottom:calc(118px + env(safe-area-inset-bottom,0px));width:min(60vw,320px);
+    opacity:0;transform:translateY(30px);transition:opacity .5s ease,transform .5s ease,filter .3s ease;
+  }
+  .personaj svg{display:block;width:100%;height:auto;filter:drop-shadow(0 8px 14px rgba(20,10,30,.35))}
+  .personaj.ramz{left:max(-4vw,-18px)}
+  .personaj.omina{right:max(-4vw,-18px)}
+  .personaj.bor{opacity:1;transform:none}
+  .personaj.bor.xira{filter:brightness(.7) saturate(.75);transform:translateY(10px) scale(.97)}
+  .personaj.bor.sakra{animation:sakra2 .35s ease}
+  @keyframes sakra2{40%{transform:translateY(-8px)}}
+
   .tanlovlar{
     position:absolute;z-index:8;left:16px;right:16px;bottom:calc(30px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;
     display:grid;gap:10px;
@@ -242,6 +257,8 @@
     <span class="yurak-olchov" id="yurakOlchov" aria-label="Yurak o'lchagich"></span>
   </div>
 
+  <div class="personajlar" aria-hidden="true"><div class="personaj ramz" id="pRamz"></div><div class="personaj omina" id="pOmina"></div></div>
+
   <div class="dialog yashirin" id="dialog">
     <span class="ism" id="ism" hidden></span>
     <p class="gap" id="gap"></p>
@@ -295,109 +312,109 @@
     {k:"h", m:"Toshkent. Bahor. O'rik gullari shunchalik ko'pki, shamol essa, shahar qorga burkangandek bo'ladi."},
     {k:"h", m:"Sen har kungi yo'lingdan ketayotgan eding. Quloqchinda sevimli qo'shig'ing, qo'lingda issiq kofe."},
     {k:"h", m:"Va burilishda —"},
-    {k:"h", m:"Kimdir sen bilan to'qnashib ketdi. Uning qo'lidagi qog'ozlar osmonga sochilib ketdi.", fx:"taq silkin"},
-    {k:"r", m:"Voy, kechirasiz! Men... yo'l qidirayotgan edim."},
-    {k:"h", m:"U qog'ozlarni yig'ishni unutib, senga qarab qotib qoldi. Shamol o'rik gullarini ikkalangiz orasidan uchirib o'tdi."},
-    {k:"i", m:"Toshkentning o'rik gullari chiroyli deb eshitgandim. Lekin hech kim ulardan ham chiroyliroq narsa borligini aytmagan edi.", fx:"doki"},
+    {k:"h", m:"Kimdir sen bilan to'qnashib ketdi. Uning qo'lidagi qog'ozlar osmonga sochilib ketdi.", fx:"taq silkin", ko:"r", e:"r:hayron"},
+    {k:"r", m:"Voy, kechirasiz! Men... yo'l qidirayotgan edim.", e:"r:hayron"},
+    {k:"h", m:"U qog'ozlarni yig'ishni unutib, senga qarab qotib qoldi. Shamol o'rik gullarini ikkalangiz orasidan uchirib o'tdi.", ko:"ro", e:"r:hayron o:hayron"},
+    {k:"i", m:"Toshkentning o'rik gullari chiroyli deb eshitgandim. Lekin hech kim ulardan ham chiroyliroq narsa borligini aytmagan edi.", fx:"doki", e:"r:qizargan o:oddiy"},
     {tanlov:[
       {t:"«Qayerga borasiz? Ko'rsatib qo'yaman.»", keyin:[
-        {k:"r", m:"Rahmat... Toshkentning hamma odamlari shunday mehribonmi? Yoki faqat eng chiroylilarimi?", fx:"porla"}
+        {k:"r", m:"Rahmat... Toshkentning hamma odamlari shunday mehribonmi? Yoki faqat eng chiroylilarimi?", fx:"porla", e:"r:kulgan o:oddiy"}
       ]},
       {t:"«Qog'ozlaringizni yig'ishib yuboraman.»", keyin:[
-        {k:"r", m:"Yo'q-yo'q, o'zim... Rostini aytsam, qog'ozlar endi muhim emas. Hozirgina eng muhim narsani topib oldim shekilli."}
+        {k:"r", m:"Yo'q-yo'q, o'zim... Rostini aytsam, qog'ozlar endi muhim emas. Hozirgina eng muhim narsani topib oldim shekilli.", e:"r:qizargan o:oddiy"}
       ]},
       {t:"(Shunchaki jilmayib qo'yish)", keyin:[
-        {k:"h", m:"Sen shunchaki jilmayding. Bu yetarli edi."},
-        {k:"r", m:"...Kechirasiz, nima demoqchi bo'lganimni unutdim. Siz jilmayganda miyam o'chib qolarkan.", fx:"doki"}
+        {k:"h", m:"Sen shunchaki jilmayding. Bu yetarli edi.", e:"o:kulgan"},
+        {k:"r", m:"...Kechirasiz, nima demoqchi bo'lganimni unutdim. Siz jilmayganda miyam o'chib qolarkan.", fx:"doki", e:"r:qizargan"}
       ]}
     ]},
-    {k:"r", m:"Men Ramz. Andijondan keldim. Qatta... ya'ni, qayoqqa borishni bilmay qoldim."},
-    {k:"h", m:"Sen kulib yubording. «Qatta» — bu so'zni umringda birinchi marta eshitishing edi."},
-    {k:"r", m:"Kulgingiz... Kechirasiz, lekin sizning kulgingiz Andijondagi butun bahordan ham chiroyliroq ekan.", fx:"doki porla"},
-    {k:"h", m:"O'sha kuni Ramz yo'lni topdi. Lekin uyiga qaytishni butunlay unutdi."},
+    {k:"r", m:"Men Ramz. Andijondan keldim. Qatta... ya'ni, qayoqqa borishni bilmay qoldim.", e:"r:oddiy o:oddiy"},
+    {k:"h", m:"Sen kulib yubording. «Qatta» — bu so'zni umringda birinchi marta eshitishing edi.", e:"o:kulgan"},
+    {k:"r", m:"Kulgingiz... Kechirasiz, lekin sizning kulgingiz Andijondagi butun bahordan ham chiroyliroq ekan.", fx:"doki porla", e:"r:qizargan o:qizargan"},
+    {k:"h", m:"O'sha kuni Ramz yo'lni topdi. Lekin uyiga qaytishni butunlay unutdi.", e:"r:kulgan o:kulgan"},
 
     {s:"yomgir"},
     {karta:"2-QISM", nom:"Bitta soyabon"},
     {k:"h", m:"Bir hafta o'tdi. Ular har kuni o'sha burilishda «tasodifan» uchrashib qolishardi. Qiziq, tasodiflar har kuni soat 8:15 da bo'larkan."},
     {k:"h", m:"Bugun kechqurun osmon to'satdan yorilib ketdi. Yomg'ir. Sening esa soyaboning yo'q edi.", fx:"chaqnash"},
-    {k:"h", m:"Kimdir boshing ustiga soyabon tutdi."},
-    {k:"r", m:"Yomg'irning sizga tegishga haqqi yo'q. Bu qoidani hozirgina o'zim o'ylab topdim."},
-    {k:"h", m:"Soyabon kichkina edi. Ramz uni butunlay sen tomonga engashtirib qo'ygan, o'zi esa yarmigacha ho'l bo'lib ketgan edi."},
+    {k:"h", m:"Kimdir boshing ustiga soyabon tutdi.", ko:"ro", e:"r:oddiy o:hayron"},
+    {k:"r", m:"Yomg'irning sizga tegishga haqqi yo'q. Bu qoidani hozirgina o'zim o'ylab topdim.", e:"r:kulgan o:hayron"},
+    {k:"h", m:"Soyabon kichkina edi. Ramz uni butunlay sen tomonga engashtirib qo'ygan, o'zi esa yarmigacha ho'l bo'lib ketgan edi.", e:"r:oddiy o:hayron"},
     {tanlov:[
       {t:"«Siz ham soyabon ostiga kiring, shamollab qolasiz!»", keyin:[
-        {k:"h", m:"Sen uni yengidan tortib, soyabon ostiga olding. Ikkalangiz bitta soyabon ostida qoldingiz. Juda yaqin.", fx:"doki"},
-        {k:"r", m:"Endi... endi yomg'ir to'xtamasa ham mayli."}
+        {k:"h", m:"Sen uni yengidan tortib, soyabon ostiga olding. Ikkalangiz bitta soyabon ostida qoldingiz. Juda yaqin.", fx:"doki", e:"r:qizargan o:qizargan"},
+        {k:"r", m:"Endi... endi yomg'ir to'xtamasa ham mayli.", e:"r:qizargan"}
       ]},
       {t:"«Nega o'zingizni ho'l qilyapsiz?»", keyin:[
-        {k:"r", m:"Chunki ho'l kiyim quriydi. Siz shamollasangiz esa, men butun kun xavotir olaman. Hisob-kitob oddiy."}
+        {k:"r", m:"Chunki ho'l kiyim quriydi. Siz shamollasangiz esa, men butun kun xavotir olaman. Hisob-kitob oddiy.", e:"r:kulgan o:hayron"}
       ]},
       {t:"«Unda soyabonni men ushlayman.»", keyin:[
-        {k:"r", m:"Mayli. Faqat ehtiyot bo'ling: siz ushlagan soyabon ostida turgan odam boshqa hech qayoqqa ketgisi kelmay qoladi.", fx:"porla"}
+        {k:"r", m:"Mayli. Faqat ehtiyot bo'ling: siz ushlagan soyabon ostida turgan odam boshqa hech qayoqqa ketgisi kelmay qoladi.", fx:"porla", e:"r:kulgan o:kulgan"}
       ]}
     ]},
-    {k:"h", m:"Ular bekatgacha yurishdi. Yomg'ir tovushi, ikki kishining qadamlari va... Ramzning yuragi. Uni hatto yomg'irdan ham balandroq eshitish mumkin edi."},
-    {k:"i", m:"Unga yomg'ir ham yarasharkan. Sochidagi tomchilar — go'yo kimdir unga brilliant sepib qo'ygandek.", fx:"porla"},
-    {k:"r", m:"Omina... ertaga ham yomg'ir yog'adimi?"},
-    {k:"o", m:"Bilmadim. Nimaga so'rayapsan?"},
-    {k:"r", m:"Shunchaki... soyabonni olib chiqishim kerakmi-yo'qmi, bilmoqchi edim."},
-    {k:"i", m:"Aslida esa yana uning yonida yurish uchun bahona qidirayotgan edim."},
+    {k:"h", m:"Ular bekatgacha yurishdi. Yomg'ir tovushi, ikki kishining qadamlari va... Ramzning yuragi. Uni hatto yomg'irdan ham balandroq eshitish mumkin edi.", e:"r:oddiy o:oddiy"},
+    {k:"i", m:"Unga yomg'ir ham yarasharkan. Sochidagi tomchilar — go'yo kimdir unga brilliant sepib qo'ygandek.", fx:"porla", e:"r:qizargan"},
+    {k:"r", m:"Omina... ertaga ham yomg'ir yog'adimi?", e:"r:qizargan"},
+    {k:"o", m:"Bilmadim. Nimaga so'rayapsan?", e:"o:hayron"},
+    {k:"r", m:"Shunchaki... soyabonni olib chiqishim kerakmi-yo'qmi, bilmoqchi edim.", e:"r:kulgan o:oddiy"},
+    {k:"i", m:"Aslida esa yana uning yonida yurish uchun bahona qidirayotgan edim.", e:"o:kulgan"},
 
     {s:"bayram"},
     {karta:"3-QISM", nom:"Salyut"},
-    {k:"h", m:"Bayram kechasi. Butun Toshkent osmonga qarab, salyutni kutib turibdi."},
-    {k:"h", m:"Ramz bu kunga bir hafta tayyorlandi. Gapini yod oldi. Ko'zguga qarab o'n marta takrorladi."},
-    {k:"h", m:"Va salyut boshlandi.", fx:"chaqnash salyut"},
-    {k:"r", m:"Omina! Men senga bir narsa aytmoqchiman! Men seni..."},
-    {k:"h", m:"BUM!", fx:"taq silkin chaqnash"},
-    {k:"h", m:"Salyut aynan o'sha so'zni yutib yubordi. Klassik anime. Taqdir ham hazilkash ekan."},
+    {k:"h", m:"Bayram kechasi. Butun Toshkent osmonga qarab, salyutni kutib turibdi.", ko:"ro", e:"r:oddiy o:kulgan"},
+    {k:"h", m:"Ramz bu kunga bir hafta tayyorlandi. Gapini yod oldi. Ko'zguga qarab o'n marta takrorladi.", e:"r:qizargan"},
+    {k:"h", m:"Va salyut boshlandi.", fx:"chaqnash salyut", e:"o:kulgan"},
+    {k:"r", m:"Omina! Men senga bir narsa aytmoqchiman! Men seni...", e:"r:qizargan"},
+    {k:"h", m:"BUM!", fx:"taq silkin chaqnash", e:"r:hayron o:hayron"},
+    {k:"h", m:"Salyut aynan o'sha so'zni yutib yubordi. Klassik anime. Taqdir ham hazilkash ekan.", e:"r:hayron o:kulgan"},
     {tanlov:[
       {t:"«Nima deding? Eshitmadim!»", keyin:[
-        {k:"r", m:"(chuqur nafas olib) Men aytdimki, sen bu salyutdan ham yorqinroqsan! Va yana bir narsa..."},
-        {k:"h", m:"BUM!!!", fx:"taq silkin chaqnash"},
-        {k:"h", m:"Ikkinchi salyut ham. Osmon buni ataylab qilyapti, shekilli."}
+        {k:"r", m:"(chuqur nafas olib) Men aytdimki, sen bu salyutdan ham yorqinroqsan! Va yana bir narsa...", e:"r:qizargan"},
+        {k:"h", m:"BUM!!!", fx:"taq silkin chaqnash", e:"r:hayron o:kulgan"},
+        {k:"h", m:"Ikkinchi salyut ham. Osmon buni ataylab qilyapti, shekilli.", e:"o:kulgan"}
       ]},
       {t:"«Eshitdim 😏»", keyin:[
-        {k:"r", m:"Eshitdingmi?! Unda... nega javob bermayapsan?"},
-        {k:"h", m:"Sen javob bermading. Faqat uning qo'lini ushlading. Ba'zan javob so'zsiz ham bo'ladi.", fx:"doki"}
+        {k:"r", m:"Eshitdingmi?! Unda... nega javob bermayapsan?", e:"r:hayron o:kulgan"},
+        {k:"h", m:"Sen javob bermading. Faqat uning qo'lini ushlading. Ba'zan javob so'zsiz ham bo'ladi.", fx:"doki", e:"r:qizargan o:qizargan"}
       ]},
       {t:"(Qulog'iga yaqinlashib) «Yana bir marta. Sekinroq.»", keyin:[
-        {k:"r", m:"(pichirlab) Sen — men ko'rgan eng chiroyli manzarasan. Hatto bu salyut ham senga qarab yonib-o'chyapti.", fx:"doki porla"}
+        {k:"r", m:"(pichirlab) Sen — men ko'rgan eng chiroyli manzarasan. Hatto bu salyut ham senga qarab yonib-o'chyapti.", fx:"doki porla", e:"r:qizargan o:qizargan"}
       ]}
     ]},
-    {k:"h", m:"Salyut tugadi. Osmonda faqat tutun va yulduzlar qoldi."},
-    {k:"h", m:"Lekin Ramzning ko'zlarida hamon chiroqlar yonardi. Ular faqat bitta tomonga qarab yonardi — Omina tomonga."},
+    {k:"h", m:"Salyut tugadi. Osmonda faqat tutun va yulduzlar qoldi.", e:"r:oddiy o:oddiy"},
+    {k:"h", m:"Lekin Ramzning ko'zlarida hamon chiroqlar yonardi. Ular faqat bitta tomonga qarab yonardi — Omina tomonga.", e:"r:kulgan"},
 
     {s:"tom"},
     {karta:"4-QISM", nom:"Tom ustida"},
-    {k:"h", m:"Kech. Ko'p qavatli uyning tomi. Pastda Toshkent chiroqlari, tepada yulduzlar. O'rtada esa ikki kishi va ikki piyola choy."},
+    {k:"h", m:"Kech. Ko'p qavatli uyning tomi. Pastda Toshkent chiroqlari, tepada yulduzlar. O'rtada esa ikki kishi va ikki piyola choy.", ko:"ro", e:"r:oddiy o:oddiy"},
     {k:"r", m:"Bilasanmi, Andijonda yulduzlar ko'proq ko'rinadi."},
-    {k:"o", m:"Unda nega bu yerdasan?"},
-    {k:"r", m:"Chunki eng yorug' yulduz shu yerda. U hozir yonimda choy ichib o'tiribdi.", fx:"doki"},
-    {k:"h", m:"Ramz cho'ntagidan kichkina daftar chiqardi. Muqovasiga yozilgan: «Omina haqida. Maxfiy.»"},
-    {k:"r", m:"Buni birinchi kundan beri yozib boryapman. Har kuni — bitta sabab."},
-    {k:"h", m:"Ramz maxsus usulini ishlatdi!", fx:"hujum"},
+    {k:"o", m:"Unda nega bu yerdasan?", e:"o:hayron"},
+    {k:"r", m:"Chunki eng yorug' yulduz shu yerda. U hozir yonimda choy ichib o'tiribdi.", fx:"doki", e:"r:kulgan o:qizargan"},
+    {k:"h", m:"Ramz cho'ntagidan kichkina daftar chiqardi. Muqovasiga yozilgan: «Omina haqida. Maxfiy.»", e:"o:hayron"},
+    {k:"r", m:"Buni birinchi kundan beri yozib boryapman. Har kuni — bitta sabab.", e:"r:qizargan"},
+    {k:"h", m:"Ramz maxsus usulini ishlatdi!", fx:"hujum", e:"r:kulgan o:hayron"},
     {k:"r", m:"1-sabab: kulging xonani yoritadi."},
-    {k:"r", m:"2-sabab: sening bitta «zo'r» deyishing boshqalarning butun bir maqtovidan qimmat."},
+    {k:"r", m:"2-sabab: sening bitta «zo'r» deyishing boshqalarning butun bir maqtovidan qimmat.", e:"o:qizargan"},
     {k:"r", m:"3-sabab: sen bilan jimlik ham suhbatdek."},
     {k:"r", m:"4-sabab: uzoqda bo'lsang ham — yaqinsan."},
-    {k:"h", m:"KRITIK ZARBA! Omina yuragiga 9999 ♥. Juda samarali!", fx:"zarba silkin doki"},
+    {k:"h", m:"KRITIK ZARBA! Omina yuragiga 9999 ♥. Juda samarali!", fx:"zarba silkin doki", e:"r:kulgan o:qizargan"},
     {tanlov:[
       {t:"«Bu daftar qachon tugaydi?»", keyin:[
-        {k:"r", m:"Hech qachon. Tugasa, yangisini olaman. Kerak bo'lsa, do'kondagi hamma daftarlarni."}
+        {k:"r", m:"Hech qachon. Tugasa, yangisini olaman. Kerak bo'lsa, do'kondagi hamma daftarlarni.", e:"r:kulgan o:kulgan"}
       ]},
       {t:"«Menga ham shunday daftar kerak.»", keyin:[
-        {k:"r", m:"Bu daftar allaqachon seniki. Men faqat uning kotibiman.", fx:"porla"}
+        {k:"r", m:"Bu daftar allaqachon seniki. Men faqat uning kotibiman.", fx:"porla", e:"r:qizargan o:kulgan"}
       ]},
       {t:"(Boshingni uning yelkasiga qo'yish)", keyin:[
-        {k:"h", m:"Ramz jim qoldi. Hatto nafas olishni ham unutdi."},
-        {k:"r", m:"(pichirlab) Mana shu... shu — 5-sabab.", fx:"doki"}
+        {k:"h", m:"Ramz jim qoldi. Hatto nafas olishni ham unutdi.", e:"r:hayron o:qizargan"},
+        {k:"r", m:"(pichirlab) Mana shu... shu — 5-sabab.", fx:"doki", e:"r:qizargan"}
       ]}
     ]},
-    {k:"r", m:"Omina. Andijon bilan Toshkent orasida uch yuz kilometrdan ortiq yo'l bor."},
-    {k:"r", m:"Lekin men uchun eng uzun masofa — sening jilmayishinggacha bo'lgan masofa. Uni har kuni bosib o'tishga tayyorman.", fx:"doki porla"},
+    {k:"r", m:"Omina. Andijon bilan Toshkent orasida uch yuz kilometrdan ortiq yo'l bor.", e:"r:oddiy o:oddiy"},
+    {k:"r", m:"Lekin men uchun eng uzun masofa — sening jilmayishinggacha bo'lgan masofa. Uni har kuni bosib o'tishga tayyorman.", fx:"doki porla", e:"r:qizargan o:qizargan"},
 
     {s:"oxir"},
-    {k:"h", m:"Shunday qilib, Andijondan kelgan yigit Toshkentda yo'lini topdi. Bu yo'l uni Omina degan uyga olib bordi."},
+    {k:"h", m:"Shunday qilib, Andijondan kelgan yigit Toshkentda yo'lini topdi. Bu yo'l uni Omina degan uyga olib bordi.", ko:"ro", e:"r:kulgan o:kulgan"},
     {k:"h", m:"Bu hikoya to'qima. Lekin undagi har bir kompliment — rost."},
     {titr:true}
   ];
@@ -520,6 +537,128 @@
   // «taq» effekti bosh harfli tovush so'zini ham chiqaradi
   function katta(soz){ var z = el("div", "katta-yozuv", soz); vaqtincha(z, 1100); }
 
+
+  /* ── personajlar: manga uslubidagi SVG ────────
+     Holatlar: oddiy, kulgan, qizargan, hayron. */
+  var INK = "#1E1A1C";
+  var PERSONAJ = {
+    o: {ayol: true, teri: "#FCE5D6", soya: "#F1C9B5", soch: "#2B1F26", sochYorug: "#6E5662", iris: ["#4A2418", "#DB9A60"], kozY: 210, kozMasshtab: 1.15},
+    r: {ayol: false, teri: "#F8DCC8", soya: "#EBC3AC", soch: "#1C1C26", sochYorug: "#454560", iris: ["#22283E", "#7088BA"], kozY: 208, kozMasshtab: 1.06}
+  };
+  function koz(id, x, y, m, chap, p, holat){
+    var t = "translate(" + x + " " + y + ") scale(" + (chap ? m : -m) + " " + m + ")";
+    var lash = p.ayol ? 4.8 : 4;
+    if (holat === "kulgan"){
+      return '<g transform="' + t + '"><path d="M-19 6 Q0 -14 19 6" fill="none" stroke="' + INK + '" stroke-width="' + lash + '" stroke-linecap="round"/>' +
+        (p.ayol ? '<path d="M-19 6 L-26 1" stroke="' + INK + '" stroke-width="2.5" stroke-linecap="round"/>' : '') + '</g>';
+    }
+    var oq = "M-21 -8 Q-2 -24 20 -12 Q19 14 0 19 Q-19 14 -21 -8 Z";
+    var hayron = holat === "hayron", uyal = holat === "qizargan";
+    var dx = uyal ? (chap ? -5 : 5) : 0;           // uyalganda ikkala ko'z bir tomonga qaraydi
+    var rx = hayron ? 11 : 12, ry = hayron ? 14 : 16;
+    var g = '<g transform="' + t + '">' +
+      '<clipPath id="' + id + 'k"><path d="' + oq + '"/></clipPath>' +
+      '<path d="' + oq + '" fill="#FFFFFF"/>' +
+      '<g clip-path="url(#' + id + 'k)">' +
+        '<ellipse cx="' + (1 + dx) + '" cy="2" rx="' + rx + '" ry="' + ry + '" fill="url(#' + id.slice(0, -1) + 'i)" stroke="' + INK + '" stroke-width="1.2"/>' +
+        '<ellipse cx="' + (1 + dx) + '" cy="4" rx="' + (hayron ? 3 : 5.5) + '" ry="' + (hayron ? 4 : 8) + '" fill="' + INK + '"/>' +
+        '<circle cx="' + (-4 + dx) + '" cy="-5" r="' + (hayron ? 3.5 : 5.2) + '" fill="#FFF"/>' +
+        '<circle cx="' + (6 + dx) + '" cy="10" r="2" fill="#FFF" opacity=".9"/>' +
+        '<path d="M-21 -14 Q0 -30 22 -16 L22 -6 Q0 -16 -21 -4 Z" fill="' + INK + '" opacity=".14"/>' +
+      '</g>' +
+      (uyal ? '<path d="M-23 -10 Q-2 -28 22 -14 L22 -3 Q0 -10 -23 -1 Z" fill="' + p.teri + '"/><path d="M-23 -1 Q0 -10 22 -3" fill="none" stroke="' + INK + '" stroke-width="' + lash + '" stroke-linecap="round"/>'
+            : '<path d="M-23 -7 Q-2 -26 22 -12" fill="none" stroke="' + INK + '" stroke-width="' + lash + '" stroke-linecap="round"/>') +
+      (p.ayol ? '<path d="M-22 ' + (uyal ? -1 : -7) + ' L-30 ' + (uyal ? -4 : -13) + ' M-21 ' + (uyal ? 2 : -4) + ' L-29 ' + (uyal ? 1 : -5) + '" stroke="' + INK + '" stroke-width="2.4" stroke-linecap="round"/>' : '') +
+      '<path d="M-12 16 Q0 21 12 16" fill="none" stroke="' + INK + '" stroke-width="1.5" opacity=".6"/>';
+    return g + '</g>';
+  }
+  // Qoshlar sochdan keyin chiziladi — manga'dagidek, soch ustidan ko'rinib turadi
+  function qosh(x, y, m, chap, p, holat){
+    var t = "translate(" + x + " " + y + ") scale(" + (chap ? m : -m) + " " + m + ")";
+    var d = holat === "hayron" ? "M-22 -50 Q-6 -58 12 -51" : holat === "qizargan" ? "M-22 -39 Q-6 -43 11 -50" : holat === "kulgan" ? "M-22 -43 Q-6 -50 12 -44" : "M-22 -41 Q-6 -47 12 -42";
+    return '<path transform="' + t + '" d="' + d + '" fill="none" stroke="' + INK + '" stroke-width="' + (p.ayol ? 2.6 : 4.2) + '" stroke-linecap="round"/>';
+  }
+  function ogiz(p, holat){
+    if (holat === "kulgan") return '<path d="M135 254 Q150 278 165 254 Z" fill="#B8424A" stroke="' + INK + '" stroke-width="2" stroke-linejoin="round"/><path d="M141 265 Q150 260 159 265 Q150 273 141 265 Z" fill="#E77A80"/>';
+    if (holat === "hayron") return '<ellipse cx="150" cy="265" rx="5.5" ry="7.5" fill="#B8424A" stroke="' + INK + '" stroke-width="2"/>';
+    if (holat === "qizargan") return '<path d="M140 263 Q145 259 150 263 Q155 267 160 263" fill="none" stroke="' + INK + '" stroke-width="2.2" stroke-linecap="round"/>';
+    return '<path d="M140 260 Q150 ' + (p.ayol ? 267 : 265) + ' 160 260" fill="none" stroke="' + INK + '" stroke-width="2.2" stroke-linecap="round"/>';
+  }
+  function qizarish(holat){
+    if (holat !== "qizargan" && holat !== "kulgan") return "";
+    var kuch = holat === "qizargan" ? .7 : .4;
+    var s = '<ellipse cx="112" cy="246" rx="18" ry="8" fill="#FF8FA3" opacity="' + kuch + '"/><ellipse cx="188" cy="246" rx="18" ry="8" fill="#FF8FA3" opacity="' + kuch + '"/>';
+    if (holat === "qizargan") s += '<path d="M104 242 l-5 9 M112 242 l-5 9 M120 242 l-5 9 M182 242 l-5 9 M190 242 l-5 9 M198 242 l-5 9" stroke="#E0607A" stroke-width="1.8" stroke-linecap="round"/>';
+    return s;
+  }
+  function personajSvg(kim, holat){
+    var p = PERSONAJ[kim], id = "p" + kim + holat;
+    var chiz = ' stroke="' + INK + '" stroke-width="2.5" stroke-linejoin="round"';
+    var s = '<svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><defs>' +
+      '<radialGradient id="' + id + 'i" cx="50%" cy="70%" r="70%"><stop offset="0" stop-color="' + p.iris[1] + '"/><stop offset="1" stop-color="' + p.iris[0] + '"/></radialGradient></defs>';
+    if (p.ayol){
+      s += '<path fill="' + p.soch + '"' + chiz + ' d="M78 126 C56 210 54 330 44 420 L256 420 C246 330 244 210 222 126 C210 60 90 60 78 126 Z"/>' +
+        '<path fill="#F4A9BC"' + chiz + ' d="M46 420 C52 362 92 334 128 322 L172 322 C208 334 248 362 254 420 Z"/>' +
+        '<path fill="none"' + chiz + ' d="M128 324 L140 420 M172 324 L160 420"/>' +
+        '<path fill="#FFFFFF"' + chiz + ' d="M128 322 L150 376 L172 322 Z"/>' +
+        '<path fill="#FFFFFF"' + chiz + ' d="M128 320 L116 346 L146 354 Z M172 320 L184 346 L154 354 Z"/>' +
+        '<path fill="#D9435B" d="M150 358 L137 349 L137 367 Z M150 358 L163 349 L163 367 Z"/><circle cx="150" cy="358" r="4.5" fill="#B8304A"/>';
+    } else {
+      s += '<path fill="#2F3B5E"' + chiz + ' d="M42 420 C48 360 92 330 128 320 L172 320 C208 330 252 360 258 420 Z"/>' +
+        '<path fill="none" stroke="#24304E" stroke-width="2" d="M96 360 C110 380 112 400 110 420 M204 360 C190 380 188 400 190 420"/>';
+    }
+    // bo'yin va yuz
+    s += '<path fill="' + p.teri + '"' + chiz + ' d="M133 258 L133 326 Q150 338 167 326 L167 258 Z"/>' +
+      '<path fill="' + p.soya + '" d="M134 266 Q150 300 166 266 L166 292 Q150 308 134 292 Z"/>';
+    if (!p.ayol){
+      s += '<path fill="#3B4A73"' + chiz + ' d="M108 316 C116 348 184 348 192 316 C180 336 120 336 108 316 Z"/>' +
+        '<path stroke="#E8E8F0" stroke-width="3" stroke-linecap="round" d="M138 338 L136 380 M162 338 L164 380"/>' +
+        '<path fill="' + p.teri + '"' + chiz + ' d="M92 184 C77 180 76 212 95 219 Z M208 184 C223 180 224 212 205 219 Z"/>';
+    }
+    s += '<path fill="' + p.teri + '"' + chiz + ' d="' + (p.ayol ? "M88 136 C86 214 114 262 150 284 C186 262 214 214 212 136 Z" : "M90 134 C90 212 118 260 150 282 C182 260 210 212 210 134 Z") + '"/>' +
+      '<path fill="' + p.soya + '" d="M92 150 C94 206 112 244 134 266 C112 240 100 200 100 150 Z"/>';
+    // yuz ifodasi
+    s += qizarish(holat) +
+      koz(id + "a", 120, p.kozY, p.kozMasshtab, true, p, holat) +
+      koz(id + "b", 180, p.kozY, p.kozMasshtab, false, p, holat) +
+      '<path d="M151 236 L148 245" fill="none" stroke="' + INK + '" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>' +
+      ogiz(p, holat);
+    // soch (old tomoni)
+    if (p.ayol){
+      s += '<path fill="' + p.soch + '"' + chiz + ' d="M80 140 C68 214 76 274 58 340 L82 306 C86 254 84 200 88 150 Z"/>' +
+        '<path fill="' + p.soch + '"' + chiz + ' d="M220 140 C232 214 224 274 242 340 L218 306 C214 254 216 200 212 150 Z"/>' +
+        '<path fill="' + p.soch + '"' + chiz + ' d="M80 170 C66 92 108 48 152 48 C198 48 236 92 220 172 L206 140 L198 176 L188 132 L176 166 L166 126 L156 162 L144 124 L134 164 L122 128 L112 170 L104 138 L96 178 Z"/>' +
+        '<path d="M104 96 Q150 70 196 96 Q150 82 104 96 Z" fill="' + p.sochYorug + '" opacity=".85"/>' +
+        '<g transform="translate(206 116)"><circle cx="0" cy="-7" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle cx="7" cy="-2" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle cx="4" cy="6" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle cx="-4" cy="6" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle cx="-7" cy="-2" r="5.5" fill="#FFB6C8" stroke="' + INK + '" stroke-width="1.5"/><circle r="3" fill="#FFE14D"/></g>';
+    } else {
+      s += '<path fill="' + p.soch + '"' + chiz + ' d="M84 170 C72 112 92 74 122 62 L126 46 L142 58 L158 42 L168 60 L186 54 L184 70 C210 84 224 116 216 170 L204 142 L196 170 L188 128 L178 158 L168 120 L158 156 L146 118 L136 158 L124 124 L114 162 L104 136 Z"/>' +
+        '<path d="M108 98 Q150 76 194 98 Q150 86 108 98 Z" fill="' + p.sochYorug + '" opacity=".85"/>';
+    }
+    s += qosh(120, p.kozY, p.kozMasshtab, true, p, holat) + qosh(180, p.kozY, p.kozMasshtab, false, p, holat);
+    if (holat === "hayron") s += '<path d="M218 150 Q227 166 218 173 Q209 166 218 150 Z" fill="#BFE6FF" stroke="' + INK + '" stroke-width="1.8"/>';
+    return s + '</svg>';
+  }
+
+  var sahnada = "", ifoda = {r: "oddiy", o: "oddiy"}, chizilgan = {r: "", o: ""};
+  var SPRITE = {r: $("pRamz"), o: $("pOmina")};
+  function personajlarniYangila(q){
+    if (q.ko != null) sahnada = q.ko;
+    if (q.e) q.e.split(" ").forEach(function(b){ var t = b.split(":"); if (PERSONAJ[t[0]]) ifoda[t[0]] = t[1]; });
+    var gapiruvchi = q.k === "r" || q.k === "i" ? "r" : q.k === "o" ? "o" : "";
+    ["r", "o"].forEach(function(k){
+      var e = SPRITE[k];
+      if (chizilgan[k] !== ifoda[k]){ e.innerHTML = personajSvg(k, ifoda[k]); chizilgan[k] = ifoda[k]; }
+      var bor = sahnada.indexOf(k) > -1;
+      e.classList.toggle("bor", bor);
+      e.classList.toggle("xira", bor && !!gapiruvchi && gapiruvchi !== k);
+      if (bor && gapiruvchi === k && q.k !== "i"){ e.classList.remove("sakra"); void e.offsetWidth; e.classList.add("sakra"); }
+    });
+  }
+  function personajlarniTozala(){
+    sahnada = ""; ifoda = {r: "oddiy", o: "oddiy"};
+    personajlarniYangila({});
+  }
+
   /* ── yurak o'lchagich ─────────────────────── */
   function yurakChiz(yangi){
     var o = $("yurakOlchov"); o.innerHTML = "";
@@ -614,10 +753,11 @@
     var q = ichki.length ? ichki.shift() : SSENARIY[qadam++];
     if (!q) return;
     saqlash();
-    if (q.s){ fonQoy(q.s); keyingi(); return; }
+    if (q.s){ fonQoy(q.s); personajlarniTozala(); keyingi(); return; }
     if (q.karta){ kartaKorsat(q); return; }
     if (q.tanlov){ tanlovKorsat(q); return; }
     if (q.titr){ titrlar(); return; }
+    personajlarniYangila(q);
     gapKorsat(q);
   }
   function bos(){
