@@ -53,7 +53,7 @@
   .tugma.och{background:var(--oq);color:var(--pushti);box-shadow:0 8px 20px -12px rgba(80,40,90,.5);border:2px solid var(--pushti-och)}
 
   /* ── xarita ─────────────────────────────────── */
-  .xarita{padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(110px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto}
+  .xarita{padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(30px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto}
   .xarita header{text-align:center;margin-bottom:16px}
   .xarita h2{margin:0;font-family:var(--katta);font-weight:400;font-size:clamp(24px,7vw,32px)}
   .xarita header p{margin:4px 0 0;font-size:14px;color:var(--xira)}
@@ -76,8 +76,6 @@
   .orol small{font-size:12px;color:var(--xira);font-weight:700}
   .orol .belgi{position:absolute;top:6px;right:12px;font-size:18px}
   .orol.tugagan small{color:#2E8B57}
-  .xarita-past{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(14px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;
-    background:linear-gradient(transparent,rgba(238,230,251,.95) 35%)}
 
   /* ── suhbat ─────────────────────────────────── */
   .suhbat{display:flex;flex-direction:column;height:100vh;height:100dvh}
@@ -115,22 +113,10 @@
   .tayyor{min-height:40px;padding:6px 18px;border:none;border-radius:999px;background:var(--pushti);color:#fff;font-weight:800;font-size:14px}
   .tayyor:disabled{opacity:.4;cursor:default}
 
-  /* ── xazina ─────────────────────────────────── */
-  .xazina{max-width:560px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(30px + env(safe-area-inset-bottom,0px))}
-  .xazina .orqaga{margin-bottom:8px}
-  .pasport{position:relative;padding:22px 18px 18px;border-radius:24px;background:linear-gradient(160deg,#3B2B5E,#6B3E7E 60%,#B9567A);color:#fff;box-shadow:0 20px 40px -18px rgba(60,30,80,.7);overflow:hidden}
-  .pasport::after{content:"♡";position:absolute;right:-10px;bottom:-40px;font-size:180px;opacity:.08}
-  .pasport small{font-weight:800;font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.75}
-  .pasport h2{margin:4px 0 14px;font-family:var(--katta);font-weight:400;font-size:clamp(26px,8vw,34px)}
-  .pasport dl{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;margin:0}
-  .pasport dt{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
-  .pasport dd{margin:2px 0 0;font-size:15px;font-weight:700;line-height:1.35;word-break:break-word}
-  .hammasi{margin:18px 0 0;padding:16px;border-radius:20px;background:var(--oq)}
-  .hammasi summary{font-weight:800;cursor:pointer}
-  .hammasi h3{margin:14px 0 4px;font-size:15px;color:var(--pushti)}
-  .hammasi p{margin:6px 0 0;font-size:14px;line-height:1.45}
-  .hammasi p span{display:block;color:var(--xira);font-size:12.5px}
-  .rahmat{margin:16px 0 0;font-family:var(--qol);font-size:26px;line-height:1.25;color:var(--siyoh);text-align:center}
+  .yakun{margin:22px auto 0;max-width:420px;padding:20px 18px;border-radius:24px;background:var(--oq);text-align:center;box-shadow:0 18px 40px -20px rgba(80,40,90,.45);animation:chiq .5s ease both}
+  .yakun-emoji{font-size:40px}
+  .yakun p{margin:6px 0 0;font-weight:800;font-size:17px}
+  .yakun .qol{font-family:var(--qol);font-weight:700;font-size:25px;line-height:1.25;color:var(--pushti)}
 
   @media (prefers-reduced-motion:reduce){
     .orol,.kirish .kompas{animation:none}
@@ -160,7 +146,11 @@
     <div class="jarayon" aria-hidden="true"><i id="jarayon"></i></div>
   </header>
   <div class="orollar" id="orollar"></div>
-  <div class="xarita-past"><button type="button" class="tugma" id="xazinaga">🎁 Mening pasportim</button></div>
+  <div class="yakun" id="yakun" hidden>
+    <div class="yakun-emoji" aria-hidden="true">✨</div>
+    <p>Hamma orollar kashf qilindi!</p>
+    <p class="qol">Rahmat, Omina. Xaritangdagi eng chiroyli orol baribir — sening o'zing ♥</p>
+  </div>
 </section>
 
 <section class="ekran suhbat" id="suhbat" hidden>
@@ -172,17 +162,6 @@
   <div class="kiritish" id="kiritish" hidden></div>
 </section>
 
-<section class="ekran xazina" id="xazina" hidden>
-  <button type="button" class="orqaga" id="xazinaOrqaga" aria-label="Xaritaga qaytish">←</button>
-  <div class="pasport">
-    <small>Omina pasporti</small>
-    <h2>Ominaning dunyosi</h2>
-    <dl id="pasport"></dl>
-  </div>
-  <details class="hammasi"><summary id="hammasiSoni"></summary><div id="hammasi"></div></details>
-  <p class="rahmat" id="rahmat">Rahmat, Omina. Endi xaritangni yoddan bilaman. Lekin eng chiroyli orol baribir — sening o'zing ♥</p>
-</section>
-
 <script>
 (function(){
   "use strict";
@@ -192,7 +171,6 @@
        tur: "matn" — o'zi yozadi, "bir" — bitta tanlov, "kop" — bir nechta tanlov
        j:   Ramzning javobi. {j} o'rniga Ominaning javobi qo'yiladi.
             Tanlovli savolda {"_": umumiy, "Variant": maxsus} ko'rinishida bo'lishi mumkin.
-       pasport: Omina pasportida ko'rinadigan maydon nomi
   ═══════════════════════════════════════════════ */
   var OROLLAR = [
     {id: "bolalik", nom: "Kichkina Omina", emoji: "🧸", rang: "#FFD6E0", savollar: [
@@ -206,11 +184,11 @@
        j: {"_": "Bilardim! Hozir ham o'shasan — faqat yanada chiroyliroq.", "Hammasi birdan": "Albatta hammasi birdan. Sen bitta ta'rifga sig'adigan qiz emassan."}}
     ]},
     {id: "qiziqish", nom: "Qiziqishlar oroli", emoji: "🎨", rang: "#FFE7B8", savollar: [
-      {s: "Bo'sh vaqtingda nima qilishni yaxshi ko'rasan?", tur: "kop", v: ["Kino yoki serial", "Kitob", "Musiqa", "Ovqat pishirish", "Sayr", "Xarid 🛍", "Rasm chizish", "Uxlash 😴", "Telefon titkilash"], pasport: "Bo'sh vaqtda",
+      {s: "Bo'sh vaqtingda nima qilishni yaxshi ko'rasan?", tur: "kop", v: ["Kino yoki serial", "Kitob", "Musiqa", "Ovqat pishirish", "Sayr", "Xarid 🛍", "Rasm chizish", "Uxlash 😴", "Telefon titkilash"],
        j: "Yozib qo'ydim. Endi bo'sh vaqtingni qanday to'ldirishni bilaman — yoningda bo'lib."},
-      {s: "Sevimli kino yoki serialing?", tur: "matn", ph: "Nomi...", pasport: "Sevimli kino",
+      {s: "Sevimli kino yoki serialing?", tur: "matn", ph: "Nomi...",
        j: "«{j}»ni birga ko'ramiz. Sen ekranga qaraysan, men — senga. Hamma xursand."},
-      {s: "Hozir eng ko'p tinglaydigan qo'shig'ing?", tur: "matn", ph: "Qo'shiq yoki ijrochi...", pasport: "Sevimli qo'shiq",
+      {s: "Hozir eng ko'p tinglaydigan qo'shig'ing?", tur: "matn", ph: "Qo'shiq yoki ijrochi...",
        j: "Shu qo'shiqni eshitsam, endi seni eslayman. Aslida har qanday qo'shiq seni eslatadi, bunisi — rasman."},
       {s: "Bitta yangi narsani o'rganish imkoni bo'lsa, nimani tanlarding?", tur: "bir", v: ["Yangi til", "Rasm chizish", "Musiqa asbobi", "Raqs", "Pazandalik", "Mashina haydash", "Boshqa narsa"],
        j: {"_": "Zo'r tanlov! O'rganmoqchi bo'lgan narsangni albatta o'rganasan — sen shunaqa qizsan.", "Mashina haydash": "O'rgan! Men yo'lovchi o'rindig'ida qo'rqmay o'tiraman. Deyarli qo'rqmay 😄"}},
@@ -218,11 +196,11 @@
        j: "Endi bilaman, gapni qachon o'sha mavzuga burish kerak — ko'zlaring porlashini ko'rish uchun."}
     ]},
     {id: "tam", nom: "Ta'mlar oroli", emoji: "🍰", rang: "#FFD9C2", savollar: [
-      {s: "Dunyodagi eng sevimli taoming?", tur: "matn", ph: "Taom nomi...", pasport: "Sevimli taom",
+      {s: "Dunyodagi eng sevimli taoming?", tur: "matn", ph: "Taom nomi...",
        j: "«{j}» — eslab qoldim. Bir kun o'zim pishiraman. Mazasi... urinishning o'zi muhim-ku 😄"},
-      {s: "Shirinliklardan qaysi biri?", tur: "bir", v: ["Shokolad", "Tort", "Muzqaymoq", "Medovik", "Napoleon", "Mevali desert", "Shirinlik shart emas"], pasport: "Shirinlik",
+      {s: "Shirinliklardan qaysi biri?", tur: "bir", v: ["Shokolad", "Tort", "Muzqaymoq", "Medovik", "Napoleon", "Mevali desert", "Shirinlik shart emas"],
        j: {"_": "Endi qayerda «{j}» ko'rsam, senga olib kelaman.", "Shirinlik shart emas": "Tushunarli: sen o'zing yetarlicha shirinsan, qo'shimchasi kerak emas."}},
-      {s: "Choymi, qahvami?", tur: "bir", v: ["Ko'k choy", "Qora choy", "Limonli choy", "Qahva", "Kakao"], pasport: "Ichimlik",
+      {s: "Choymi, qahvami?", tur: "bir", v: ["Ko'k choy", "Qora choy", "Limonli choy", "Qahva", "Kakao"],
        j: {"_": "Ertalab senga «{j}» damlab beradigan odam bo'lgim keladi."}},
       {s: "Sen uchun ideal nonushta qanday?", tur: "matn", ph: "Stol ustida nimalar bor?",
        j: "Menyu qabul qilindi. Oshpaz — men. Ofitsiant — men. Seni uyg'otuvchi — yana men."},
@@ -230,19 +208,19 @@
        j: {"_": "Bron qildim — hozircha xayolan. Tez orada haqiqatda ham.", "Farqi yo'q, sen bilan bo'lsa": "Bu javobdan keyin men ham farqini sezmay qoldim. Faqat sen bo'lsang bas."}}
     ]},
     {id: "orzu", nom: "Orzular oroli", emoji: "✈️", rang: "#CDE8FF", savollar: [
-      {s: "Dunyoda eng ko'p qayerga borishni orzu qilasan?", tur: "bir", v: ["Turkiya", "Dubay", "Yaponiya", "Koreya", "Parij", "Italiya", "Maldiv orollari", "Boshqa joy"], pasport: "Orzu manzili",
+      {s: "Dunyoda eng ko'p qayerga borishni orzu qilasan?", tur: "bir", v: ["Turkiya", "Dubay", "Yaponiya", "Koreya", "Parij", "Italiya", "Maldiv orollari", "Boshqa joy"],
        j: {"_": "{j}! Xaritada belgilab qo'ydim. Bir kun o'sha yerda sen kulasan, men esa seni suratga olaman.", "Boshqa joy": "Qayer bo'lsa ham — bir kun birga boramiz. Keyingi savolda ayt-chi..."}},
       {s: "5 yildan keyin o'zingni qanday tasavvur qilasan?", tur: "matn", ph: "Qayerda, kim bilan, nima qilyapsan...",
        j: "Rejangni o'qidim. Unda men ham bormanmi? Bo'lmasa ham — yoningdan o'zimga joy topaman 😉"},
-      {s: "Agar bitta tilaging hoziroq bajarilsa — u nima bo'lardi?", tur: "matn", ph: "Bitta tilak...", pasport: "Bitta tilak",
+      {s: "Agar bitta tilaging hoziroq bajarilsa — u nima bo'lardi?", tur: "matn", ph: "Bitta tilak...",
        j: "Bu tilakni yuragimga yozib qo'ydim. Sehrgar emasman, lekin harakat qilaman."},
-      {s: "Orzuingdagi uy qanday?", tur: "bir", v: ["Shahar markazida chiroyli kvartira", "Bog'li katta hovli", "Tog' bag'ridagi uy", "Dengiz bo'yidagi uy"], pasport: "Orzudagi uy",
+      {s: "Orzuingdagi uy qanday?", tur: "bir", v: ["Shahar markazida chiroyli kvartira", "Bog'li katta hovli", "Tog' bag'ridagi uy", "Dengiz bo'yidagi uy"],
        j: {"_": "Qanday uy bo'lmasin, undagi eng muhim xona — sen kulib yuradigan xona."}},
       {s: "Hayotingdagi eng katta maqsading nima?", tur: "matn", ph: "Kattami, kichikmi — muhim emas",
        j: "Sen bunga albatta erishasan. O'sha kuni eng baland qarsak chaladigan odam men bo'laman."}
     ]},
     {id: "yurak", nom: "Yurak oroli", emoji: "💝", rang: "#FFC9D9", savollar: [
-      {s: "Seni eng ko'p nima xursand qiladi?", tur: "bir", v: ["Chiroyli so'zlar", "Sovg'alar", "Birga o'tkazilgan vaqt", "G'amxo'rlik va yordam", "Quchoq va yaqinlik"], pasport: "Yuragimga yo'l",
+      {s: "Seni eng ko'p nima xursand qiladi?", tur: "bir", v: ["Chiroyli so'zlar", "Sovg'alar", "Birga o'tkazilgan vaqt", "G'amxo'rlik va yordam", "Quchoq va yaqinlik"],
        j: {"_": "Bu — eng muhim javob. Endi seni qanday xursand qilishni aniq bilaman. Va qilaman."}},
       {s: "Senga qaysi gapni aytishsa, erib ketasan?", tur: "matn", ph: "Shu gapni eshitsam...",
        j: "Yodlab oldim. Endi uni kutilmagan paytda aytaman — erib ketishingni ko'rish uchun 😏"},
@@ -250,13 +228,13 @@
        j: "Ha-ha, qizarib ketdim... Bu javobni chiqarib, devorga osib qo'yaman."},
       {s: "Ramz nimani ko'proq qilishini xohlarding?", tur: "matn", ph: "Ko'proq...",
        j: "Qabul qilindi. Rad etish taqiqlanadi — bu men o'zimga qo'ygan qoida."},
-      {s: "Ideal romantik kechada nimalar bo'lishi kerak?", tur: "kop", v: ["Shamlar", "Gullar", "Musiqa", "Mazali ovqat", "Birga kino", "Kechki sayr", "Yulduzlar", "Uzun suhbat"], pasport: "Romantik kecha",
+      {s: "Ideal romantik kechada nimalar bo'lishi kerak?", tur: "kop", v: ["Shamlar", "Gullar", "Musiqa", "Mazali ovqat", "Birga kino", "Kechki sayr", "Yulduzlar", "Uzun suhbat"],
        j: "Ro'yxat tayyor. Endi faqat sanani belgilash qoldi..."},
       {s: "Sen uchun ideal kun qanday o'tadi — ertalabdan kechgacha?", tur: "matn", ph: "Ertalab...",
        j: "O'qib, xayolimda o'sha kunni yashab chiqdim. Ajoyib kun ekan. Uni haqiqatga aylantiramiz."}
     ]},
     {id: "kayfiyat", nom: "Kayfiyat oroli", emoji: "🌦", rang: "#DCD4FF", savollar: [
-      {s: "Xafa bo'lsang, seni nima tinchlantiradi?", tur: "bir", v: ["Quchoq", "Shokolad", "Yolg'iz qolish", "Gaplashish", "Sayr", "Uxlab olish", "Kulgili video"], pasport: "Xafa bo'lganda",
+      {s: "Xafa bo'lsang, seni nima tinchlantiradi?", tur: "bir", v: ["Quchoq", "Shokolad", "Yolg'iz qolish", "Gaplashish", "Sayr", "Uxlab olish", "Kulgili video"],
        j: {"_": "Esda tutaman. Sen xafa bo'lgan kuni — «{j}». Darhol.", "Yolg'iz qolish": "Tushundim. Bunday paytda jim turaman, lekin uzoqqa ketmayman."}},
       {s: "Seni eng tez nima kuldiradi?", tur: "bir", v: ["Hazil", "Kulgili video", "Ramzning g'alati hazillari", "Bolalar", "Mushuk va kuchukchalar", "Hamma narsa 😄"],
        j: {"_": "Bu ma'lumot juda qimmat. Kulging — mening sevimli tovushim.", "Ramzning g'alati hazillari": "Bilardim! Endi rasman tasdiqlandi. Hazillarim davom etadi 😎"}},
@@ -268,9 +246,9 @@
        j: "Endi bilaman. Qachon qo'rqsang — men yoningdaman."}
     ]},
     {id: "sovga", nom: "Sovg'alar oroli", emoji: "🎁", rang: "#FFE0F0", savollar: [
-      {s: "Qaysi gullarni yaxshi ko'rasan?", tur: "bir", v: ["Atirgul", "Lola", "Pion", "Xrizantema", "Oq gullar", "Dala gullari", "Gul shart emas"], pasport: "Sevimli gul",
+      {s: "Qaysi gullarni yaxshi ko'rasan?", tur: "bir", v: ["Atirgul", "Lola", "Pion", "Xrizantema", "Oq gullar", "Dala gullari", "Gul shart emas"],
        j: {"_": "{j}... Eslab qoldim. Ular seni ko'rsa, uyalib qolishsa kerak.", "Gul shart emas": "Mayli. Lekin baribir bir kun bitta gul olib kelaman — senga emas, guldonga 😄"}},
-      {s: "Sevimli rang qaysi?", tur: "matn", ph: "Rang...", pasport: "Sevimli rang",
+      {s: "Sevimli rang qaysi?", tur: "matn", ph: "Rang...",
        j: "«{j}» — endi bu mening ham sevimli rangim."},
       {s: "Sovg'ani qanday yoqtirasan?", tur: "bir", v: ["Kutilmagan syurpriz", "O'zim tanlab olaman", "Qo'lda yasalgan", "Taassurot: sayohat, konsert"],
        j: {"_": "Tushunarli. Keyingi sovg'a aynan shunday bo'ladi."}},
@@ -278,7 +256,7 @@
        j: "Bu sir ikkimiz o'rtamizda qoladi. Lekin... yozib qo'ydim 🤫"},
       {s: "Sevimli ating yoki hiding?", tur: "matn", ph: "Atir, gul, yomg'ir hidi...",
        j: "Endi bu hidni qayerda sezsam, seni eslayman."},
-      {s: "Oxirgi savol: bitta orzuingni Ramzga ishonib aytib qo'y. Kim biladi, balki u bajarar...", tur: "matn", ph: "Mening orzuyim...", pasport: "Ramzga orzu",
+      {s: "Oxirgi savol: bitta orzuingni Ramzga ishonib aytib qo'y. Kim biladi, balki u bajarar...", tur: "matn", ph: "Mening orzuyim...",
        j: "Va'da bermayman — harakat qilaman. Chunki sening orzularing endi mening rejalarim."}
     ]}
   ];
@@ -332,7 +310,7 @@
 
   var $ = function(id){ return document.getElementById(id); };
   function el(teg, sinf, matn){ var e = document.createElement(teg); if (sinf) e.className = sinf; if (matn != null) e.textContent = matn; return e; }
-  function korsat(id){ ["kirish", "xarita", "suhbat", "xazina"].forEach(function(k){ $(k).hidden = k !== id; }); window.scrollTo(0, 0); }
+  function korsat(id){ ["kirish", "xarita", "suhbat"].forEach(function(k){ $(k).hidden = k !== id; }); window.scrollTo(0, 0); }
 
   var AVATAR = '<svg class="avatar" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#DCE7FF"/><path d="M9 19 C8 10 14 6 20 6 C27 6 32 10 31 19 Q29 15 26 17 Q24 13 20 16 Q16 13 14 17 Q11 15 9 19 Z" fill="#1C1C26"/><path d="M11 18 C11 28 15 33 20 33 C25 33 29 28 29 18 Q20 22 11 18 Z" fill="#F8DCC8"/><circle cx="16" cy="22" r="3.6" fill="none" stroke="#2A2A35" stroke-width="1.4"/><circle cx="24" cy="22" r="3.6" fill="none" stroke="#2A2A35" stroke-width="1.4"/><path d="M19.6 22 h.8" stroke="#2A2A35" stroke-width="1.4"/><circle cx="16" cy="22" r="1.2" fill="#1C1C26"/><circle cx="24" cy="22" r="1.2" fill="#1C1C26"/><path d="M17 28 Q20 30 23 28" fill="none" stroke="#1C1C26" stroke-width="1.3" stroke-linecap="round"/></svg>';
 
@@ -354,7 +332,7 @@
     var j = jamiJavob(), bajar = OROLLAR.reduce(function(s, o){ return s + bajarilgan(o); }, 0);
     $("xaritaHisob").textContent = j ? j + " ta javob · " + Math.round(bajar / JAMI_SAVOL * 100) + "% kashf qilindi" : "Istagan oroldan boshla";
     $("jarayon").style.width = (bajar / JAMI_SAVOL * 100) + "%";
-    $("xazinaga").disabled = !j;
+    $("yakun").hidden = bajar < JAMI_SAVOL;
   }
 
   /* ── suhbat ───────────────────────────────── */
@@ -507,45 +485,9 @@
   }
   function xaritaga(){ clearTimeout(kutish); xaritaChiz(); korsat("xarita"); }
 
-  /* ── xazina: pasport va yuborish ──────────── */
-  function xazinaChiz(){
-    var dl = $("pasport"); dl.innerHTML = "";
-    var bor = 0;
-    OROLLAR.forEach(function(o){
-      o.savollar.forEach(function(sv, k){
-        var i = qid(o, k);
-        if (!sv.pasport || !(i in holat.javob)) return;
-        var d = el("div");
-        d.appendChild(el("dt", "", sv.pasport));
-        d.appendChild(el("dd", "", javobMatn(holat.javob[i])));
-        dl.appendChild(d); bor++;
-      });
-    });
-    if (!bor){ var d = el("div"); d.appendChild(el("dd", "", "Pasport hali bo'sh — orollarni kashf qil!")); dl.appendChild(d); }
-
-    var h = $("hammasi"); h.innerHTML = "";
-    var soni = 0;
-    OROLLAR.forEach(function(o){
-      var qatorlar = o.savollar.map(function(sv, k){ return [sv, holat.javob[qid(o, k)]]; }).filter(function(q){ return q[1] != null; });
-      if (!qatorlar.length) return;
-      h.appendChild(el("h3", "", o.emoji + " " + o.nom));
-      qatorlar.forEach(function(q){
-        var p = el("p"); p.appendChild(el("span", "", q[0].s)); p.appendChild(document.createTextNode(javobMatn(q[1])));
-        h.appendChild(p); soni++;
-      });
-    });
-    $("hammasiSoni").textContent = "Barcha javoblar (" + soni + ")";
-    var qolgan = OROLLAR.filter(function(o){ return bajarilgan(o) < o.savollar.length; }).length;
-    $("rahmat").textContent = qolgan
-      ? "Yana " + qolgan + " ta orol seni kutyapti. Har bir javobing — men uchun kichkina sovg'a ♥"
-      : "Rahmat, Omina. Endi xaritangni yoddan bilaman. Lekin eng chiroyli orol baribir — sening o'zing ♥";
-    korsat("xazina");
-  }
   /* ── boshqaruv ────────────────────────────── */
   $("boshla").addEventListener("click", function(){ holat.boshlangan = 1; saqla(); xaritaga(); });
   $("suhbatOrqaga").addEventListener("click", xaritaga);
-  $("xazinaOrqaga").addEventListener("click", xaritaga);
-  $("xazinaga").addEventListener("click", xazinaChiz);
 
   if (holat.boshlangan){ xaritaChiz(); korsat("xarita"); }
   if (holat.yangilanmagan) yubor();
