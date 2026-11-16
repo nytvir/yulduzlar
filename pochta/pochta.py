@@ -5,6 +5,8 @@ O'quvchi yuborgan narsalarni qabul qiladi va muharrirga maxfiy havola orqali
 ko'rsatadi:
   POST /pochta/yukla  — muqova surati (image/jpeg)
   POST /pochta/javob  — qisqa matnli javob (application/json: {savol, javob})
+  POST /pochta/anketa — «Ominaning dunyosi» javoblari (application/json: {id, javoblar: [{bob, savol, javob}]});
+                        bitta id — bitta yozuv, har yuborishda yangilanadi
   /pochta/oyin/...    — «Rost yoki jasorat» o'yini (mantig'i oyin.py'da)
   /pochta/tele/...    — «Telepatiya» o'yini (mantig'i telepatiya.py'da)
 BOT_TOKEN va CHAT_ID berilsa, har biri Telegram'ga ham yuboriladi.
@@ -50,6 +52,13 @@ GALEREYA = f"/pochta/{KALIT}/"
 JAVOBLAR = os.path.join(PAPKA, "javoblar.jsonl")
 OYIN_ARXIV = os.path.join(PAPKA, "oyin_tarixi.jsonl")
 MAX_ARXIV = 5000                    # o'yin arxividagi yozuvlar soni chegarasi
+ANKETA = os.path.join(PAPKA, "anketa.jsonl")
+MAX_ANKETA_HAJM = 64 * 1024         # bitta yuborish, bayt
+MAX_ANKETA_SONI = 200               # saqlanadigan yozuvlar (alohida id) soni
+ANKETA_LIMIT, ANKETA_DAVR = 60, 600 # sahifa har javobdan keyin yuboradi: bitta IP'dan 10 daqiqada 60 ta
+ANKETA_ID_RE = re.compile(r"^[0-9a-f]{16,32}$")
+MAX_ANKETA_JAVOB = 80               # bitta yuborishdagi javoblar
+ANKETA_UZUNLIK = 1000               # bitta javob matni, belgi
 
 if not re.fullmatch(r"[0-9a-f]{16,64}", KALIT):
     raise SystemExit("POCHTA_KALIT 16–64 belgili hex bo'lishi kerak")
@@ -59,6 +68,7 @@ OYIN_HAJM = 4096
 
 _urinishlar = defaultdict(deque)
 _oyin_urinishlar = defaultdict(deque)
+_anketa_urinishlar = defaultdict(deque)
 _qulf = threading.Lock()
 _javob_qulfi = threading.Lock()
 
@@ -87,6 +97,18 @@ def oyin_ruxsatmi(ip):
         return True
 
 
+def anketa_ruxsatmi(ip):
+    hozir = time.monotonic()
+    with _qulf:
+        q = _anketa_urinishlar[ip]
+        while q and hozir - q[0] > ANKETA_DAVR:
+            q.popleft()
+        if len(q) >= ANKETA_LIMIT:
+            return False
+        q.append(hozir)
+        return True
+
+
 def fayllar():
     return sorted((f for f in os.listdir(PAPKA) if NOM_RE.match(f)), reverse=True)
 
@@ -94,6 +116,22 @@ def fayllar():
 def javoblar():
     try:
         with open(JAVOBLAR, encoding="utf-8") as f:
+            qatorlar = f.readlines()
+    except FileNotFoundError:
+        return []
+    natija = []
+    for q in reversed(qatorlar):
+        try:
+            natija.append(json.loads(q))
+        except ValueError:
+            continue
+    return natija
+
+
+def anketalar():
+    """Eng oxirgi yangilangani birinchi."""
+    try:
+        with open(ANKETA, encoding="utf-8") as f:
             qatorlar = f.readlines()
     except FileNotFoundError:
         return []
@@ -221,7 +259,7 @@ SHABLON = """<!doctype html>
 <body><main><div class="varaq">
 <h1>Tahririyat pochtasi</h1>
 <p class="soni">Javoblar: {{JAVOB_SONI}} · Muqovalar: {{SONI}} · sahifa har 30 soniyada yangilanadi</p>
-<p class="havola"><a href="oyin">O'yinlar arxivi →</a></p>
+<p class="havola"><a href="anketa">Ominaning dunyosi →</a> <a href="oyin">O'yinlar arxivi →</a></p>
 <h2>Javoblar</h2>
 {{JAVOBLAR}}
 <h2>Muqovalar</h2>
@@ -291,6 +329,62 @@ ARXIV_SHABLON = """<!doctype html>
 <p class="soni">O'yinlar: {{OYIN_SONI}} · Kartalar: {{KARTA_SONI}} · sahifa har 30 soniyada yangilanadi</p>
 {{OYINLAR}}
 </div></main></body></html>"""
+
+
+ANKETA_SHABLON = """<!doctype html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Ominaning dunyosi</title>
+<style>
+  :root{--qogoz:#F2ECDF;--siyoh:#1C1915;--siyoh-2:#4A443A;--qizil:#A8261C;--stol:#2B2722}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--stol);color:var(--siyoh);font-family:Georgia,"Times New Roman",serif}
+  main{max-width:760px;margin:0 auto;padding:24px 12px 48px}
+  .varaq{background:var(--qogoz);padding:20px 16px 28px}
+  h1{margin:0;font-size:30px;text-align:center}
+  .orqa{display:block;margin:0 0 12px;font-family:"Arial Narrow",sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--siyoh-2)}
+  .soni{margin:6px 0 0;text-align:center;font-family:"Arial Narrow",sans-serif;font-size:12px;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--siyoh-2);border-block:1px solid var(--siyoh);padding:6px 0}
+  .yuborish{margin-top:24px}
+  .yuborish > h2{margin:0;padding:7px 0;border-top:3px solid var(--siyoh);border-bottom:1px solid var(--siyoh);
+           font-family:"Arial Narrow",sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+  h3{margin:16px 0 4px;font-size:17px;color:var(--qizil)}
+  dl{margin:0}
+  dt{margin-top:10px;font-style:italic;color:var(--siyoh-2);font-size:15px}
+  dd{margin:2px 0 0;font-size:18px;line-height:1.45;white-space:pre-line;word-break:break-word}
+  .bosh-holat{font-style:italic;color:var(--siyoh-2);text-align:center;margin:24px 0 0}
+  a:focus-visible{outline:3px solid var(--qizil);outline-offset:3px}
+</style></head>
+<body><main><div class="varaq">
+<a class="orqa" href="./">← Tahririyat pochtasi</a>
+<h1>Ominaning dunyosi</h1>
+<p class="soni">Yozuvlar: {{SONI}} · javoblar o'zi yangilanib boradi · eng yangisi tepada</p>
+{{YUBORISHLAR}}
+</div></main></body></html>"""
+
+
+def anketa_sahifa():
+    royxat = anketalar()
+    bloklar = []
+    for y in royxat:
+        bolimlar = []
+        joriy = None
+        for j in y.get("javoblar") or []:
+            bob = str(j.get("bob", ""))
+            if bob != joriy:
+                if joriy is not None:
+                    bolimlar.append("</dl>")
+                bolimlar.append(f"<h3>{html.escape(bob)}</h3><dl>")
+                joriy = bob
+            bolimlar.append(f"<dt>{html.escape(str(j.get('savol', '')))}</dt><dd>{html.escape(str(j.get('javob', '')))}</dd>")
+        if joriy is not None:
+            bolimlar.append("</dl>")
+        bloklar.append(f'<section class="yuborish"><h2>Oxirgi yangilanish: {html.escape(str(y.get("vaqt", "")))} · '
+                       f'{len(y.get("javoblar") or [])} ta javob</h2>{"".join(bolimlar)}</section>')
+    return (ANKETA_SHABLON
+            .replace("{{SONI}}", str(len(royxat)))
+            .replace("{{YUBORISHLAR}}", "".join(bloklar) or '<p class="bosh-holat">Hozircha hech narsa kelmadi.</p>'))
 
 
 TUR_NOMI = {"rost": "Rost", "jasorat": "Jasorat", "telepatiya": "Telepatiya"}
@@ -397,6 +491,8 @@ class Ishlovchi(BaseHTTPRequestHandler):
             return self._muqova_qabul()
         if yol == "/pochta/javob":
             return self._javob_qabul()
+        if yol == "/pochta/anketa":
+            return self._anketa_qabul()
         qismlar = yol.split("/")                       # ["", "pochta", "<o'yin>", "<amal>"]
         if len(qismlar) == 4 and qismlar[2] in OYINLAR:
             return self._oyin_post(OYINLAR[qismlar[2]], qismlar[3])
@@ -494,6 +590,50 @@ class Ishlovchi(BaseHTTPRequestHandler):
         ).start()
         self._json(200, ok=True)
 
+    def _anketa_qabul(self):
+        if self._turi() != "application/json":
+            return self._json(415, ok=False, xato="faqat json")
+        hajm = self._hajm()
+        if hajm <= 0 or hajm > MAX_ANKETA_HAJM:
+            return self._json(413, ok=False, xato="hajm")
+        if not anketa_ruxsatmi(self._ip()):
+            return self._json(429, ok=False, xato="ko'p urinish")
+        try:
+            d = json.loads(self.rfile.read(hajm).decode("utf-8"))
+        except (ValueError, UnicodeDecodeError):
+            return self._json(400, ok=False, xato="json emas")
+        if not isinstance(d, dict) or not ANKETA_ID_RE.match(str(d.get("id", ""))):
+            return self._json(400, ok=False, xato="id")
+        anketa_id = str(d["id"])
+        royxat = d.get("javoblar")
+        if not isinstance(royxat, list):
+            return self._json(400, ok=False, xato="javoblar yo'q")
+        toza = []
+        for j in royxat[:MAX_ANKETA_JAVOB]:
+            if not isinstance(j, dict):
+                continue
+            javob = str(j.get("javob", "")).strip()[:ANKETA_UZUNLIK]
+            if javob:
+                toza.append({"bob": str(j.get("bob", "")).strip()[:60],
+                             "savol": str(j.get("savol", "")).strip()[:300], "javob": javob})
+        with _javob_qulfi:
+            # eng eskisidan yangisiga; shu id bo'lsa — almashtiriladi va oxiriga o'tadi
+            barchasi = list(reversed(anketalar()))
+            yangi = not any(y.get("id") == anketa_id for y in barchasi)
+            if yangi and len(barchasi) >= MAX_ANKETA_SONI:
+                return self._json(507, ok=False, xato="joy tugadi")
+            barchasi = [y for y in barchasi if y.get("id") != anketa_id]
+            if toza:
+                barchasi.append({"id": anketa_id, "vaqt": hozir_matn(), "javoblar": toza})
+            with open(ANKETA + ".tmp", "w", encoding="utf-8") as f:
+                f.writelines(json.dumps(y, ensure_ascii=False) + "\n" for y in barchasi)
+            os.replace(ANKETA + ".tmp", ANKETA)
+        if yangi and toza:
+            threading.Thread(
+                target=telegramga_matn, args=("🌍 Omina «Ominaning dunyosi»ga javob bera boshladi",), daemon=True
+            ).start()
+        self._json(200, ok=True, soni=len(toza))
+
     def do_GET(self):
         yol = self.path.split("?")[0]
         if yol == "/pochta/salomat":
@@ -506,6 +646,8 @@ class Ishlovchi(BaseHTTPRequestHandler):
         maxfiy = {"X-Robots-Tag": "noindex, nofollow", "Referrer-Policy": "no-referrer"}
         if yol == GALEREYA:
             return self._javob(200, galereya(), "text/html; charset=utf-8", maxfiy)
+        if yol in (GALEREYA + "anketa", GALEREYA + "anketa/"):
+            return self._javob(200, anketa_sahifa(), "text/html; charset=utf-8", maxfiy)
         if yol in (GALEREYA + "oyin", GALEREYA + "oyin/"):
             return self._javob(200, oyin_arxivi(), "text/html; charset=utf-8", maxfiy)
         if yol.startswith(GALEREYA):
