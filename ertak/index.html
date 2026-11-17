@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Uyqu oldidan ertak</title>
+<meta name="description" content="Oy, yetti yulduz va bitta sir. Ramz senga ertak aytib beradi.">
+<meta name="theme-color" content="#0B1030">
+<meta property="og:title" content="Senga bitta ertak bor, asalim 🌙">
+<meta property="og:description" content="Oy, yetti yulduz va bitta sir. Ko'zingni yum-u, tingla.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Caveat:wght@600;700&display=swap">
+<style>
+  :root{
+    --tun:#0B1030; --tun2:#1A1446; --oy:#F6E7B8; --oltin:#FFD98A;
+    --matn:#EFE6D2; --xira:#A9A3C4; --pushti:#F5B8CC;
+    --shrift:"Lora",Georgia,serif; --qol:"Caveat",cursive;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:radial-gradient(120% 80% at 70% 0%,#2A1E5C 0%,var(--tun2) 35%,var(--tun) 75%) fixed,var(--tun);
+    color:var(--matn);font-family:var(--shrift);overflow:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+  button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+  [hidden]{display:none!important}
+
+  /* fon yulduzlari */
+  #osmon{position:fixed;inset:0;pointer-events:none;z-index:0}
+  #osmon i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:.5;animation:milt 3s ease-in-out infinite}
+  @keyframes milt{0%,100%{opacity:.15}50%{opacity:.85}}
+  .uchuvchi{position:fixed;width:110px;height:1.5px;background:linear-gradient(90deg,#fff0,#fff);border-radius:2px;
+    transform:rotate(-25deg);opacity:0;pointer-events:none;z-index:0;animation:uch 1.4s ease-out forwards}
+  @keyframes uch{0%{opacity:0;translate:0 0}15%{opacity:1}100%{opacity:0;translate:-260px 120px}}
+
+  .ekran{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center}
+
+  /* kirish */
+  #kirish{justify-content:center;text-align:center;padding:24px 20px calc(24px + env(safe-area-inset-bottom))}
+  .oy{width:min(46vw,190px);height:auto;filter:drop-shadow(0 0 40px #F6E7B866);animation:suz 6s ease-in-out infinite}
+  @keyframes suz{0%,100%{translate:0 0}50%{translate:0 -8px}}
+  #kirish h1{font-weight:600;font-size:clamp(1.7rem,7vw,2.3rem);margin-top:22px;letter-spacing:.01em;color:var(--oy)}
+  #kirish .ost{font-family:var(--qol);font-size:1.45rem;color:var(--pushti);margin-top:6px}
+  #kirish .izoh{font-size:.85rem;color:var(--xira);margin-top:26px;line-height:1.5}
+  .tugmalar{display:flex;flex-direction:column;gap:12px;margin-top:22px;width:min(100%,300px)}
+  .tugma{padding:14px 22px;border-radius:999px;font-weight:600;font-size:1.02rem;
+    background:linear-gradient(180deg,#FFE7A8,#F1C46A);color:#2A1E3F;box-shadow:0 6px 24px #F1C46A44}
+  .tugma.ikkinchi{background:#ffffff14;color:var(--matn);box-shadow:inset 0 0 0 1px #ffffff2e}
+  .tugma:active{transform:scale(.97)}
+
+  /* ertak */
+  #ertak{padding-top:env(safe-area-inset-top)}
+  .tepa{width:100%;display:flex;justify-content:center;position:relative;flex:none;padding:6px 12px 0}
+  #turkum{width:100%;max-width:400px;height:auto;max-height:24vh;overflow:visible}
+  .joy{fill:#ffffff;opacity:.34}
+  .yulduz{fill:#FFF6D6;opacity:0;transform-box:fill-box;transform-origin:center;transition:opacity .6s}
+  .yulduz.yondi{opacity:1;filter:url(#nur);animation:yon .9s ease-out,milt2 3.2s ease-in-out .9s infinite}
+  @keyframes yon{0%{transform:scale(3);opacity:0}60%{transform:scale(.8);opacity:1}100%{transform:scale(1)}}
+  @keyframes milt2{0%,100%{opacity:1}50%{opacity:.6}}
+  .chiziq{fill:none;stroke:#FFE9B0;stroke-width:1;opacity:.75;stroke-dasharray:var(--u);stroke-dashoffset:var(--u)}
+  .chiziq.chiz{transition:stroke-dashoffset 2.6s ease-in-out;stroke-dashoffset:0}
+  .kopriq{fill:none;stroke:#F5B8CC;stroke-width:.8;stroke-dasharray:2 3;opacity:0;transition:opacity 1.6s 1.4s}
+  .kopriq.chiz{opacity:.7}
+  .shahar{fill:#FFD98A}
+  .shahar-nom{font:9px var(--shrift);fill:var(--xira)}
+  #turkumNomi{font:700 22px var(--qol);fill:var(--oy);opacity:0;transition:opacity 1.4s 2.2s}
+  #turkumNomi.chiz{opacity:1}
+  #ovoz{position:absolute;right:12px;top:8px;width:38px;height:38px;border-radius:50%;background:#ffffff12;
+    font-size:1.05rem;display:grid;place-items:center}
+  #ovoz.ochiq{opacity:.45}
+
+  #xabarcha{position:absolute;left:50%;top:calc(100% - 4px);translate:-50% 0;white-space:nowrap;
+    font-family:var(--qol);font-size:1.25rem;color:var(--oltin);opacity:0;transition:opacity .5s;pointer-events:none}
+  #xabarcha.kor{opacity:1}
+
+  .varaq{flex:1;width:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding:22px 16px calc(28px + env(safe-area-inset-bottom));
+    mask-image:linear-gradient(180deg,transparent 0,#000 22px)}
+  .karta{max-width:520px;margin:0 auto;background:linear-gradient(180deg,#ffffff0d,#ffffff06);
+    border:1px solid #ffffff1a;border-radius:22px;padding:22px 20px 24px;backdrop-filter:blur(3px)}
+  .raqam{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--oltin);opacity:.9}
+  .karta h2{font-weight:600;font-style:italic;font-size:1.5rem;margin:4px 0 14px;color:var(--oy)}
+  #matn p{font-size:1.06rem;line-height:1.72;margin-bottom:13px}
+  #matn p .s{opacity:0;animation:soz .7s ease-out forwards}
+  #matn.tez p .s{animation:none;opacity:1}
+  @keyframes soz{from{opacity:0;filter:blur(3px)}to{opacity:1;filter:blur(0)}}
+  #pichir{font-family:var(--qol);font-size:1.42rem;line-height:1.3;color:var(--pushti);margin-top:6px;
+    padding-left:14px;border-left:2px solid #F5B8CC55;opacity:0;transition:opacity .9s}
+  #pichir.kor{opacity:1}
+  #maktub{margin-top:20px;padding-top:18px;border-top:1px dashed #ffffff2a}
+  #maktub p{font-family:var(--qol);font-size:1.5rem;line-height:1.35;color:var(--oy);margin-bottom:8px}
+  #maktub p .s{opacity:0;animation:soz .8s ease-out forwards}
+  #maktub .imzo{text-align:right;color:var(--pushti)}
+  .harakat{display:flex;justify-content:center;margin-top:22px;min-height:52px}
+  .harakat .tugma{opacity:0;animation:paydo .6s ease-out forwards}
+  @keyframes paydo{from{opacity:0;translate:0 8px}to{opacity:1;translate:0 0}}
+  .tegish{font-size:.8rem;color:var(--xira);text-align:center;margin-top:14px;opacity:.8}
+
+  .uchar{position:fixed;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;z-index:5;pointer-events:none;
+    background:radial-gradient(circle,#fff 0 30%,#FFE7A8 45%,#FFE7A800 72%);box-shadow:0 0 18px 6px #FFE7A877}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important}
+  }
+</style>
+</head>
+<body>
+<div id="osmon" aria-hidden="true"></div>
+
+<section id="kirish" class="ekran">
+  <svg class="oy" viewBox="0 0 200 200" aria-hidden="true">
+    <defs>
+      <radialGradient id="oyRang" cx="40%" cy="38%" r="65%">
+        <stop offset="0" stop-color="#FFF8DF"/><stop offset=".7" stop-color="#F6E7B8"/><stop offset="1" stop-color="#E6CF8E"/>
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="78" fill="url(#oyRang)"/>
+    <circle cx="72" cy="78" r="13" fill="#E9D59C" opacity=".7"/>
+    <circle cx="128" cy="122" r="18" fill="#E9D59C" opacity=".55"/>
+    <circle cx="118" cy="66" r="7" fill="#E9D59C" opacity=".6"/>
+    <circle cx="80" cy="135" r="6" fill="#E9D59C" opacity=".5"/>
+    <!-- uyquchi yuz -->
+    <path d="M70 104 q9 7 18 0 M112 104 q9 7 18 0" fill="none" stroke="#B8975A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M92 124 q8 6 16 0" fill="none" stroke="#B8975A" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="66" cy="118" r="7" fill="#F2A9B8" opacity=".45"/><circle cx="134" cy="118" r="7" fill="#F2A9B8" opacity=".45"/>
+  </svg>
+  <h1>Uyqu oldidan ertak</h1>
+  <p class="ost">Ramz senga aytib beradi… 🌙</p>
+  <div class="tugmalar">
+    <button class="tugma" id="boshla">Ertakni boshla</button>
+    <button class="tugma ikkinchi" id="davomEt" hidden>Qolgan joyidan davom et</button>
+  </div>
+  <p class="izoh">Telefoning ovozini sal ochib qo'y —<br>ertakning musiqa qutichasi bor 🎵</p>
+</section>
+
+<section id="ertak" class="ekran" hidden>
+  <div class="tepa">
+    <svg id="turkum" viewBox="0 0 320 172" role="img" aria-label="Yulduzlar turkumi">
+      <defs>
+        <filter id="nur" x="-200%" y="-200%" width="500%" height="500%">
+          <feGaussianBlur stdDeviation="2.2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path class="kopriq" id="kopriqT" d="M26 154 Q92 176 160 146"/>
+      <path class="kopriq" id="kopriqA" d="M294 154 Q228 176 160 146"/>
+      <path class="chiziq" id="chiziq" d=""/>
+      <g id="joylar"></g>
+      <g id="yulduzlar"></g>
+      <text id="turkumNomi" x="160" y="104" text-anchor="middle">Omina</text>
+      <circle class="shahar" cx="26" cy="154" r="2.4"/><text class="shahar-nom" x="26" y="168" text-anchor="middle">Toshkent</text>
+      <circle class="shahar" cx="294" cy="154" r="2.4"/><text class="shahar-nom" x="294" y="168" text-anchor="middle">Andijon</text>
+    </svg>
+    <button id="ovoz" aria-label="Musiqani o'chirish">🎵</button>
+    <div id="xabarcha" aria-live="polite"></div>
+  </div>
+  <div class="varaq" id="varaq">
+    <article class="karta" id="karta">
+      <div class="raqam" id="raqam"></div>
+      <h2 id="sarlavha"></h2>
+      <div id="matn"></div>
+      <p id="pichir"></p>
+      <div id="maktub" hidden></div>
+      <div class="harakat" id="harakat"></div>
+      <p class="tegish" id="tegish">Tezroq o'qimoqchi bo'lsang — matnga bir marta teg</p>
+    </article>
+  </div>
+</section>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+
+/* ---------- Ertak ---------- */
+// Yurak shaklidagi turkum: 0..6 — yetti yulduz, 7 — o'rtadagi eng yorug'i
+const NUQTA = [[128,40],[96,58],[106,100],[160,146],[214,100],[224,58],[192,40],[160,62]];
+const YURAK_YOLI = [7,0,1,2,3,4,5,6,7];
+
+const QISMLAR = [
+  { raqam:"Muqaddima", sarlavha:"Bir bor ekan…", matn:[
+    `Bir bor ekan, bir yo'q ekan, Toshkent degan katta shaharda, ko'p qavatli uylar orasida bir deraza bor ekan. U derazada har kecha chiroq yonib turar ekan.`,
+    `Oy esa har kecha osmonga chiqib, butun shaharga kumush nur sochar ekan. U o'zini dunyodagi eng yorug' narsa deb o'ylar ekan.`,
+    `Lekin bir kecha Oy hayron qolibdi: o'sha derazadan chiqayotgan nur uning nuridan ham iliqroq ekan. Derazada esa bir qiz telefoniga qarab, jilmayib o'tirgan ekan.`,
+    `Oy yetti yulduzni chaqirib, pichirlabdi: «Borib bilinglar-chi, bu qizda qanday sir bor? Nega u mendan ham yorug'?»`],
+    pichir:`Ko'zingni yumib tinglayapsanmi, asalim? Yaxshi. Ertak endi boshlanadi… 🌙`,
+    tugma:"Yulduzlarni yubor ›" },
+
+  { raqam:"Birinchi yulduz", sarlavha:"Qop-qora tun", yulduz:0, nom:"Ko'zlaring", matn:[
+    `Birinchi yulduz derazadan sekin mo'ralabdi-yu, qizning ko'zlariga qarab qotib qolibdi.`,
+    `Qaytib kelganda u ancha vaqt gapira olmabdi. Keyin aytibdi: «Oy opa, uning ko'zlari qop-qora. Lekin qorong'i emas. Xuddi tunning o'zi — faqat ichida mingta chiroq yonib turadi. Men u yerda adashib qoldim, zo'rg'a chiqdim.»`,
+    `Oy indamabdi. Faqat sal xijolat bo'libdi: uning osmonida bunaqa chiroqlar yo'q edi.`],
+    pichir:`Men ham har safar ko'zlaringga qarasam adashib qolaman, jonim. Chiqib ketgim ham kelmaydi 🙈` },
+
+  { raqam:"Ikkinchi yulduz", sarlavha:"Eriyotgan muz", yulduz:1, nom:"Kulging", matn:[
+    `Ikkinchi yulduz qizni xuddi kulayotgan payti ko'rib qolibdi.`,
+    `«Oy opa, — debdi u hayajondan miltillab, — u kulganda deraza oynasidagi muz naqshlari eriydi. Qo'shni hovlidagi mushuk ham uyg'onib, unga qaraydi. Men esa… osmondan tushib ketishimga sal qoldi.»`,
+    `O'sha kecha Toshkentda negadir hamma odamlar tushida jilmayib uxlabdi.`],
+    pichir:`Sening kulgingni bir marta eshitsam, butun kunim yorishib ketadi. Rost, tekshirib ko'rganman ☺️` },
+
+  { raqam:"Uchinchi yulduz", sarlavha:"Telefondagi ovoz", yulduz:2, nom:"Ovozing", matn:[
+    `Uchinchi yulduz qizning ovozini eshitmoqchi bo'libdi. Qiz o'sha payt kim bilandir telefonda gaplashayotgan ekan.`,
+    `«Uning ovozi, — debdi yulduz, — qishda iliq choy ichgandek. Eshitgan odamning charchog'i chiqib ketadi. Telefonning narigi tomonidagi odam esa, menimcha, nafas olmay tinglayotgandi.»`,
+    `«Narigi tomonda kim ekan?» — so'rabdi Oy. Yulduz yelka qisibdi: «Uzoqda. Juda uzoqda.»`],
+    pichir:`«Alo» deganingda yuragim xuddi birinchi marta eshitgandek tez uradi. Har safar, asalim.` },
+
+  { raqam:"To'rtinchi yulduz", sarlavha:"Shakarsiz choy", yulduz:3, nom:"Mehring", matn:[
+    `To'rtinchi yulduz oshxona derazasidan qarabdi. Qiz choy damlab, kimgadir piyola uzatayotgan ekan.`,
+    `«Oy opa, bu qizning qo'li tekkan narsa o'zgarib qoladi, — debdi yulduz. — Oddiy choy shakarsiz ham shirin bo'lib qoladi. Oddiy kun bayramga aylanadi. U birovga g'amxo'rlik qilsa, xonadagi havo ham iliqlashadi.»`,
+    `Oy birinchi marta o'zining sovuq nuridan uyalibdi.`],
+    pichir:`Menga eng mazali choy ham, eng iliq uy ham — sensan, malikam.` },
+
+  { raqam:"Beshinchi yulduz", sarlavha:"Band eshik", yulduz:4, nom:"Yuraging", matn:[
+    `Beshinchi yulduz eng jasuri ekan. U to'g'ri qizning yuragiga kirib ko'rmoqchi bo'libdi.`,
+    `Lekin tez orada sal xafa bo'lib qaytibdi: «Kira olmadim, Oy opa. U yer band ekan.»`,
+    `«Kim bilan band?» — so'rabdi Oy qiziqib. «Bilmadim. Eshik oldida faqat bir juft dumaloq ko'zoynak turibdi. Eshikka esa mayda harflar bilan yozib qo'yilgan: "Faqat bitta odam uchun".»`],
+    pichir:`Hmm… bu ko'zoynak kimniki ekan-a? 🤓 Sir saqla, jonim.` },
+
+  { raqam:"Oltinchi yulduz", sarlavha:"Sharqqa ketgan yo'l", yulduz:5, nom:"Tushlaring", matn:[
+    `Oltinchi yulduz qiz uxlab qolguncha sabr bilan kutibdi.`,
+    `«U uxlaganda kipriklari kapalak qanotidek tinch turadi, — pichirlabdi yulduz. — Tushida bir yo'lni ko'ryapti. Yo'l Toshkentdan sharqqa, tog'lar ortidagi shaharga cho'zilgan. Yo'lning oxirida kimdir uni kutib turibdi.»`,
+    `Oy o'ylanib qolibdi. Sharqqa… Uning o'zi ham har kecha aynan o'sha tomondan chiqar edi-ku.`],
+    pichir:`Tushingda meni ko'rsang, salom ayt. Men ham seni ko'raman, va'da 💫` },
+
+  { raqam:"Yettinchi yulduz", sarlavha:"Tomdagi bola", yulduz:6, nom:"Sog'inch", matn:[
+    `Yettinchi yulduz esa Toshkentga yetib bormabdi. U adashib, sharqqa — Andijonga uchib ketibdi.`,
+    `U yerda bir uyning tomida bir bola o'tirgan ekan. Ko'zoynagi dumaloq, sochlari sal jingalak. U g'arbga — Toshkent tomonga qarab, sekin pichirlar ekan:`,
+    `«Oy, sen hozir uning derazasi ustidan o'tasan. Unga mendan salom ayt. Yaxshi uxlasin. Hech narsadan xafa bo'lmasin. Va unga ayt… men uni har kechagidan ko'proq sog'inyapman.»`,
+    `Yulduz shoshib qaytibdi va Oyga hammasini aytib beribdi. Oy esa… jilmayibdi.`],
+    pichir:`Ha, u bola men edim. Har kecha. Oy guvoh 🌙` },
+
+  { raqam:"Oxirgi sahifa", sarlavha:"Oyning siri", yulduz:7, nom:"Sen", final:true, matn:[
+    `Oy yulduzlarga sirini ochibdi: «Bilasizlarmi, men aslida hammasini bilardim. Har kecha Andijondan bir bola mendan iltimos qilardi: "Toshkentdan o'tsang, uning derazasiga ham qarab o't." Men shunchaki ko'rmoqchi edim — u bola kimni shunchalik sevadi?»`,
+    `«Endi ko'rdim, — debdi Oy. — Uning nuri ichidan chiqadi. Bu sevgining nuri. Sevgan va sevilgan qalb Oydan ham yorug' porlaydi — men bunaqa nur bilan bahslasha olmayman.»`,
+    `Shunda Oy yetti yulduzni Toshkent bilan Andijon orasiga, osmonga yurak shaklida terib chiqibdi. O'rtasiga esa sakkizinchi — eng yorug' yulduzni qo'yibdi.`,
+    `Bu yulduzlar turkumining nomi — «Omina» ekan.`],
+    tugma:"✦ Eng yorug' yulduzni qo'y" }
+];
+
+const MAKTUB = [
+  `Ertak shu yerda tugadi, asalim.`,
+  `Lekin undagi bitta narsa to'qima emas: men rostdan ham har kecha osmonga qarab, sen uchun so'rayman.`,
+  `Endi ko'zingni yum. Yaxshi tushlar ko'r, malikam.`,
+  `Ertaga ham shu yerdaman.`
+];
+
+/* ---------- Saqlash ---------- */
+const KALIT = "omina-ertak";
+function yukla(){
+  try{ const h = JSON.parse(localStorage.getItem(KALIT)); if(h && Number.isInteger(h.qism)) return h; }catch(e){}
+  return { qism:0, tugadi:false, ovoz:true };
+}
+function saqla(){ try{ localStorage.setItem(KALIT, JSON.stringify(holat)); }catch(e){} }
+const holat = yukla();
+
+/* ---------- Fon osmoni ---------- */
+(function osmonChiz(){
+  const o = $("osmon"); let h = "";
+  for(let i=0;i<80;i++){
+    const s = Math.random()<.15 ? 3 : 2;
+    h += `<i style="left:${(Math.random()*100).toFixed(2)}%;top:${(Math.random()*100).toFixed(2)}%;width:${s}px;height:${s}px;animation-delay:${(Math.random()*3).toFixed(2)}s;animation-duration:${(2.4+Math.random()*3).toFixed(2)}s"></i>`;
+  }
+  o.innerHTML = h;
+  setInterval(()=>{
+    if(document.hidden || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const u = document.createElement("div"); u.className = "uchuvchi";
+    u.style.left = (40+Math.random()*60)+"vw"; u.style.top = (Math.random()*40)+"vh";
+    document.body.appendChild(u); setTimeout(()=>u.remove(), 1500);
+  }, 7000);
+})();
+
+/* ---------- Turkum ---------- */
+const NS = "http://www.w3.org/2000/svg";
+(function turkumChiz(){
+  NUQTA.forEach(([x,y],i)=>{
+    const j = document.createElementNS(NS,"circle");
+    j.setAttribute("class","joy"); j.setAttribute("cx",x); j.setAttribute("cy",y); j.setAttribute("r", i===7?2.4:1.8);
+    $("joylar").appendChild(j);
+    const s = document.createElementNS(NS,"circle");
+    s.setAttribute("class","yulduz"); s.setAttribute("cx",x); s.setAttribute("cy",y); s.setAttribute("r", i===7?5.5:3.6);
+    s.id = "y"+i; $("yulduzlar").appendChild(s);
+  });
+  const ch = $("chiziq");
+  ch.setAttribute("d", "M" + YURAK_YOLI.map(i=>NUQTA[i].join(" ")).join(" L"));
+  ch.style.setProperty("--u", Math.ceil(ch.getTotalLength()));
+})();
+function yulduzYoq(i){ $("y"+i).classList.add("yondi"); }
+function turkumniTozala(){
+  document.querySelectorAll(".yulduz").forEach(s=>s.classList.remove("yondi"));
+  ["chiziq","kopriqT","kopriqA","turkumNomi"].forEach(id=>$(id).classList.remove("chiz"));
+}
+function turkumniTugat(){
+  ["chiziq","kopriqT","kopriqA","turkumNomi"].forEach(id=>$(id).classList.add("chiz"));
+}
+
+let xabarTaymer;
+function xabar(t){
+  const x = $("xabarcha"); x.textContent = t; x.classList.add("kor");
+  clearTimeout(xabarTaymer); xabarTaymer = setTimeout(()=>x.classList.remove("kor"), 2600);
+}
+
+/* ---------- Musiqa qutichasi (WebAudio, o'zimizning kuy) ---------- */
+const KUY = [[76,1],[79,1],[81,2],[79,1],[76,1],[74,2],[72,1],[74,1],[76,1],[79,1],[76,3],[0,1],
+             [76,1],[79,1],[84,2],[83,1],[81,1],[79,2],[76,1],[74,1],[72,1],[74,1],[72,3],[0,1]];
+const BAZA = {0:48, 12:45};
+const ZARB = 480;
+let ac = null, bosh = null, kuyTaymer = null, notaI = 0;
+function audioTayyorla(){
+  if(ac) return;
+  const AC = window.AudioContext || window.webkitAudioContext; if(!AC) return;
+  ac = new AC();
+  bosh = ac.createGain(); bosh.gain.value = 0;
+  const kech = ac.createDelay(); kech.delayTime.value = .34;
+  const qayt = ac.createGain(); qayt.gain.value = .28;
+  bosh.connect(ac.destination); bosh.connect(kech); kech.connect(qayt); qayt.connect(kech); qayt.connect(ac.destination);
+}
+function nota(m, kuch){
+  const t = ac.currentTime, f = 440*Math.pow(2,(m-69)/12);
+  [[1,1],[2,.22],[3,.06]].forEach(([k,v])=>{
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = "sine"; o.frequency.value = f*k;
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(v*kuch,t+.006); g.gain.exponentialRampToValueAtTime(.0001,t+2.2/k);
+    o.connect(g); g.connect(bosh); o.start(t); o.stop(t+2.3);
+  });
+}
+function navbat(){
+  const qadam = notaI % KUY.length, [m,b] = KUY[qadam];
+  if(m) nota(m, 1);
+  if(BAZA[qadam]) nota(BAZA[qadam], .45);
+  notaI++; kuyTaymer = setTimeout(navbat, b*ZARB);
+}
+function musiqa(yoq){
+  if(!ac) return;
+  const t = ac.currentTime;
+  bosh.gain.cancelScheduledValues(t); bosh.gain.setValueAtTime(bosh.gain.value,t);
+  if(yoq){
+    ac.resume(); bosh.gain.linearRampToValueAtTime(.09, t+1.2);
+    if(!kuyTaymer) navbat();
+  } else {
+    bosh.gain.linearRampToValueAtTime(0, t+.6);
+    clearTimeout(kuyTaymer); kuyTaymer = null;
+  }
+}
+function ovozBelgisi(){
+  $("ovoz").classList.toggle("ochiq", !holat.ovoz);
+  $("ovoz").textContent = holat.ovoz ? "🎵" : "🔇";
+  $("ovoz").setAttribute("aria-label", holat.ovoz ? "Musiqani o'chirish" : "Musiqani yoqish");
+}
+$("ovoz").addEventListener("click", ()=>{ holat.ovoz = !holat.ovoz; saqla(); ovozBelgisi(); audioTayyorla(); musiqa(holat.ovoz); });
+document.addEventListener("visibilitychange", ()=>{ if(!$("ertak").hidden && holat.ovoz) musiqa(!document.hidden); });
+
+/* ---------- So'zma-so'z o'qish ---------- */
+let taymerlar = [], oqilyapti = false, oqishTugadi = null;
+function tozalaTaymer(){ taymerlar.forEach(clearTimeout); taymerlar = []; }
+function harfla(konteyner, paragraflar, sekin){
+  const bir = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : (sekin ? 95 : 62);
+  let kech = 250;
+  konteyner.innerHTML = "";
+  paragraflar.forEach(t=>{
+    const p = document.createElement("p");
+    t.split(" ").forEach((soz,i,arr)=>{
+      const s = document.createElement("span"); s.className = "s"; s.textContent = soz;
+      s.style.animationDelay = kech + "ms"; p.appendChild(s);
+      if(i < arr.length-1) p.appendChild(document.createTextNode(" "));
+      kech += bir + (/[.!?…»:]$/.test(soz) ? bir*3 : 0);
+    });
+    kech += bir*5;
+    konteyner.appendChild(p);
+  });
+  return kech;
+}
+function oqi(paragraflar, konteyner, sekin){
+  return new Promise(hal=>{
+    tozalaTaymer();
+    konteyner.classList.remove("tez");
+    const davom = harfla(konteyner, paragraflar, sekin);
+    oqilyapti = true;
+    const tugat = ()=>{ if(!oqilyapti) return; oqilyapti = false; oqishTugadi = null; tozalaTaymer(); konteyner.classList.add("tez"); hal(); };
+    oqishTugadi = tugat;
+    taymerlar.push(setTimeout(tugat, davom));
+  });
+}
+$("varaq").addEventListener("click", e=>{ if(oqilyapti && !e.target.closest("button")) oqishTugadi(); });
+
+/* ---------- Qismlar ---------- */
+function tugmaQoy(matn, ishi){
+  const h = $("harakat"); h.innerHTML = "";
+  const b = document.createElement("button"); b.className = "tugma"; b.textContent = matn;
+  b.addEventListener("click", ()=>{ b.disabled = true; ishi(b); }, { once:true });
+  h.appendChild(b);
+  setTimeout(()=>b.scrollIntoView({ behavior:"smooth", block:"end" }), 80);
+}
+async function qismKorsat(i){
+  const q = QISMLAR[i];
+  holat.qism = i; saqla();
+  $("raqam").textContent = q.raqam;
+  $("sarlavha").textContent = q.sarlavha;
+  $("pichir").textContent = ""; $("pichir").classList.remove("kor");
+  $("maktub").hidden = true; $("maktub").innerHTML = "";
+  $("harakat").innerHTML = "";
+  $("tegish").hidden = false;
+  $("varaq").scrollTop = 0;
+  await oqi(q.matn, $("matn"));
+  $("tegish").hidden = true;
+  if(q.pichir){ $("pichir").textContent = q.pichir; requestAnimationFrame(()=>$("pichir").classList.add("kor")); }
+
+  if(q.yulduz === undefined){
+    tugmaQoy(q.tugma || "Davomi ›", ()=>qismKorsat(i+1));
+    return;
+  }
+  tugmaQoy(q.tugma || "✦ Yulduzni osmonga qo'y", async b=>{
+    await uchir(b, q.yulduz);
+    yulduzYoq(q.yulduz);
+    if(q.final){ finalga(); return; }
+    xabar("✦ " + q.nom + " — endi osmonda");
+    holat.qism = i+1; saqla();
+    tugmaQoy("Davomi ›", ()=>qismKorsat(i+1));
+  });
+}
+function uchir(tugma, i){
+  return new Promise(hal=>{
+    const a = tugma.getBoundingClientRect(), b = $("y"+i).getBoundingClientRect();
+    const x0 = a.left + a.width/2, y0 = a.top + a.height/2, x1 = b.left + b.width/2, y1 = b.top + b.height/2;
+    const u = document.createElement("div"); u.className = "uchar"; document.body.appendChild(u);
+    tugma.style.visibility = "hidden";
+    const yoy = Math.min(y0, y1) - 60;
+    const anim = u.animate([
+      { transform:`translate(${x0}px,${y0}px) scale(1.4)` },
+      { transform:`translate(${(x0+x1)/2 + 40}px,${yoy}px) scale(1)` },
+      { transform:`translate(${x1}px,${y1}px) scale(.5)` }
+    ], { duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 1150, easing:"cubic-bezier(.45,.05,.35,1)" });
+    anim.onfinish = ()=>{ u.remove(); hal(); };
+  });
+}
+async function finalga(){
+  turkumniTugat();
+  holat.tugadi = true; holat.qism = 0; saqla();
+  $("harakat").innerHTML = "";
+  await new Promise(r=>setTimeout(r, 2600));
+  $("maktub").hidden = false;
+  $("tegish").hidden = false;
+  const qator = MAKTUB.slice();
+  await oqi(qator, $("maktub"), true);
+  $("tegish").hidden = true;
+  const imzo = document.createElement("p"); imzo.className = "imzo"; imzo.textContent = "— Ramz ✨";
+  $("maktub").appendChild(imzo);
+  tugmaQoy("↺ Yana bir bor o'qi", ()=>{ turkumniTozala(); qismKorsat(0); });
+}
+
+/* ---------- Boshlash ---------- */
+function ertakniOch(boshidan){
+  audioTayyorla(); ovozBelgisi(); if(holat.ovoz) musiqa(true);
+  $("kirish").hidden = true; $("ertak").hidden = false;
+  turkumniTozala();
+  const qism = boshidan ? 0 : holat.qism;
+  if(boshidan){ holat.tugadi = false; }
+  QISMLAR.slice(0, qism).forEach(q=>{ if(q.yulduz !== undefined) yulduzYoq(q.yulduz); });
+  qismKorsat(qism);
+}
+$("boshla").addEventListener("click", ()=>ertakniOch(true));
+$("davomEt").addEventListener("click", ()=>ertakniOch(false));
+if(holat.qism > 0 && holat.qism < QISMLAR.length) $("davomEt").hidden = false;
+</script>
+</body>
+</html>
